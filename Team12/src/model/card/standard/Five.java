@@ -3,16 +3,16 @@ package model.card.standard;
 import engine.GameManager;  
 import engine.board.BoardManager;
 
-public class Seven extends Standard {
+public class Five extends Standard{
 	
 	//Attributes Inherited
 	
 	//Constructor
 	
-	public Seven (String name, String description, Suit suit, BoardManager boardManager, 
+	public Five (String name, String description, Suit suit, BoardManager boardManager, 
 			GameManager gameManager){
 		
-		super(name, description, 7, suit, boardManager, gameManager) ;
+		super(name, description, 5, suit, boardManager, gameManager) ; 
 		
 	}
 
