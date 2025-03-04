@@ -4,7 +4,8 @@ import engine.GameManager;
 import engine.board.BoardManager;
 import model.card.Card;
 
-	public abstract class Standard extends Card {
+public class Standard extends Card {
+	
 	private final int rank;
 	private final Suit suit;
 	
@@ -21,4 +22,5 @@ import model.card.Card;
     public Suit getSuit() {
         return suit;
     }
+    
 }

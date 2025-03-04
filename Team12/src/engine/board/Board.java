@@ -14,43 +14,28 @@ public class Board implements BoardManager {
 	private final ArrayList<SafeZone> safeZones;
 	private int splitDistance;
 	
-	public Board(ArrayList<Colour> colourOrder, GameManager gameManager){
+	public Board(ArrayList<Colour> colourOrder, GameManager gameManager) {
 		this.gameManager = gameManager;
-		this.track = new ArrayList<Cell>();
-		this.safeZones = new ArrayList<SafeZone>();
+		track = new ArrayList<Cell>();
+		safeZones = new ArrayList<SafeZone>();
 		splitDistance = 3;
-		
-		
+		for (int i=0; i<100; i++) track.add(new Cell(CellType.NORMAL));
+		for (int i=0; i<100; i+=25) track.get(i).setCellType(CellType.BASE);
+		for (int i=23; i<100; i+=25) track.get(i).setCellType(CellType.ENTRY);
 		for  (int i=0; i<8; i++) assignTrapCell();
-		SafeZone safeZone1 = new SafeZone(Colour.RED);
-		SafeZone safeZone2 = new SafeZone(Colour.YELLOW);
-		SafeZone safeZone3 = new SafeZone(Colour.BLUE);
-		SafeZone safeZone4 = new SafeZone(Colour.GREEN);
-		safeZones.add(safeZone1);
-		safeZones.add(safeZone2);
-		safeZones.add(safeZone3);
-		safeZones.add(safeZone4);
+		safeZones.add(new SafeZone(colourOrder.get(0)));
+		safeZones.add(new SafeZone(colourOrder.get(1)));
+		safeZones.add(new SafeZone(colourOrder.get(2)));
+		safeZones.add(new SafeZone(colourOrder.get(3)));
 	}
 	
-	public void assignTrapCell(){
+	private void assignTrapCell(){
 		Random random = new Random();
 		int index;
 		do {
 			index = random.nextInt(100);
-		} while (track.get(index).getCellType()!=CellType.NORMAL);
+		} while (track.get(index).getCellType()!=CellType.NORMAL || track.get(index).isTrap());
 		track.get(index).setTrap(true);
-	}
-
-	public int getSplitDistance() {
-		return splitDistance;
-	}
-
-	public void setSplitDistance(int splitDistance) {
-		this.splitDistance = splitDistance;
-	}
-
-	public GameManager getGameManager() {
-		return gameManager;
 	}
 
 	public ArrayList<Cell> getTrack() {
@@ -59,6 +44,14 @@ public class Board implements BoardManager {
 
 	public ArrayList<SafeZone> getSafeZones() {
 		return safeZones;
+	}
+	
+	public int getSplitDistance() {
+		return splitDistance;
+	}
+
+	public void setSplitDistance(int splitDistance) {
+		this.splitDistance = splitDistance;
 	}
 
 }

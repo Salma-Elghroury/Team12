@@ -5,15 +5,8 @@ import engine.board.BoardManager;
 
 public class Burner extends Wild {
 	
-	//Attributes Inherited
-	
-	//Constructor
-	
-	public Burner (String name, String description, BoardManager boardManager, 
-			      GameManager gameManager) {
-		
-		super(name, description, boardManager, gameManager);
-		
+	public Burner (String name, String description, BoardManager boardManager, GameManager gameManager) {
+		super(name,description,boardManager,gameManager);
 	}
 
 }
