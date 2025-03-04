@@ -1,11 +1,13 @@
 package exception;
 
 public class CannotDiscardException extends ActionException {
-	public CannotDiscardException(){
+	
+	public CannotDiscardException() {
 		super();
 	}
 	
-	public CannotDiscardException(String message){
+	public CannotDiscardException(String message) {
 		super(message);
 	}
+	
 }
