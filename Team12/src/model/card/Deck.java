@@ -41,8 +41,8 @@ public class Deck {
 				}
 				else{
 					switch (Integer.parseInt(split[0])){
-					case 14: card = new Burner(split[2], split[3], boardManager, gameManager); break;
-					default : card = new Saver(split[2],split[3], boardManager, gameManager); break;	
+					case 14: card = new Burner(split[2], split[3]+", "+split[4]+", "+split[5], boardManager, gameManager); break;
+					default : card = new Saver(split[2], split[3]+", "+split[4]+", "+split[5], boardManager, gameManager); break;	
 					}
 				}
 				cardsPool.add(card);
