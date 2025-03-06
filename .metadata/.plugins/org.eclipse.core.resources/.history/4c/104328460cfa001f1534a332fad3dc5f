@@ -1,0 +1,73 @@
+package model.card;
+
+import engine.GameManager;   
+import engine.board.BoardManager;
+
+import java.io.BufferedReader; //To Read CVS File
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException ;
+import java.util.*;
+
+import model.card.standard.*;
+import model.card.wild.*;
+
+public class Deck {
+	
+	private final static String CARDS_FILE = "Cards.csv";
+	private static ArrayList<Card> cardsPool;
+	
+	public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException {
+		cardsPool = new ArrayList<Card>();
+		BufferedReader br = new BufferedReader(new FileReader(CARDS_FILE));
+		String line = br.readLine();
+		while(line != null) {
+			String[] split = line.split(",");
+			if (Integer.parseInt(split[0])>=14) {
+				split[3] = line.substring(line.indexOf("S"),line.length()-2);
+			}
+			Card card;
+			int frequency = Integer.parseInt(split[1]);
+			System.out.println(split[3]);
+			while (frequency>0){
+				if (Integer.parseInt(split[0])<14) {
+					switch (Integer.parseInt(split[4])) {
+					case 1 : card = new Ace(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;      
+					case 5: card = new Five(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 4: card = new Four(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 11: card = new Jack(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 13: card = new King(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 12: card = new Queen(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 7: card = new Seven(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					case 10: card = new Ten(split[2],split[3], Suit.valueOf(split[5]), boardManager, gameManager) ; break;
+					default: card = new Standard(split[2],split[3], Integer.parseInt(split[4]) ,Suit.valueOf(split[5]), boardManager, gameManager) ; break;	
+					}
+				}
+				else{
+					switch (Integer.parseInt(split[0])){
+					case 14: card = new Burner(split[2], split[3], boardManager, gameManager); break;
+					default : card = new Saver(split[2], split[3], boardManager, gameManager); break;	
+					}
+				}
+				cardsPool.add(card);
+				frequency-=1;
+			}
+			line = br.readLine() ;
+		}
+	}
+	
+	public static ArrayList<Card> drawCards() {
+		Collections.shuffle(cardsPool) ;
+		ArrayList<Card> hand = new ArrayList<Card>() ;
+		for (int i = 0 ; i < 4 && !cardsPool.isEmpty() ; i++) {
+			 Card usedCard = cardsPool.remove(0); 
+			 hand.add(usedCard);
+		 }
+		return hand ;
+	}
+	
+	public static void main(String[]args) throws IOException{
+		loadCardPool(null,null);
+	}
+	
+}
