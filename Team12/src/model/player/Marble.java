@@ -4,14 +4,16 @@ import model.Colour;
 
 public class Marble {
 	
+	//Attributes
+	
 	private final Colour colour;
 	
-	public Marble(Colour colour) {
-		this.colour = colour;
-	}
+	//Constructors
 	
-	public Colour getColour() {
-		return colour;
-	}
+	public Marble(Colour colour) {this.colour = colour;}
+	
+	//Methods
+	
+	public Colour getColour() {return colour;}
 	
 }

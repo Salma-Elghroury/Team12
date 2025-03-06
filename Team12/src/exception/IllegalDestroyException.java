@@ -2,12 +2,8 @@ package exception;
 
 public class IllegalDestroyException extends ActionException {
 	
-	public IllegalDestroyException() {
-		super();
-	}
+	public IllegalDestroyException() {super();}
 	
-	public IllegalDestroyException(String message) {
-		super(message);
-	}
+	public IllegalDestroyException(String message) {super(message);}
 	
 }

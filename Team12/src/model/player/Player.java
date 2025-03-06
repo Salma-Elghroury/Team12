@@ -17,21 +17,16 @@ public class Player {
 	private final ArrayList<Marble> selectedMarbles;
 	
 	public Player(String name, Colour colour) {
+		
 		this.name = name;
 		this.colour = colour;
 		hand = new ArrayList<Card>();
 		selectedMarbles = new ArrayList<Marble>();
 		marbles = new ArrayList<Marble>();
-		for (int i=0; i<4; i++) marbles.add(new Marble(colour));
+		
+		for (int i=0; i<4; i++) {marbles.add(new Marble(colour));}
+		
 		selectedCard = null;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Colour getColour() {
-		return colour;
 	}
 
 	public ArrayList<Card> getHand() {
@@ -40,6 +35,14 @@ public class Player {
 
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 	public ArrayList<Marble> getMarbles() {
