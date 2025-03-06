@@ -20,11 +20,12 @@ public class Deck {
 	public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException {
 		cardsPool = new ArrayList<Card>();
 		BufferedReader br = new BufferedReader(new FileReader(CARDS_FILE));
-		String line = br.readLine() ;
+		String line = br.readLine();
 		while(line != null) {
-			String[] split = line.split(",");
+			String[] split = line.split("");
 			Card card;
 			int frequency = Integer.parseInt(split[1]);
+			System.out.println(split[3]);
 			while (frequency>0){
 				if (Integer.parseInt(split[0])<14) {
 					switch (Integer.parseInt(split[4])) {
@@ -42,7 +43,7 @@ public class Deck {
 				else{
 					switch (Integer.parseInt(split[0])){
 					case 14: card = new Burner(split[2], split[3], boardManager, gameManager); break;
-					default : card = new Saver(split[2], split[3]+", "+split[4]+", "+split[5], boardManager, gameManager); break;	
+					default : card = new Saver(split[2], split[3], boardManager, gameManager); break;	
 					}
 				}
 				cardsPool.add(card);
@@ -60,6 +61,10 @@ public class Deck {
 			 hand.add(usedCard);
 		 }
 		return hand ;
+	}
+	
+	public static void main(String[]args) throws IOException{
+		loadCardPool(null,null);
 	}
 	
 }

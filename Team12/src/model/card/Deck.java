@@ -25,7 +25,6 @@ public class Deck {
 			String[] split = line.split(",");
 			Card card;
 			int frequency = Integer.parseInt(split[1]);
-			System.out.println(split[3]);
 			while (frequency>0){
 				if (Integer.parseInt(split[0])<14) {
 					switch (Integer.parseInt(split[4])) {
