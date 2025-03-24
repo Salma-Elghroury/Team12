@@ -24,10 +24,9 @@ public class Deck {
 		String line = br.readLine();
 		
 		while(line != null) {
-			
-			if (line.contains(", ")) {line = line.replace(", ", " ");} //Replacing Commas in Description with Spaces
-			
-			String[] split = line.split(",");
+
+			String[] split = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+			split[3] = split[3].replaceAll("\"","");
 			Card card;
 			int frequency = Integer.parseInt(split[1]);
 			
@@ -67,6 +66,7 @@ public class Deck {
 			
 			line = br.readLine() ;
 		}
+		
 	}
 	
 	public static ArrayList<Card> drawCards() {
@@ -82,6 +82,10 @@ public class Deck {
 		 }
 		
 		return hand ;
+	}
+	
+	public static void main(String[]args) throws IOException{
+		loadCardPool(null,null);
 	}
 	
 }
