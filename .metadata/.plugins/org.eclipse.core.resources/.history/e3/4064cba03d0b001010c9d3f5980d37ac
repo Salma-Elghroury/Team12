@@ -16,4 +16,6 @@ public interface BoardManager {
     public void sendToSafe(Marble marble) throws InvalidMarbleException;
     public ArrayList<Marble> getActionableMarbles();
 
+    
+    
 }
