@@ -13,6 +13,7 @@ import model.player.*;
 
 @SuppressWarnings("unused")
 public class Game implements GameManager {
+	
     private final Board board;
     private final ArrayList<Player> players;
 	private int currentPlayerIndex;
@@ -45,16 +46,10 @@ public class Game implements GameManager {
         
     }
     
-    public Board getBoard() {
-        return board;
-    }
+    public Board getBoard() {return board;}
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+    public ArrayList<Player> getPlayers() {return players;}
 
-    public ArrayList<Card> getFirePit() {
-        return firePit;
-    }
+    public ArrayList<Card> getFirePit() {return firePit;}
     
 }
