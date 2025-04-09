@@ -105,7 +105,45 @@ public class Board implements BoardManager {
     
     }
     
-    
+    private int getBasePosition(Colour colour){
+    	ArrayList<SafeZone> safeZones = this.getSafeZones();
+    	int basePosition=0;
+    	for(int i=0; i<4; i++, basePosition+=25){
+    		if (safeZones.get(i).getColour()==colour)
+    			return basePosition;
+    	}
+    	return -1;
+    }
+
+    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
+    	// unfinished 
+    	if(marble_1.getColour()==marble_2.getColour()) throw new IllegalSwapException("Nothing will be changed!");
+    	else if() throw new IllegalSwapException("The two marbles are not on the track!");
+    	else if() throw new IllegalSwapException("Your opponent’s marble is safe in its Base Cell.");
+    	
+    }
+
+    public void sendToBase(Marble marble) throws CannotFieldException, IllegalDestroyException {
+       //finished (although needs more checking)
+       int base = getBasePosition(marble.getColour());
+       
+       if(this.track.get(base)!=null) {
+    	   try{
+    		   validateFielding(this.track.get(base));
+    		   this.track.get(base).setMarble(marble);
+    	   }
+    	   catch(CannotFieldException e){
+    		   if(this.track.get(base).getMarble().getColour()==marble.getColour())
+    			   throw new CannotFieldException("Base cell is already occupied by your marbles.");
+    		   else{
+    			   destroyMarble(this.track.get(base).getMarble());
+    			   this.track.get(base).setMarble(marble);
+    		   }
+    	   }
+       }
+       else this.track.get(base).setMarble(marble);
+       
+    }
     
 
 /*
