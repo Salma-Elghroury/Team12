@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import engine.board.Board;
+import exception.*;
 import model.Colour;
 import model.card.Card;
 import model.card.Deck;
@@ -13,7 +14,6 @@ import model.player.*;
 
 @SuppressWarnings("unused")
 public class Game implements GameManager {
-	
     private final Board board;
     private final ArrayList<Player> players;
 	private int currentPlayerIndex;
@@ -46,11 +46,71 @@ public class Game implements GameManager {
         
     }
     
-    public Board getBoard() {return board;}
+    public Board getBoard() {
+        return board;
+    }
 
-    public ArrayList<Player> getPlayers() {return players;}
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 
-    public ArrayList<Card> getFirePit() {return firePit;}
+    public ArrayList<Card> getFirePit() {
+        return firePit;
+    }
+    
+    public void selectCard(Card card) throws InvalidCardException {
+    	try {
+    		players.get(currentPlayerIndex).selectCard(card);
+    	}
+    	catch (InvalidCardException e){
+    		System.out.println(e.getMessage());
+    	}
+    }
+    
+    //selectMarble
+    
+    //deselectAll()
+    
+    //editSplitDistance
+    
+    public boolean canPlayTurn(){
+    	if (players.get(currentPlayerIndex).getHand().size()==0) return false;  //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
+    	return true;
+    }
+    
+    //playPlayerTurn
+    
+    //endPlayerTurn
+    
+    //checkWin
+    
+    //sendHome
+    
+    public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
+    	if (players.get(currentPlayerIndex).getMarbles().get(0)==null)
+    		throw new CannotFieldException();
+    	else{
+    		try{
+    			board.sendToBase(players.get(currentPlayerIndex).getMarbles().get(0));
+    			players.get(currentPlayerIndex).getMarbles().remove(0);
+    		}
+    		catch (CannotFieldException e){}
+    		catch (IllegalDestroyException e){}
+    	}
+    }
+    
+    //discardCard
+    
+    //discardCard
+    
+    public Colour getActivePlayerColour(){
+    	return players.get(currentPlayerIndex).getColour();
+    }
+    
+    public Colour nextActivePlayerColour(){
+    	if (currentPlayerIndex==3) return players.get(0).getColour();
+    	return players.get(currentPlayerIndex+1).getColour();
+    }
     
     public Colour checkWin(){
     	//unfinished
