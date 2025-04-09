@@ -112,4 +112,14 @@ public class Game implements GameManager {
     	return players.get(currentPlayerIndex+1).getColour();
     }
     
+    public Colour checkWin(){
+    	//unfinished
+    	for(int i=0; i<4; i++){
+    		Colour playerColour= this.players.get(i).getColour();
+    		if(this.players.get(i)){
+    			
+    		}
+    	}
+    }
+    
 }
