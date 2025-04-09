@@ -267,6 +267,6 @@ private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destr
     			list.add(safeZone.getCells().get(i).getMarble());
     	return list;
     }
->>>>>>> main
+
     
 }
