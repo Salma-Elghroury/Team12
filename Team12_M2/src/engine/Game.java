@@ -71,7 +71,12 @@ public class Game implements GameManager {
     
     //deselectAll()
     
-    //editSplitDistance
+    public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
+    	if(1<=splitDistance && splitDistance<=6)
+    		this.board.setSplitDistance(splitDistance);
+    	else 
+    		throw new SplitOutOfRangeException("The split is outside the appropriate 1–6 range");
+    }
     
     public boolean canPlayTurn(){
     	if (players.get(currentPlayerIndex).getHand().size()==0) return false;  //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
@@ -82,7 +87,16 @@ public class Game implements GameManager {
     
     //endPlayerTurn
     
-    //checkWin
+    public Colour checkWin(){
+    	for(int i=0; i<this.players.size();i++){
+    		ArrayList<Marble> marbles=this.players.get(i).getMarbles();
+    		for(int j=0; j<marbles.size();j++){
+    			if(!this.board.isInSafe(marbles.get(j)))
+    				break;
+    		}
+    		return this.players.get(i).getColour();
+    	}return null;
+    }
     
     //sendHome
     
