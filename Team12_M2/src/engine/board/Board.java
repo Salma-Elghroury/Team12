@@ -173,7 +173,7 @@ public class Board implements BoardManager {
 		
 	}
     
-private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+   private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
     	
     	
     	Card Selected; //Check if card is king or not
@@ -204,9 +204,39 @@ private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destr
     
     }
     
-    //move
+    private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException{
+	    //I still didn't finish this one -Rana
+	    int position = getPositionInPath(fullPath, marble);
+	    //remove from current cell
+	    fullPath.get(position).setMarble(null); 
+	    //handle king
+	    if(destroy){
+		    for(int i=0; i<13;i++){
+			   position++;
+			   if (fullPath.get(position).getMarble()!=null)
+				   destroyMarble(fullPath.get(position).getMarble());	
+		}
+		   fullPath.get(position).setMarble(marble);
+	}
+	//handles otherwise
+	   else{}
+}
     
-    //validateSwap
+   private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
+	  
+	  if(marble_1.getColour()==marble_2.getColour()) throw new IllegalSwapException("Nothing will be changed!");
+	  else if( !isInTrack(marble_1) || !isInTrack(marble_2)) throw new IllegalSwapException("The marbles are not on the track!");
+	  else if( (isInSafe(marble_1) && !isInSafe(marble_2))||(isInSafe(marble_2) && !isInSafe(marble_1)) ) throw new IllegalSwapException("Your opponent’s marble is safe in its Base Cell.");	 
+}
+   public boolean isInTrack(Marble marble){
+	   //checks that the marble is not in home zone  and not in safe zone, meaning they are in track
+	  return (getPositionInPath(this.track, marble)!=-1 && !isInSafe(marble))
+   }
+   
+   public boolean isInSafe(Marble marble){
+	  //checks if a marble is in its safe zone
+	  return getPositionInPath(getSafeZone(marble.getColour()), marble)!=-1;    
+   }
     
     //validateDestroy
     
@@ -231,25 +261,17 @@ private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destr
     //destroyMarble
     
  public void sendToBase(Marble marble) throws CannotFieldException, IllegalDestroyException {
-    //finished (although needs more checking)
-    int base = getBasePosition(marble.getColour());
-    
-    if(this.track.get(base)!=null) {
- 	   try{
- 		   validateFielding(this.track.get(base));
- 		   this.track.get(base).setMarble(marble);
- 	   }
- 	   catch(CannotFieldException e){
- 		   if(this.track.get(base).getMarble().getColour()==marble.getColour())
- 			   throw new CannotFieldException("Base cell is already occupied by your marbles.");
- 		   else{
- 			   destroyMarble(this.track.get(base).getMarble());
- 			   this.track.get(base).setMarble(marble);
- 		   }
- 	   }
-    }
-    else this.track.get(base).setMarble(marble);
-    
+	    int base = getBasePosition(marble.getColour());
+		try{
+			 validateFielding(this.track.get(base));
+			 if(this.track.get(base).getMarble()!=null){
+				 destroyMarble(this.track.get(base).getMarble()); 
+			 }
+			 this.track.get(base).setMarble(marble);
+		}
+		catch(CannotFieldException e){
+			throw new CannotFieldException("Base cell is already occupied by your marbles.");
+		}
  }
     
     //sendToSafe

@@ -62,7 +62,12 @@ public class Player {
     
     public Marble getOneMarble() {return this.getMarbles().get(0) ;}
     
-    //selectCard
+    public void selectCard(Card card) throws InvalidCardException{
+    	if(this.hand.contains(card)) 
+    		this.selectedCard=card;
+    	else 
+    		throw new InvalidCardException("The card does not belong to your hand.");
+    }
     
     //selectMarble
     
