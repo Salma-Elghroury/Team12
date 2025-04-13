@@ -14,6 +14,7 @@ import model.player.*;
 
 @SuppressWarnings("unused")
 public class Game implements GameManager {
+	
     private final Board board;
     private final ArrayList<Player> players;
 	private int currentPlayerIndex;
@@ -21,6 +22,7 @@ public class Game implements GameManager {
     private int turn;
 
     public Game(String playerName) throws IOException {
+    	
         turn = 0;
         currentPlayerIndex = 0;
         firePit = new ArrayList<>();
@@ -38,56 +40,56 @@ public class Game implements GameManager {
         this.players = new ArrayList<>();
         this.players.add(new Player(playerName, colourOrder.get(0)));
         
-        for (int i = 1; i < 4; i++) 
-            this.players.add(new CPU("CPU " + i, colourOrder.get(i), this.board));
+        for (int i = 1; i < 4; i++) {this.players.add(new CPU("CPU " + i, colourOrder.get(i), this.board));}
         
-        for (int i = 0; i < 4; i++) 
-            this.players.get(i).setHand(Deck.drawCards());
+        for (int i = 0; i < 4; i++) {this.players.get(i).setHand(Deck.drawCards());}
         
     }
     
-    public Board getBoard() {
-        return board;
-    }
+    public Board getBoard() {return board;}
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+    public ArrayList<Player> getPlayers() {return players;}
 
-    public ArrayList<Card> getFirePit() {
-        return firePit;
-    }
+    public ArrayList<Card> getFirePit() {return firePit;}
     
     public void selectCard(Card card) throws InvalidCardException {
-    	try {
-    		players.get(currentPlayerIndex).selectCard(card);
-    	}
-    	catch (InvalidCardException e){
-    		System.out.println(e.getMessage());
-    	}
+    	
+    	try {players.get(currentPlayerIndex).selectCard(card);}
+    	
+    	catch (InvalidCardException e){System.out.println(e.getMessage());}
     }
     
     //selectMarble
     
-    //deselectAll()
+    public void deselectAll() throws InvalidCardException, InvalidMarbleException {
+    	
+    	Player currentPlayer = this.players.get(0);
+    	currentPlayer.selectCard(null);
+    	currentPlayer.selectMarble(null);
+    }
     
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
-    	if(1<=splitDistance && splitDistance<=6)
-    		this.board.setSplitDistance(splitDistance);
-    	else 
-    		throw new SplitOutOfRangeException("The split is outside the appropriate 1–6 range");
+    	
+    	if(1<=splitDistance && splitDistance<=6) {this.board.setSplitDistance(splitDistance);}
+    	
+    	else {throw new SplitOutOfRangeException("The split is outside the appropriate 1ï¿½6 range");}
     }
     
     public boolean canPlayTurn(){
+    	
     	if (players.get(currentPlayerIndex).getHand().size()==0) return false;  //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
     	return true;
     }
     
     //playPlayerTurn
     
-    //endPlayerTurn
+    public void endPlayerTurn() {
+    	
+    	//Salma 
+    }
     
     public Colour checkWin(){
+    	
     	for(int i=0; i<this.players.size();i++){
     		ArrayList<Marble> marbles=this.players.get(i).getMarbles();
     		for(int j=0; j<marbles.size();j++){
@@ -98,16 +100,34 @@ public class Game implements GameManager {
     	}return null;
     }
     
-    //sendHome
+    public void sendHome (Marble marble) {
+    	
+    	ArrayList<Player> allPlayers = this.getPlayers();
+    	Player player;
+    	
+    	for (int i = 0 ; i < allPlayers.size() ; i++) {
+    		
+    		if(allPlayers.get(i).getColour() == marble.getColour()) {
+    			
+    			player = allPlayers.get(i);
+    			player.getMarbles().add(marble);
+    		}
+    	}
+    }
     
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
+    	
     	if (players.get(currentPlayerIndex).getMarbles().get(0)==null)
+    		
     		throw new CannotFieldException();
+    	
     	else{
+    		
     		try{
     			board.sendToBase(players.get(currentPlayerIndex).getMarbles().get(0));
     			players.get(currentPlayerIndex).getMarbles().remove(0);
     		}
+    		
     		catch (CannotFieldException e){}
     		catch (IllegalDestroyException e){}
     	}
@@ -117,16 +137,16 @@ public class Game implements GameManager {
     
     //discardCard
     
-    public Colour getActivePlayerColour(){
-    	return players.get(currentPlayerIndex).getColour();
-    }
+    public Colour getActivePlayerColour(){return players.get(currentPlayerIndex).getColour();}
     
     public Colour nextActivePlayerColour(){
+    	
     	if (currentPlayerIndex==3) return players.get(0).getColour();
     	return players.get(currentPlayerIndex+1).getColour();
     }
     
     public Colour checkWin(){
+    	
     	//unfinished
     	for(int i=0; i<4; i++){
     		Colour playerColour= this.players.get(i).getColour();
