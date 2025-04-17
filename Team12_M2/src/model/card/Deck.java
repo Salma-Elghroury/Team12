@@ -22,6 +22,7 @@ import model.card.wild.Burner;
 import model.card.wild.Saver;
 
 public class Deck {
+	
     private static final String CARDS_FILE = "Cards.csv";
     static private ArrayList<Card> cardsPool;
 

@@ -1,23 +1,25 @@
 package model.player;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 import exception.GameException;
 import exception.InvalidCardException;
 import exception.InvalidMarbleException;
 import model.Colour;
-import model.card.Card;
+import model.card.*;
 
 @SuppressWarnings("unused")
 public class Player {
+	
     private final String name;
     private final Colour colour;
     private ArrayList<Card> hand;
-    private final ArrayList<Marble> marbles;
+    private final ArrayList<Marble> marbles;  //Home Zone
     private Card selectedCard;
 	private final ArrayList<Marble> selectedMarbles;
 
     public Player(String name, Colour colour) {
+    	
         this.name = name;
         this.colour = colour;
         this.hand = new ArrayList<>();
@@ -63,10 +65,10 @@ public class Player {
     public Marble getOneMarble() {return this.getMarbles().get(0) ;}
     
     public void selectCard(Card card) throws InvalidCardException{
-    	if(this.hand.contains(card)) 
-    		this.selectedCard=card;
-    	else 
-    		throw new InvalidCardException("The card does not belong to your hand.");
+    	
+    	if (this.hand.contains(card)) {this.selectedCard=card;}
+    	
+    	else {throw new InvalidCardException("The card does not belong to your hand.");}
     }
     
     //selectMarble
@@ -74,15 +76,16 @@ public class Player {
     //deselectAll
     
     public void play() throws GameException{
-    	if (selectedCard==null)
-    		throw new InvalidCardException();
+    	
+    	if (selectedCard==null) {throw new InvalidCardException();}
+    	
     	else{
-    		if (!selectedCard.validateMarbleSize(selectedMarbles))
-    			throw new InvalidMarbleException("Invalid size of marbles.");
-    		if (!selectedCard.validateMarbleColours(selectedMarbles))
-    			throw new InvalidMarbleException("Invalid colours of marbles.");
-    		if (selectedCard.validateMarbleColours(selectedMarbles) && selectedCard.validateMarbleSize(selectedMarbles))
-    			selectedCard.act(selectedMarbles);
+    		
+    		if (!selectedCard.validateMarbleSize(selectedMarbles)) {throw new InvalidMarbleException("Invalid size of marbles.");}
+    		
+    		if (!selectedCard.validateMarbleColours(selectedMarbles)) {throw new InvalidMarbleException("Invalid colours of marbles.");}
+    		
+    		if (selectedCard.validateMarbleColours(selectedMarbles) && selectedCard.validateMarbleSize(selectedMarbles)) {selectedCard.act(selectedMarbles);}
     	}
     }
 

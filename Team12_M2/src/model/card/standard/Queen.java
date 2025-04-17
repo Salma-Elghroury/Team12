@@ -1,12 +1,50 @@
 package model.card.standard;
 
+import java.util.ArrayList;
+
+import model.Colour;
+import model.player.Marble;
 import engine.GameManager;
 import engine.board.BoardManager;
+import exception.ActionException;
+import exception.InvalidMarbleException;
 
 public class Queen extends Standard {
 
     public Queen(String name, String description, Suit suit, BoardManager boardManager, GameManager gameManager) {
         super(name, description, 12, suit, boardManager, gameManager);
+    }
+    
+    //Milestone 2 Methods
+    
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+    	
+    	if (marbles.size() == 1 || marbles.size() == 0) {return true;}
+    	
+    	else {return false;}
+    }
+    
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+    	
+    	Colour playerColour = this.gameManager.getActivePlayerColour();
+    	
+    	for (int i = 0 ; i < marbles.size() ; i++) {
+    		
+    		if (marbles.get(i).getColour() != playerColour) {
+    			
+    			return false ;
+    		}
+    	}
+    	
+    	return true ;	
+    	
+    }
+    
+    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
+    	
+    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {super.act(marbles);}
+    	else if (marbles.size() == 0) {this.gameManager.discardCard();}
+    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 
 }

@@ -1,8 +1,14 @@
 package model.card.standard;
 
+import java.util.ArrayList;
+
 import engine.GameManager;
 import engine.board.BoardManager;
+import exception.ActionException;
+import exception.InvalidMarbleException;
+import model.Colour;
 import model.card.Card;
+import model.player.Marble;
 
 public class Standard extends Card {
     private final int rank;
@@ -14,11 +20,43 @@ public class Standard extends Card {
         this.suit = suit;
     }
 
-    public int getRank() {
-        return rank;
-    }
+    public int getRank() {return rank;}
 
-    public Suit getSuit() {
-        return suit;
+    public Suit getSuit() {return suit;}
+    
+    //Milestone 2 Methods
+    
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+    	
+    	if (marbles.size() == 1) {return true;}
+    	
+    	else {return false;}
+    }
+    
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+    	
+    	Colour playerColour = this.gameManager.getActivePlayerColour();
+    	
+    	for (int i = 0 ; i < marbles.size() ; i++) {
+    		
+    		if (marbles.get(i).getColour() != playerColour) {
+    			
+    			return false ;
+    		}
+    	}
+    	
+    	return true ;	
+    	
+    }
+    
+    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
+    	
+    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {
+    		
+    		this.boardManager.moveBy(marbles.get(0), this.rank , false);
+    		
+    	}
+    	
+    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 }
