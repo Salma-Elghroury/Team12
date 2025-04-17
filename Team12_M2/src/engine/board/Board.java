@@ -96,7 +96,6 @@ public class Board implements BoardManager {
 	    return -1;
    }
     
-    
     //getEntryPosition
     
     private ArrayList<Cell> validateSteps(Marble marble, int steps){
@@ -245,31 +244,39 @@ public class Board implements BoardManager {
 	   
    }
     
-    private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException{
-    	
-	    //I still didn't finish this one -Rana
-	    int position = getPositionInPath(fullPath, marble);
-	    //remove from current cell
-	    fullPath.get(position).setMarble(null); 
-	    //handle king
-	    
-	    if(destroy){
+   private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException{
+		
+	   int position = getPositionInPath(fullPath, marble);
 	    	
-		    for(int i=0; i<13;i++){
-		    	
-			   position++;
-			   
-			   if (fullPath.get(position).getMarble()!=null)
-				   
-				   destroyMarble(fullPath.get(position).getMarble());	
-		}
-		   fullPath.get(position).setMarble(marble);
+	   //remove from current cell
+	    	
+	   fullPath.get(position).setMarble(null); 
+	    	
+	   //handle king
+	    	
+	   if(destroy){
+	    		
+		   for(int i=0; i<fullPath.size();i++){
+	    			
+			   if (fullPath.get(i).getMarble()!=null)
+	    				 
+				   destroyMarble(fullPath.get(i).getMarble());	
+	    		}
+	    	}
+	    	
+	   //places the marble in the calculated target cell and handles traps
+	    	
+	   if(fullPath.get(fullPath.size()-1).isTrap()) {
+	    		
+		   destroyMarble(marble);
+	    		
+		   fullPath.get(fullPath.size()-1).setTrap(false);
+	    		
+		   this.assignTrapCell();
+	    	}
+	    	
+	   else fullPath.get(fullPath.size()-1).setMarble(marble);
 	}
-	    
-	//handles otherwise
-	    
-	   else{}
-}
     
    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
 	  
@@ -380,6 +387,5 @@ public class Board implements BoardManager {
     	
     	return list;
     }
-
     
 }
