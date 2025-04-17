@@ -101,7 +101,7 @@ public class Board implements BoardManager {
     
     private ArrayList<Cell> validateSteps(Marble marble, int steps){
     	
-    	Colour colour = this.getActivePlayerColour();
+    	Colour colour = this.gameManager.getActivePlayerColour();
     	SafeZone safeZone;
     	
     	for (int i=0; i<safeZones.size(); i++)
@@ -201,35 +201,49 @@ public class Board implements BoardManager {
 	}
     
    private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+	   
+	   //Self-Blocking
+	   
+	   if (fullPath.contains(marble) && fullPath.indexOf(marble) != 0 && destroy == false) {
+		   
+		   throw new IllegalMovementException ("Self-Blocking :- Cannot Destroy or Bypass Your Marbles");
+	   }
+	   
+	   //Path-Blockage
+	   
+	   for (int i = 1 ; i < fullPath.size() ; i++) {
+		   
+		   if (fullPath.get(i) != null && destroy == false) {
+			   
+			   throw new IllegalMovementException ("Path Blockage :- Cannot Bypass Any Marble in Path");
+			   
+		   }
+	   }
+	   
+	   //Safe Zone Entry
+	   
+	   if (safeZones.get(0) != null) {
+		   
+		   throw new IllegalMovementException ("Safe Zone Entry :- Safe Zone Marbles Cannot be Bypassed or Destroyed (Even if King)");
+	   }
+	   
+	   //Base Cell Blockage
+	   
+	   int basePosition = this.getBasePosition(marble.getColour());
+	   Cell playerBase = this.track.get(basePosition);
+	   
+	   for (int i = 1 ; i < fullPath.size() ; i++) {
+		   
+		   if (fullPath.contains(playerBase) && fullPath.get(fullPath.indexOf(playerBase)) != null && 
+				   fullPath.get(fullPath.indexOf(playerBase)).getMarble().getColour() != marble.getColour()) {
+			   
+			   throw new IllegalMovementException ("Base Cell Blockage :- Cannot Bypass Other Players' Marbles if Placed in Your Base Cell");
+			   
+		   }
     	
-    	
-    	Card Selected; 
-    	
-    	//Self-Blocking
-    	
-    	int myMarblesInFullPath = 1 ;
-    		
-    	for (int i = 1 ; i < fullPath.size() ; i++) {if (fullPath.get(i).getMarble() == marble) {myMarblesInFullPath ++ ;}}
-    		
-    	if (myMarblesInFullPath > 1 && Selected.getName() != "King") {
-    		
-    		throw new IllegalMovementException ("Self-Blocking: A marble cannot move if there is another marble owned by the "
-    				                             + "same player either in its path or at the target position. Meaning, I, as a "
-    				                             + "player cannot bypass or destroy my own marble.");}
-    	
-    	//Path Blockage
-    	
-    	for (int i = 1 ; i < fullPath.size() ; i++) {if (fullPath.get(i).getMarble() != null) {myMarblesInFullPath ++ ;}}
-    	
-    	if (myMarblesInFullPath > 1 && Selected.getName() != "King") {
-    		
-    		throw new IllegalMovementException ("Path Blockage: Movement is invalid if there is more than one marble "
-    				                             + "(owned byany player) blocking the path");
     	}
-    	
-    	//Safe Zone Entry
-    
-    }
+	   
+   }
     
     private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException{
     	
@@ -306,9 +320,15 @@ public class Board implements BoardManager {
     	
     	try {
     		
-    		if (this.gameManager.getActivePlayerColour() != marble.getColour()) {this.validateDestroy(this.getPositionInPath);}
+    		if (this.gameManager.getActivePlayerColour() != marble.getColour()) {
+    			
+    			int marblePosition = this.getPositionInPath(this.track, marble);
+    			validateDestroy(marblePosition);
+    			
+    		}
+    		
     		this.track.remove(marble);
-    		this.sendHome(marble);
+    		this.gameManager.sendHome(marble);
     	}
     	
     	catch (IllegalDestroyException e) {
@@ -345,7 +365,7 @@ public class Board implements BoardManager {
     		
     		if (track.get(i).getMarble()!=null) list.add(track.get(i).getMarble());
  
-    	Colour colour = getActivePlayerColour();
+    	Colour colour = this.gameManager.getActivePlayerColour();
     	SafeZone safeZone;
     	
     	for (int i=0; i<safeZones.size(); i++)

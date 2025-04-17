@@ -1,6 +1,6 @@
 package engine;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.Collections;
 import engine.board.Board;
 import exception.*;
 import model.Colour;
-import model.card.Card;
+import model.card.*;
 import model.card.Deck;
 import model.player.*;
 
@@ -83,21 +83,44 @@ public class Game implements GameManager {
     
     //playPlayerTurn
     
-    public void endPlayerTurn() {
+    public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
     	
-    	//Salma 
+    	Player currentPlayer = this.players.get(currentPlayerIndex);
+    	
+    	this.firePit.add(currentPlayer.getSelectedCard());
+    	
+    	this.deselectAll();
+    	
+    	if (this.currentPlayerIndex < this.players.size()) {this.currentPlayerIndex ++ ; turn ++ ;}
+    	else {
+    		
+    		this.currentPlayerIndex = 0 ; 
+    		turn = 0 ; 
+    		
+    		for (int i = 0 ; i < this.players.size() ; i++) {
+    			
+    			//Uses Deck Methods That Are Not Defined Yet - Salma
+    		}
+    	
+    	}
+    	
     }
     
     public Colour checkWin(){
     	
     	for(int i=0; i<this.players.size();i++){
+    		
     		ArrayList<Marble> marbles=this.players.get(i).getMarbles();
     		for(int j=0; j<marbles.size();j++){
     			if(!this.board.isInSafe(marbles.get(j)))
     				break;
     		}
+    		
     		return this.players.get(i).getColour();
-    	}return null;
+    		
+    	}
+    	
+    	return null;
     }
     
     public void sendHome (Marble marble) {
@@ -145,15 +168,5 @@ public class Game implements GameManager {
     	return players.get(currentPlayerIndex+1).getColour();
     }
     
-    public Colour checkWin(){
-    	
-    	//unfinished
-    	for(int i=0; i<4; i++){
-    		Colour playerColour= this.players.get(i).getColour();
-    		if(this.players.get(i)){
-    			
-    		}
-    	}
-    }
     
 }
