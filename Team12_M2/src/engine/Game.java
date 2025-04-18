@@ -59,7 +59,9 @@ public class Game implements GameManager {
     	catch (InvalidCardException e){System.out.println(e.getMessage());}
     }
     
-    //selectMarble
+    public void selectMarble(Marble marble) throws InvalidMarbleException {
+        players.get(currentPlayerIndex).selectMarble(marble);
+    }
     
     public void deselectAll() throws InvalidCardException, InvalidMarbleException {
     	
@@ -81,7 +83,19 @@ public class Game implements GameManager {
     	return true;
     }
     
-    //playPlayerTurn
+    public void playPlayerTurn() throws GameException {
+        if (!canPlayTurn()) {
+            endPlayerTurn();
+            return;
+        }
+        Colour activeColour = getActivePlayerColour();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getColour() == activeColour) {
+                players.get(i).play();
+            }
+        }
+        endPlayerTurn();
+    }
     
     public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
     	
@@ -156,9 +170,41 @@ public class Game implements GameManager {
     	}
     }
     
-    //discardCard
+    public void discardCard(Colour colour) throws CannotDiscardException {
+        Player targetPlayer = null;
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            if (player.getColour().equals(colour)) {
+                targetPlayer = player;
+                break;
+            }
+        }
+        ArrayList<Card> hand = targetPlayer.getHand();
+        if (hand.isEmpty()) {
+            throw new CannotDiscardException("The player has no cards in hand to discard.");
+        }
+        int randomIndex = (int) (Math.random() * hand.size());
+        Card cardToDiscard = hand.get(randomIndex);
+        hand.remove(cardToDiscard);
+        firePit.add(cardToDiscard);
+    }
     
-    //discardCard
+    public void discardCard() throws CannotDiscardException {
+	    ArrayList<Colour> otherColours = new ArrayList<>();
+	    ArrayList<Colour> allColours = new ArrayList<>();
+	    allColours.add(Colour.RED);
+	    allColours.add(Colour.BLUE);
+	    allColours.add(Colour.GREEN);
+	    allColours.add(Colour.YELLOW);
+	    for (int i = 0; i < allColours.size(); i++) {
+	        Colour colour = allColours.get(i);
+	        if (!colour.equals(players.get(currentPlayerIndex).getColour())) {
+	            otherColours.add(colour);
+	        }
+	    }
+	    int randomColourIndex = (int) (Math.random() * otherColours.size());
+	    Colour randomColour = otherColours.get(randomColourIndex);
+	    discardCard(randomColour);}
     
     public Colour getActivePlayerColour(){return players.get(currentPlayerIndex).getColour();}
     

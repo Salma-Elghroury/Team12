@@ -83,6 +83,12 @@ public class Deck {
         cardsPool.subList(0, 4).clear();
         return cards;
     }
+    public static void refillPool(ArrayList<Card> cards) {
+        cardsPool.addAll(cards);
+    }
+    public static int getPoolSize() {
+    	return cardsPool.size();
+    	}
 
 }
 

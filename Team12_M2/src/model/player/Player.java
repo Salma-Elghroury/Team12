@@ -71,9 +71,18 @@ public class Player {
     	else {throw new InvalidCardException("The card does not belong to your hand.");}
     }
     
-    //selectMarble
+    public void selectMarble(Marble marble) throws InvalidMarbleException {
+   	 if (this.selectedMarbles.size() >= 2) {
+   	        throw new InvalidMarbleException("Cannot select more than two marbles.");
+   	    }
+   	this.selectedMarbles.add(marble);
+   }
     
-    //deselectAll
+    public void deselectAll() {
+        
+        this.selectedCard = null;
+        this.selectedMarbles.clear();
+    }
     
     public void play() throws GameException{
     	

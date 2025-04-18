@@ -96,7 +96,16 @@ public class Board implements BoardManager {
 	    return -1;
    }
     
-    //getEntryPosition
+    private int getEntryPosition(Colour colour) {
+        ArrayList<SafeZone> safeZones = this.getSafeZones();
+        int entryPosition = 2; 
+        for (int i = 0; i < 4; i++, entryPosition += 25) {
+            if (safeZones.get(i).getColour() == colour) {
+                return entryPosition;
+            }
+        }
+        return -1;
+    }
     
     private ArrayList<Cell> validateSteps(Marble marble, int steps){
     	
@@ -301,14 +310,42 @@ public class Board implements BoardManager {
 	  
    }
     
-    //validateDestroy
+   private void validateDestroy(int positionInPath) throws IllegalDestroyException {
+       Cell cellInPath  = track.get(positionInPath);
+       if (cellInPath.getMarble() == null) {
+           throw new IllegalDestroyException("The marble is not on the track.");
+       }
+       if (cellInPath.getCellType() == CellType.BASE) {
+           throw new IllegalDestroyException(" marble is in its Base Cell.");
+       }
+   }
     
-    //validateFielding
+   private void validateFielding(Cell occupiedBaseCell) throws CannotFieldException {
+	    Colour activePlayerColour = gameManager.getActivePlayerColour();
+	    if (occupiedBaseCell.getMarble() != null && occupiedBaseCell.getMarble().getColour() == activePlayerColour) {
+	        throw new CannotFieldException("A marble of the same colour is already in the Base Cell.");
+	    }}// in the game description also mentioned to make sure that there are available marbles in the home zone bs it wasnt mentioned fe el method
     
-    //validateSaving
-    
-    //moveBy
-    
+   private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
+	    if (track.get(positionOnTrack).getMarble() == null) {
+	        throw new InvalidMarbleException("The selected marble is not on the track.");
+	    }
+	    Marble marble = track.get(positionOnTrack).getMarble();
+	    ArrayList<Cell> safeZone = getSafeZone(marble.getColour());
+	        Cell targetCell = safeZone.get(positionInSafeZone);
+	        if (targetCell.getMarble() != null) {
+	            if (targetCell.getMarble().equals(marble)) {
+	                throw new InvalidMarbleException("The selected marble is already in the Safe Zone cell.");
+	            }
+	        }
+	    }
+   
+   public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
+	   ArrayList<Cell> path = validateSteps(marble,steps);
+       validatePath(marble,path,destroy);
+       move(marble,path,destroy); } // not sure lw correct
+   
+   
     public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
     	
     	try{
@@ -362,7 +399,21 @@ public class Board implements BoardManager {
 		}
  }
     
-    //sendToSafe
+ public void sendToSafe(Marble marble) throws InvalidMarbleException {
+	    int currentPosition = getPositionInPath(track, marble);
+	    ArrayList<Cell> safeCells = getSafeZone(marble.getColour());
+	    ArrayList<Cell> emptyCells = new ArrayList<>();
+	    for (int i = 0; i < safeCells.size(); i++) {
+         if (safeCells.get(i).getMarble() == null) {
+         	emptyCells.add(safeCells.get(i));
+	    }}
+	Cell targetCell = emptyCells.get((int) (Math.random() * emptyCells.size()));
+ int targetIndexInSafeCells = safeCells.indexOf(targetCell);
+	validateSaving(targetIndexInSafeCells, currentPosition);
+	track.get(currentPosition).setMarble(null); 
+	targetCell.setMarble(marble);                     
+	}
+ 
     
     public ArrayList<Marble> getActionableMarbles(){
     	
