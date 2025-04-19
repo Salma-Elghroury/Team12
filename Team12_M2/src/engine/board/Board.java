@@ -286,13 +286,16 @@ public class Board implements BoardManager {
 	}
     
    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
-	  
-	  if(marble_1.getColour()==marble_2.getColour()) throw new IllegalSwapException("Nothing will be changed!");
-	  
-	  else if( !isInTrack(marble_1) || !isInTrack(marble_2)) throw new IllegalSwapException("The marbles are not on the track!");
-	  
-	  else if( (isInSafe(marble_1) && !isInSafe(marble_2))||(isInSafe(marble_2) && !isInSafe(marble_1)) ) throw new IllegalSwapException("Your opponent�s marble is safe in its Base Cell.");	 
-}
+		  
+		  if(marble_1.getColour()==marble_2.getColour())
+			  throw new IllegalSwapException("Nothing will be changed!");
+		  
+		  else if( !isInTrack(marble_1) || !isInTrack(marble_2)) 
+			  throw new IllegalSwapException("The marbles are not on the track!");
+		  
+		  else if((this.gameManager.getActivePlayerColour()==marble_1.getColour() && isInBase(marble_2))||(this.gameManager.getActivePlayerColour()==marble_2.getColour() && isInBase(marble_1)))
+			  throw new IllegalSwapException("Your opponent's marble is safe in its Base Cell.");	
+	}
    
    public boolean isInTrack(Marble marble){
 	   
@@ -307,14 +310,22 @@ public class Board implements BoardManager {
 	  return getPositionInPath(getSafeZone(marble.getColour()), marble)!=-1;  
 	  
    }
+   
+   public boolean isInBase(Marble marble){
+		return getPositionInPath(this.track, marble) == getBasePosition(marble.getColour());
+	}
     
    private void validateDestroy(int positionInPath) throws IllegalDestroyException {
-       Cell cellInPath  = track.get(positionInPath);
-       if (cellInPath.getMarble() == null) {
+       
+       if(positionInPath==-1){
+    	   throw new IllegalDestroyException("The marble is not in track");
+       }
+       Cell cellInPath  = this.track.get(positionInPath);
+       if (!isInTrack(cellInPath.getMarble())) {
            throw new IllegalDestroyException("The marble is not on the track.");
        }
-       if (cellInPath.getCellType() == CellType.BASE) {
-           throw new IllegalDestroyException(" marble is in its Base Cell.");
+       if (isInBase(cellInPath.getMarble())) {
+           throw new IllegalDestroyException("The marble is in its Base Cell.");
        }
    }
     
