@@ -61,11 +61,13 @@ public class Board implements BoardManager {
         this.track.get(randIndex).setTrap(true);
     }
     
+    //Milestone 2 Methods 
+    
     private ArrayList<Cell> getSafeZone(Colour colour){
     	
-    	for (int i=0; i<safeZones.size(); i++){
+    	for (int i = 0 ; i < safeZones.size() ; i++){
     		
-    		if (safeZones.get(i).getColour()==colour) return safeZones.get(i).getCells();
+    		if (safeZones.get(i).getColour() == colour) {return safeZones.get(i).getCells();}
     	}
     	
     	return null;
@@ -73,10 +75,12 @@ public class Board implements BoardManager {
     
     private int getPositionInPath(ArrayList<Cell> path, Marble marble) {
     	
-    	int position;
+    	int position = -1 ;
     	
-    	if (path.contains(marble)) {position = path.indexOf(marble);}
-    	else {position = -1;}
+    	for (int i = 0 ; i < path.size() ; i++) {
+    		
+    		if (path.get(i).getMarble() == marble) {position = i ;}
+    	}
     	
     	return position ;
     	
@@ -112,18 +116,18 @@ public class Board implements BoardManager {
     	Colour colour = this.gameManager.getActivePlayerColour();
     	SafeZone safeZone;
     	
-    	for (int i=0; i<safeZones.size(); i++)
+    	for (int i=0 ; i < safeZones.size() ; i++)
     		
-    		if (safeZones.get(i).getColour()==colour) safeZone = safeZones.get(i);
+    		if (safeZones.get(i).getColour() == colour) {safeZone = safeZones.get(i) ;}
     	
     	ArrayList<Cell> path = new ArrayList<Cell>();
     	int startPosition;
     	
-    	if (getPositionInPath(track,marble)==-1 && this.getPositionInPath(safeZone,marble)==-1)
+    	if (getPositionInPath(track,marble) == -1 && this.getPositionInPath(path,marble) == -1)
     		
     		throw new IllegalMovementException("Marble cannot be moved.");
     	
-    	else if (this.getPositionInPath(safeZone,marble)==-1){
+    	else if (this.getPositionInPath(path ,marble)==-1){
     		
     		startPosition = this.getPositionInPath(track,marble);
     		
@@ -430,7 +434,7 @@ public class Board implements BoardManager {
     		
     		if (safeZones.get(i).getColour()==colour) safeZone = safeZones.get(i);
     	
-    	for (int i=0; i<safeZone.getCells().size(); i++)
+    	for (int i=0; i < safeZone.getCells().size(); i++)
     		
     		if (safeZone.getCells().get(i).getMarble()!=null)
     			

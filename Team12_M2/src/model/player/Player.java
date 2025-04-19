@@ -34,29 +34,17 @@ public class Player {
         this.selectedCard = null;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
-    public Colour getColour() {
-        return colour;
-    }
+    public Colour getColour() {return colour;}
 
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
+    public ArrayList<Card> getHand() {return hand;}
 
-    public void setHand(ArrayList<Card> hand) {
-        this.hand = hand;
-    }
+    public void setHand(ArrayList<Card> hand) {this.hand = hand;}
     
-    public ArrayList<Marble> getMarbles() {
-		return marbles;
-	}
+    public ArrayList<Marble> getMarbles() {return marbles;}
     
-    public Card getSelectedCard() {
-        return selectedCard;
-    }
+    public Card getSelectedCard() {return selectedCard;}
     
     //Milestone 2 Methods
     

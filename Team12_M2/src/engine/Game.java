@@ -52,6 +52,8 @@ public class Game implements GameManager {
 
     public ArrayList<Card> getFirePit() {return firePit;}
     
+    //Milestone 2 Methods
+    
     public void selectCard(Card card) throws InvalidCardException {
     	
     	try {players.get(currentPlayerIndex).selectCard(card);}
@@ -60,6 +62,7 @@ public class Game implements GameManager {
     }
     
     public void selectMarble(Marble marble) throws InvalidMarbleException {
+    	
         players.get(currentPlayerIndex).selectMarble(marble);
     }
     
@@ -106,6 +109,7 @@ public class Game implements GameManager {
     	this.deselectAll();
     	
     	if (this.currentPlayerIndex < this.players.size()) {this.currentPlayerIndex ++ ; turn ++ ;}
+    	
     	else {
     		
     		this.currentPlayerIndex = 0 ; 
@@ -113,7 +117,9 @@ public class Game implements GameManager {
     		
     		for (int i = 0 ; i < this.players.size() ; i++) {
     			
-    			//Uses Deck Methods That Are Not Defined Yet - Salma
+    			if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit);}
+    			
+    			players.get(i).setHand(Deck.drawCards());
     		}
     	
     	}
@@ -190,29 +196,30 @@ public class Game implements GameManager {
     }
     
     public void discardCard() throws CannotDiscardException {
+    	
 	    ArrayList<Colour> otherColours = new ArrayList<>();
 	    ArrayList<Colour> allColours = new ArrayList<>();
 	    allColours.add(Colour.RED);
 	    allColours.add(Colour.BLUE);
 	    allColours.add(Colour.GREEN);
 	    allColours.add(Colour.YELLOW);
+	    
 	    for (int i = 0; i < allColours.size(); i++) {
+	    	
 	        Colour colour = allColours.get(i);
-	        if (!colour.equals(players.get(currentPlayerIndex).getColour())) {
-	            otherColours.add(colour);
-	        }
+	        if (!colour.equals(players.get(currentPlayerIndex).getColour())) {otherColours.add(colour);}
 	    }
+	    
 	    int randomColourIndex = (int) (Math.random() * otherColours.size());
 	    Colour randomColour = otherColours.get(randomColourIndex);
 	    discardCard(randomColour);}
     
     public Colour getActivePlayerColour(){return players.get(currentPlayerIndex).getColour();}
     
-    public Colour nextActivePlayerColour(){
+    public Colour getNextPlayerColour(){
     	
     	if (currentPlayerIndex==3) return players.get(0).getColour();
     	return players.get(currentPlayerIndex+1).getColour();
     }
-    
-    
+   
 }

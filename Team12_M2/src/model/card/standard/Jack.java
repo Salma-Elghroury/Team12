@@ -28,9 +28,16 @@ public class Jack extends Standard {
     	
     	Colour playerColour = this.gameManager.getActivePlayerColour();
     	Marble playerMarble = new Marble (playerColour);
+    	int myMarbles = 0 ;
+    	boolean flag = true ;
     	
-    	if (marbles.contains(playerMarble))	{return true ;}
-    	else {return false ;}
+    	for (int i = 0 ; i < marbles.size() ; i++) {
+    		
+    		if (myMarbles > 1) {flag = false ; break ;} 
+    		else if (marbles.get(i) == playerMarble) {myMarbles ++ ;}
+    	}
+    	
+    	return flag ;
     	
     }
     

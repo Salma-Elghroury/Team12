@@ -78,17 +78,16 @@ public class Deck {
     }
 
     public static ArrayList<Card> drawCards() {
+    	
         Collections.shuffle(cardsPool);
         ArrayList<Card> cards = new ArrayList<>(cardsPool.subList(0, 4));
         cardsPool.subList(0, 4).clear();
         return cards;
     }
-    public static void refillPool(ArrayList<Card> cards) {
-        cardsPool.addAll(cards);
-    }
-    public static int getPoolSize() {
-    	return cardsPool.size();
-    	}
+    
+    public static void refillPool(ArrayList<Card> cards) {cardsPool.addAll(cards);}
+    
+    public static int getPoolSize() {return cardsPool.size();}
 
 }
 
