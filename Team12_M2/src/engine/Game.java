@@ -121,19 +121,11 @@ public class Game implements GameManager {
     }
     
     public Colour checkWin(){
-    	
-    	for(int i=0; i<this.players.size();i++){
-    		
-    		ArrayList<Marble> marbles=this.players.get(i).getMarbles();
-    		for(int j=0; j<marbles.size();j++){
-    			if(!this.board.isInSafe(marbles.get(j)))
-    				break;
+    	for(int i=0; i<this.board.getSafeZones().size();i++){
+    		if(this.board.getSafeZones().get(i).isFull()){
+    			return this.board.getSafeZones().get(i).getColour();
     		}
-    		
-    		return this.players.get(i).getColour();
-    		
     	}
-    	
     	return null;
     }
     
