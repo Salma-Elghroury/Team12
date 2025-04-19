@@ -149,12 +149,11 @@ public class Board implements BoardManager {
     				
 					Cell current = track.get(i);
 					path.add(current);
-					
 					if (i==99) i=0;
 					
 					else if (colour == marble.getColour() && i == this.getEntryPosition(colour)){
-						try{moveInSafeZone(marble, safeZone, steps-j-1, 0, path);}
-						catch (IllegalMovementException e) {throw e;}
+						if (steps-j>3) throw new IllegalMovementException("Rank of selected card is too high");
+						moveInSafeZone(marble, safeZone, steps-j-1, 0, path);
 						j = steps+1;
 					}
 					
@@ -176,10 +175,7 @@ public class Board implements BoardManager {
     			
     			throw new IllegalMovementException("Can not move opponent marble in Safe Zone.");
     		
-    		else {
-    			try {moveInSafeZone(marble, safeZone, steps, startPosition, path);}
-    			catch (IllegalMovementException e) {throw e;}
-    		}
+    		else moveInSafeZone(marble, safeZone, steps, startPosition, path);
     		
     	}
     	

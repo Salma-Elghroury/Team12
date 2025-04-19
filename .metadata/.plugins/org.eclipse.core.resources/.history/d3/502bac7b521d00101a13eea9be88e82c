@@ -145,6 +145,9 @@ public class Board implements BoardManager {
     		
     		else{
     			
+    			if (startPosition+steps>this.getEntryPosition(colour) && steps-this.getEntryPosition(colour)+startPosition > 4)
+    				throw new IllegalMovementException("Rank of played card is too high");
+    			
     			for (int i=startPosition, j=0; j<=steps ; j++){
     				
 					Cell current = track.get(i);

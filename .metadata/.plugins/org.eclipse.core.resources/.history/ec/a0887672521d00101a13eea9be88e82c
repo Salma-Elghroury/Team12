@@ -149,7 +149,6 @@ public class Board implements BoardManager {
     				
 					Cell current = track.get(i);
 					path.add(current);
-					
 					if (i==99) i=0;
 					
 					else if (colour == marble.getColour() && i == this.getEntryPosition(colour)){
