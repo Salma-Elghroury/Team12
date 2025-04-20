@@ -42,7 +42,7 @@ public class Burner extends Wild {
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {this.gameManager.sendHome(marbles.get(0));}
+    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {this.boardManager.destroyMarble(marbles.get(0));}
     	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 

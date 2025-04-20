@@ -50,7 +50,13 @@ public class Player {
     
     public void regainMarble(Marble marble) {this.getMarbles().add(marble) ;}
     
-    public Marble getOneMarble() {return this.getMarbles().get(0) ;}
+    public Marble getOneMarble() {
+    	
+    	if (this.marbles.size() == 0) {return null ;}
+    	
+    	else {return this.getMarbles().get(0) ;}
+    	
+    }
     
     public void selectCard(Card card) throws InvalidCardException{
     	

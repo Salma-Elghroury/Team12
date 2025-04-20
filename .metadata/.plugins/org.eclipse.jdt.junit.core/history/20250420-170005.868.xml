@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Team12_M2" project="Team12_M2" tests="596" started="596" failures="37" errors="0" ignored="0">
+  <testsuite name="test.Milestone2PublicTests" time="0.254">
+    <testcase name="testValidateSwapMethodOtherMarble1InBaseInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSwapMethodOtherMarbleInBaseInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethodOnTrackEnterSafeZoneInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInSevenClassLogicWithTwoMarbles" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testGetSafeZoneIsPrivateInClassBoard" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetNextPlayerColourInGameDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInQueenClassLogicWithOneMarble" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testCanPlayTurnGameFalse" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSelectCardMethodPresentInPlayerClass" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testActLogicInJackClass" classname="test.Milestone2PublicTests" time="0.004">
+      <failure>java.lang.AssertionError: Marbles should be swaped&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at test.Milestone2PublicTests.testActLogicInJackClass(Milestone2PublicTests.java:6591)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateStepsMethodMarbleNotInSafeZoneNotOnTrackExceptionBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testFieldMarbleExceptionThrown" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testCheckWinGame" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSendToSafeFailCaseSafeZoneMarble" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: Expected InvalidMarbleException was not thrown&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at test.Milestone2PublicTests.testSendToSafeFailCaseSafeZoneMarble(Milestone2PublicTests.java:7407)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateMarbleColourMethodInFiveClassLogic" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: The colour of marble is valid&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at test.Milestone2PublicTests.testValidateMarbleColourMethodInFiveClassLogic(Milestone2PublicTests.java:13245)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testEndPlayerTurnGameNewRound" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameNewRound(Milestone2PublicTests.java:9746)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testSwapExistenceInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethodOtherPlayerMarbleReturnBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testGetPositionInPathMethodLogicInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidatePathCase5InBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateFieldingInBoardDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassJackDoesntDestroysMarblesInPath" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testSendToBaseBoardOccupiedCellSameColour" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testIsFullIsPublicInSafeZoneClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetEntryPositionMethodLogicInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testEndPlayerTurnGameNewTurn" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameNewTurn(Milestone2PublicTests.java:9645)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testSelectMarbleMethodInPlayerClassLogicMarbleAlreadyExists" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testRefillPoolLogicInSafeDeckClass" classname="test.Milestone2PublicTests" time="0.005"/>
+    <testcase name="testMoveByExistenceInBoardManagerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizePresentInTenClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetPoolSizeIsPublicInSafeDeckClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetOneMarbleInPlayerDeclaration" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidatePathCase4InBoardClass" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: The given path is invalid because it contains a cell with a marble in the safe zone entry; therefore,an IllegalMovementException is expected to be thrown, but it is not.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testValidatePathCase4InBoardClass(Milestone2PublicTests.java:316)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testMoveBoardDestroyTarget" classname="test.Milestone2PublicTests" time="0.003">
+      <failure>java.lang.AssertionError: Expected IllegalDestroyException was not thrown&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testMoveBoardDestroyTarget(Milestone2PublicTests.java:8052)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testSelectCardMethodInGameClassLogic" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethodTooHighRankOnTrackInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizePresentInCardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDiscardCardColourInGame" classname="test.Milestone2PublicTests" time="0.006"/>
+    <testcase name="testActMethodInClassKingDoesntDestroysMarblesNOTInPath" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testCanPlayTurnGameTrue" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInKingClassLogicWithOneMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeAbsentInStandardClass" classname="test.Milestone2PublicTests" time="0.005"/>
+    <testcase name="testValidateStepsMethodTooHighRankInSafeZoneInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetSafeZoneMethodRightColourInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testDiscardCardWithoutArgsExistenceInGameManagerClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testGetActivePlayerColourExistenceInGameManagerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursAbsentInWildClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidatePathRemovingConditionFromCase2InBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidatePathCase3InBoardClass" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: The given path is invalid because it contains a cell with a marble belonging to the active player; therefore,an IllegalMovementException is expected to be thrown, but it is not.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testValidatePathCase3InBoardClass(Milestone2PublicTests.java:257)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidatePathExcludeTargetInCountingInBoardClass" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testValidateMarbleSizePresentInSevenClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testRefillPoolExistenceInDeckClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActonTenWithEmptyMarbles" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testDestroyMarbleExistenceInBoardManagerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testKingActSendToBase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDeselectAllMethodPresentInGameClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSelectMarbleMethodInPlayerClassLogicWithEmptyList" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerTurnMethodInClassGameWithCardAce" classname="test.Milestone2PublicTests" time="0.004">
+      <failure>java.lang.AssertionError: null occured while accessing method playPlayerTurn in class Game&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnMethodInClassGameWithCardAce(Milestone2PublicTests.java:14315)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayPlayerTurnMethodInClassGameWithCardTen" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: null occured while accessing method playPlayerTurn in class Game&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnMethodInClassGameWithCardTen(Milestone2PublicTests.java:14548)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateStepsIsCalledInMethodMoveByInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateMarbleSizeAbsentInWildClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassSevenDoesntDestroysMarblesInPathWhenMoving1Marble" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: nullexception.IllegalMovementException: Self-Blocking :- Cannot Destroy or Bypass Your Marbles occured while accessing method act in class Seven&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testActMethodInClassSevenDoesntDestroysMarblesInPathWhenMoving1Marble(Milestone2PublicTests.java:13945)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testvalidateFieldingBoardOccupiedCell" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActMethodInClassAceMovesMarble1Step" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateMarbleSizeAbsentInSaverClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodPresentInPlayerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSwapMethodBothMarblesNotOnTrackInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodInClassPlayerWithCardTen" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerActBurnerSelectedMarbles" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSwapInBoardClass" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: Marbles should be swaped&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at test.Milestone2PublicTests.testSwapInBoardClass(Milestone2PublicTests.java:5971)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateMarbleSizeInCardClassLogicFailCase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidatePathCase1InBoardClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testEditSplitDistanceMethodPresentInGameClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testIsFullExistenceInSafeZoneClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethodOtherPlayerMarbleBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardJackCaseEmptyListMarbleSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSendToSafeBoardOldLocation" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassTenMovesMarble10Steps" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetPositionInPathMarbleNotOnPathBoardClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testValidateMarbleColoursPresentInBurnerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSelectCardMethodPresentInGameClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetPositionInPathUpperBoundryBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodInClassPlayerWithCardSeven" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: nulljava.lang.ArrayIndexOutOfBoundsException: -1 occured while accessing method play in class Player&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayMethodInClassPlayerWithCardSeven(Milestone2PublicTests.java:14256)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testGetBasePositionMethodLogicInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testAceActEmptyExceptionThrown" classname="test.Milestone2PublicTests" time="0.006"/>
+    <testcase name="testSelectMarlbeMethodPresentInPlayerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testEndPlayerTurnGameNotClearingFirePit" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.null&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameNotClearingFirePit(Milestone2PublicTests.java:10506)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidatePathCheckingTheConditionOfDestoryIsFalseInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSwapMethodActivePlayerMarble2InBaseInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testEditSplitDistanceMethodInGameClassThrowsException" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethoReturnsOnTrackInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSelectMarbleMethodInGameClassThrowsException" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateDestroyNotFailCaseSafeMarble" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActTenEmptyRandomTest" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testGetNextPlayerColourInGame2" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInCardClassLogic" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testGetEntryPositionIsPrivateInClassBoard" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetBasePositionMethodNullColourInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColourMethodInJackClassLogicWithTwoMarbles" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testActIsPublicInSafeJackClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActTenEmptyMarblesEmptyHandException" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateStepsIsPrivateInClassBoard" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInSevenClassLogicWithOneMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInKingClassLogicWithNoMarble" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testDiscardCardInGameRandom" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSwapExistenceInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInAceClassLogicWithOneMarble" classname="test.Milestone2PublicTests" time="0.004"/>
+    <testcase name="testMoveBoardDestroyTargetTrap" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method move in class Board.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testMoveBoardDestroyTargetTrap(Milestone2PublicTests.java:8165)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testSendToSafeNotFailCaseSafeZoneMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardTenCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testActMethodInClassSevenMovesOneMarble7Steps" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testregainMarblePlayer" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActMethodInClassJacknMovesMarble11Steps" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSendHomeGameMarbleAddedToPlayer" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testFieldMarbleSendToBase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInQueenClassLogicFailCase" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateDestroyNotFailCaseSafeMarble2" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method validateDestroy in class Board.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testValidateDestroyNotFailCaseSafeMarble2(Milestone2PublicTests.java:7105)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testEndPlayerTurnGameClearingFirePit" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.null&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameClearingFirePit(Milestone2PublicTests.java:10435)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testIsFullMethodCaseNotFullInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeAbsentInFiveClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSendToBaseBoardOccupiedCell" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateMarbleSizeInAceClassLogicWithNoMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSavingNotFailCaseSafeZoneMarble" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testDeselectAllMethodInPlayerClassLogic" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateMarbleColourMethodInBurnerClassLogic" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSelectMarbleMethodPresentInGameClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testEditSplitDistanceMethodInGameClassThrowsExceptionSecond" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColourMethodInJackClassWithOneMarbleFail" classname="test.Milestone2PublicTests" time="0.003">
+      <failure>java.lang.AssertionError: The colour of marble is invalid&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at org.junit.Assert.assertFalse(Assert.java:64)&#13;
+	at test.Milestone2PublicTests.testValidateMarbleColourMethodInJackClassWithOneMarbleFail(Milestone2PublicTests.java:13192)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateStepsMethodReturn2SafeZonesCellsInBoardClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActSaverNotFailCaseSafeZone" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSendHomeInGameDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColourMethodInStandardClassLogic" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testGetOneMarblePlayer2" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInCardClassLogicFailCaseWithEmptyList" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testPlayMethodSelectedCardAceCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInJackClassLogicWithTwoMarbles" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDiscardCardInGameException" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerActSaver" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassSevenMovesTwoMarbles7Steps" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: nulljava.lang.ArrayIndexOutOfBoundsException: -1 occured while accessing method act in class Seven&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testActMethodInClassSevenMovesTwoMarbles7Steps(Milestone2PublicTests.java:13856)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testFieldMarbleInGameDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testEndPlayerTurnGameRefillingDeck" classname="test.Milestone2PublicTests" time="0.006">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.null&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameRefillingDeck(Milestone2PublicTests.java:10360)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidatePathCheckingTheLoopStartInBoardClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testSelectCardMethodInPlayerClassLogic" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActBurnerDestroyMarble" classname="test.Milestone2PublicTests" time="0.003">
+      <failure>java.lang.AssertionError: Act method should call destroyMarble in class board. expected:&lt;null&gt; but was:&lt;model.player.Marble@199069&gt;&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.failNotEquals(Assert.java:743)&#13;
+	at org.junit.Assert.assertEquals(Assert.java:118)&#13;
+	at test.Milestone2PublicTests.testActBurnerDestroyMarble(Milestone2PublicTests.java:8384)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateStepsMethoBackwardsOnTracknTrackInBoardClass" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testActMethodInClassCardIsAbstract" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testGetPositionInPathMethodExistenceInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColourMethodInJackClassLogicWithTwoMarblesFail" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: The colour of marbles should be different&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at org.junit.Assert.assertFalse(Assert.java:64)&#13;
+	at test.Milestone2PublicTests.testValidateMarbleColourMethodInJackClassLogicWithTwoMarblesFail(Milestone2PublicTests.java:13123)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayMethodSelectedCardKingCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInJackClassLogicWithNoMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursAbsentInStandardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateStepsMethodMovingOtherPlayerMarbleBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursPresentInFiveClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursAbsentInKingClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testMoveBoardOldLocation" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDiscardCardColourInGameRandom" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidateMarbleSizePresentInQueenClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSavingFailCasePositionOnTrackMarble" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: Expected InvalidMarbleException was not thrown&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testValidateSavingFailCasePositionOnTrackMarble(Milestone2PublicTests.java:7314)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testdestroyMarbleBoardSendHome" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDeselectAllMethodPresentInPlayerClass" classname="test.Milestone2PublicTests" time="0.004"/>
+    <testcase name="testGetNextPlayerColourExistenceInGameManagerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSwapExistenceInBoardManagerClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSwapMethodrMarble2NotOnTrackInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSendToBaseBoardSetMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInKingClassLogicFailCase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardNullCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testEndPlayerTurnGameAddingSelectedCardToFirepit" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameAddingSelectedCardToFirepit(Milestone2PublicTests.java:9887)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayPlayerTurnGameBurner" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method playPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnGameBurner(Milestone2PublicTests.java:8498)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateMarbleColoursAbsentInFourClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetEntryPositionMethodNullColourInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testSwapCallsValidateSwapInBoardClass" classname="test.Milestone2PublicTests" time="0.002">
+      <failure>java.lang.AssertionError: Expected IllegalSwapException was not thrown, validateSwap Method was not called&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testSwapCallsValidateSwapInBoardClass(Milestone2PublicTests.java:6089)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testEndPlayerTurnGameNotRefillingHands" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameNotRefillingHands(Milestone2PublicTests.java:10285)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testsendToBaseInBoardDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursAbsentInQueenClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardStandardCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testCheckWinNoWinnerGame" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateSavingFailCaseSafeZoneMarble" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: Expected InvalidMarbleException was not thrown&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at org.junit.Assert.assertTrue(Assert.java:41)&#13;
+	at test.Milestone2PublicTests.testValidateSavingFailCaseSafeZoneMarble(Milestone2PublicTests.java:7597)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateDestroyFailCasePositionInPath" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardSevenCaseEmptyListMarbleSize" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testPlayMethodSelectedCardSevenCaseMarbleSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInTenClassLogicFailCase" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testEndPlayerTurnGameRefillingHands" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameRefillingHands(Milestone2PublicTests.java:10148)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testSelectCardMethodInPlayerClassThrowsException" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayMethodSelectedCardJackCaseMarbleColour" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: Expected InvalidMarbleException was not thrown&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayMethodSelectedCardJackCaseMarbleColour(Milestone2PublicTests.java:12904)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayMethodSelectedCardStandardCaseMarbleColour" classname="test.Milestone2PublicTests" time="0.004"/>
+    <testcase name="testValidateStepsMethodTooHighRankOnEntryInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testPlayPlayerFailInvalidateMarbleColours" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidatePathIsCalledInMethodMoveByInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testIsFullMethodCaseFullInSafeZoneClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursAbsentInAceClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testPlayMethodInClassPlayerWithCardFive" classname="test.Milestone2PublicTests" time="0.001">
+      <failure>java.lang.AssertionError: nullexception.InvalidMarbleException: Invalid colours of marbles. occured while accessing method play in class Player&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayMethodInClassPlayerWithCardFive(Milestone2PublicTests.java:14190)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayMethodInClassPlayerWithCardJack" classname="test.Milestone2PublicTests" time="0.001"/>
+    <testcase name="testValidateMarbleColoursPresentInCardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColoursPresentInJackClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActExistenceInJackClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testSelectMarbleMethodInGameClassLogicWithListofOneMarble" classname="test.Milestone2PublicTests" time="0.003"/>
+    <testcase name="testValidatePathRemovingConditionSafeCellFromCase4InBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetSafeZoneMethodZoneNotFoundInBoardClass" classname="test.Milestone2PublicTests" time="0.002"/>
+    <testcase name="testValidatePathCheckingOnMarbleColorInsteadActivePlayerColorInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassFiveMovesMarble5Steps" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: null occured while accessing method act in class Five&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testActMethodInClassFiveMovesMarble5Steps(Milestone2PublicTests.java:13992)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateStepsMethodOnTrackOneStepIntoSafeZoneInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testActMethodInClassKingDestroysMarblesInPath" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerFailInvalidateMarblesSize" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testMoveBoardAssignNewTrapCell" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method move in class Board.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testMoveBoardAssignNewTrapCell(Milestone2PublicTests.java:8291)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidatePathCase2_1InBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testGetOneMarblePlayerEmpty" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInTenClassLogicWithNoMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleColourMethodInBurnerClassFail" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testEditSplitDistanceMethodInGameClassLogic" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizePresentInAceClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testDestroyMarbleFailCase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateMarbleSizeInJackClassFailCase" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerActSaverSelectedMarbles" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerTurnMethodInClassGameWithCardFive" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: null occured while accessing method playPlayerTurn in class Game&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnMethodInClassGameWithCardFive(Milestone2PublicTests.java:14489)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testPlayPlayerTurnMethodInClassGameWithCardJack" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: null occured while accessing method playPlayerTurn in class Game&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnMethodInClassGameWithCardJack(Milestone2PublicTests.java:14373)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testEndPlayerTurnGameDeselecting" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: class java.lang.reflect.InvocationTargetException occurred while accessing method endPlayerTurn in class Game.&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testEndPlayerTurnGameDeselecting(Milestone2PublicTests.java:10009)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testValidateSwapMethodMarblesNoneBasePositonsBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testValidateStepsMethodExistenceInBoardClass" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testPlayPlayerTurnMethodInClassGameWithCardSeven" classname="test.Milestone2PublicTests" time="0.0">
+      <failure>java.lang.AssertionError: null occured while accessing method playPlayerTurn in class Game&#13;
+	at org.junit.Assert.fail(Assert.java:88)&#13;
+	at test.Milestone2PublicTests.testPlayPlayerTurnMethodInClassGameWithCardSeven(Milestone2PublicTests.java:14431)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.lang.reflect.Method.invoke(Method.java:483)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testDiscardCardColourInGameDeclaration" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testFieldMarbleRemoveMarble" classname="test.Milestone2PublicTests" time="0.0"/>
+    <testcase name="testdestroyMarbleBoardMarblePosition" classname="test.Milestone2PublicTests" time="0.0"/>
+  </testsuite>
+  <testsuite name="test.Milestone1PrivateTests" time="0.147">
+    <testcase name="testCardInstanceVariablSuitIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testLoadCardPoolInDeckisVoid" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testAssignTrapCellAlwaysAddsNewTrap" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCellTypeInCellSetterLogic" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSafeZonesIsFinal" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassWildExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorfiveExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCardInstanceVariablDescriptionIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassQueenExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassStandardExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testInvalidCardExceptionConstructorInitializationCheck" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTrapInCellSetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackOfTypeArrayList" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testNameGetter" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testClassIsSubclassInvalidSelectionException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandOfTypeArrayList" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testStandardCardSuitModifiers2" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesSetterIsAbsent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationCurrentPlayerIndex" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testAceCardConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.006"/>
+    <testcase name="testCellInstanceVariableTrapGetterLogic" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testBoardInstanceVariableGameManagerIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableGameManagerIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testNameModifier3" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testColourIsEnum" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorCardExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardConstructorInitializationTrapCellsAreCorrect" classname="test.Milestone1PrivateTests" time="0.046"/>
+    <testcase name="testSplitOutOfRangeExceptionConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorIllegalMovementException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableTurnIsFinal" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesSetterIsAbsent" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testSizeLoadCardPoolInDeckReadingCSVLoadingWildCards" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testEmptyConstructorInvalidMarbleException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesOfTypeArrayListOfMarbles" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckisPublic" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testPlayerConstructorInitializationSelectedCardCorrect" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationMangerForBoard" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testDrawCardsInDeckReturn" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testGetterLogicForRankInClassStandard" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSetterForInstanceVariableSuitDoesNotExistInAnyClass" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testIllegalDestroyExceptionConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardManagerIsAnInterface" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testClassIsSubclassSplitOutOfRangeException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableColourIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableGameManagerSetterIsAbsent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesOfTypeArrayList" classname="test.Milestone1PrivateTests" time="0.001"/>
+    <testcase name="testConstructorQueenExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableMarblePresent" classname="test.Milestone1PrivateTests" time="0.001"/>
+    <testcase name="testCannotFieldExceptionConstructorInitializationCheck" classname="test.Milestone1PrivateTests" time="0.001"/>
+    <testcase name="testCPUInstanceVariableBoardManagerGetterIsAbsent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testDescriptionCardsLoadCardPoolInDeckReadingCSVLoadingWildCards" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testCardsPoolInDeckExistance" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCPUInstanceVariableBoardManagerIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSuitEnumValues" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testFourCardConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testJackCardConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardGetterExists" classname="test.Milestone1PrivateTests" time="0.005"/>
+    <testcase name="testGameInstanceVariablePlayersIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCardFileInDeckSetterIsAbsent" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testGameInstanceVariableBoardPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableNameGetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTestingKingIsSubClassOfStandrad" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCardInstanceVariableRankisFinal" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testClassIsSubclassInvalidMarbleException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandSetterExists" classname="test.Milestone1PrivateTests" time="0.001"/>
+    <testcase name="testCellsInSafeZoneType" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBurnerCardExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTestingFourIsSubClassOfStandrad" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayersInGameType" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassIsSubclassIllegalDestroyException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCardInstanceVariablGameManagerIsPresent" classname="test.Milestone1PrivateTests" time="0.003"/>
+    <testcase name="testPlayerInstanceVariableNameOfTypeString" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTestingAceIsSubClassOfStandrad" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesIsPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackGetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testWildIsSubClassOfCard" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testAssignTrapCellAlwaysAddsNewTrapSecond" classname="test.Milestone1PrivateTests" time="0.024"/>
+    <testcase name="testBoardInstanceVariableSafeZonesOfTypeArrayList" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableFirePitGetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorInvalidSelectionException" classname="test.Milestone1PrivateTests" time="0.008"/>
+    <testcase name="testGetterForInstanceVariableDescriptionDoesNotExistInWeaponSubClasses" classname="test.Milestone1PrivateTests" time="0.001"/>
+    <testcase name="testSafeZoneInstanceVariableCellsGetterLogic" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableCellTypePresent" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingStandardCards3" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testGameInstanceVariableTurnNoSetter" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testEmptyConstructorIllegalSwapException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableNameIsPresent" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testTypeOfTrapInCell" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameManagerModifier2" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCPUClassExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameConstructorExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassSaverExists" classname="test.Milestone1PrivateTests" time="0.015"/>
+    <testcase name="testGameInstanceVariableCurrentPlayerIndexIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testMarbleInstanceVariableColourPresent" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourOfTypeColour" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testCardsFileInDeckIsPrivate" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassIsSubclassCannotDiscardException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassFourExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourGetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSafeZoneConstructorExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSafeZonesGetterLogic" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testBoardConstructorExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorInvalidMarbleException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesIsFinal" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTestingtenIsSubClassOfStandrad" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testPlayerConstructorExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testIllegalMovementExceptionConstructorInitializationCheck" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testTurnInGameType" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testEmptyConstructorInvalidSelectionException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testMarbleConstructorExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testEmptyConstructorCannotFieldException" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSetterForInstanceVariableDescriptionDoesNotExistInAnyClass" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableBoardGetterLogic" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testConstructorTenExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testSaverCardConstructorInitialization" classname="test.Milestone1PrivateTests" time="0.002"/>
+    <testcase name="testCellTypeInCellGetterExists" classname="test.Milestone1PrivateTests" time="0.0"/>
+    <testcase name="testClassIsAbstractActionException" classname="test.Milestone1PrivateTests" time="0.002"/>
+  </testsuite>
+  <testsuite name="test.Milestone1PublicTests" time="0.156">
+    <testcase name="testBoardInstanceVariablehSafeZonesOfTypeArrayListOfSafeZone" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardFileInDeckOfType" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBurnerCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testConstructorWild" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorSplitOutOfRangeException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariableNameIsPresent" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testClassIsAbstractGameException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesGetterLogic" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testConstructorIllegalSwapException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableTurnNOGetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testInvalidMarbleExceptionConstructorInitializationCheck" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testClassFiveExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCurrentPlayerIndexInGameType" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGetterForInstanceVariableSuitDoesNotExistInWeaponSubClasses" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableBoardNoSetter" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testIllegalMovementExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableBoardIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testAssignTrapExistanceInClassBoard" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorInvalidCardException" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testGameInstanceVariableFirePitIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableFirePitPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTrapInCellSetterLogic2" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorCannotDiscardException" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCellTypeEnumValues" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testKingCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGetterLogicForDescriptionInClassStandard" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testBoardInstanceVariableTrackGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorSevenExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testColourEnumValues" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardConstructorInitializationSplittingDisctanceCorrect" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testInvalidCardExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testDrawCardsInDeckShufflesCards" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCellInstanceVariableCellTypeIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableNameGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testDrawCardsInDeckReturnsFourCards" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testMarbleConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInstanceVariableColourIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardsPoolInDeckOfType" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardsFileInDeckIsStatic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testSafeZoneConstructorInitializationColour" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableFirePitGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceOfTypeInt" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableColourNoSetter" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testConstructorJackExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorSaver" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSaverCardExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationFirePit" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testGameClassImplementsGameManagerInterface" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariableNameisFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsSubclassGameException" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckisStatic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariablePlayersIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorCannotFieldException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariableSuitiFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testColourValues" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingStandardCards1Rank" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testTestingfiveIsSubClassOfStandrad" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorIllegalDestroyException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableCellsNoSetter" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testPlayerInstanceVariableMarblesGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testQueenCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testGameInstanceVariableTurnIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorActionException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSetterForInstanceVariableRankDoesNotExistInAnyClass" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testSafeZoneInstanceVariableColourGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCannotDiscardExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariableDescriptionisFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSaverIsSubClassOfWild" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorAceExists" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testTrapInCellSetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testWildCardIsAnAbstractClass" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testSafeZoneInstanceVariableCellsIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableTrapIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGetterLogicForSuiteInClassStandard" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testFiveCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsSubclassActionException" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testConstructorBurner" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneConstructorInitializationCells" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellTypeInCellSetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorSplitOutOfRangeException" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testMarbleInstanceVariableColourIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableCurrentPlayerIndexNoSetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardConstructorInitializationGameManagerCorrect" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckThrowsIOException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableBoardIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationPlayersColours" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testBoardInstanceVariableSafeZonesSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerConstructorInitializationSelectedMarblesCorrect" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testAssignTrapIsPrivateInClassBoard" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationPlayersNames" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardOfTypeCard" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableCurrentPlayerIndexIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCardsPoolInDeckGetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariablBoardManagerIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationHandPlayers" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testTenCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorKingExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingMixCards" classname="test.Milestone1PublicTests" time="0.004"/>
+    <testcase name="testEmptyConstructorCannotDiscardException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorStandardExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCPUInstanceVariableBoardManagerIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableCellsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceSetterLogic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testGameManagerIsAnInterface" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testIllegalSwapExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testDescriptionGetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceGetterLogic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testClassIsSubclassIllegalSwapException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGetterLogicForNameInClassStandard" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testStandardCardRankModifiers1" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardClassExists" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testGameConstructorInitializationBoardMangers" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesGetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorIllegalMovementException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsSubclassIllegalMovementException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTestingsevenIsSubClassOfStandrad" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingMixCards2" classname="test.Milestone1PublicTests" time="0.006"/>
+    <testcase name="testSetterForInstanceVariableNameDoesNotExistInAnyClass" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableColourIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsSubclassInvalidCardException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorGameException" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testPlayerConstructorInitializationMarblesCorrect" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testNameCardsLoadCardPoolInDeckReadingCSVLoadingWildCards" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassBurnerExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testRankGetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCPUConstructorExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableColourIsFinal" classname="test.Milestone1PublicTests" time="0.005"/>
+    <testcase name="testCardsFileInDeckIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardsPoolInDeckIsPrivate" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testGameInstanceVariableBoardGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardConstructorInitializationTrackCorrect" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testClassTenExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableNameSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testStandardCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableGameManagerOfTypeGameManager" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableCellTypeGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorGameException" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testCPUInstanceVariableBoardManagerIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCodeCardsLoadCardPoolInDeckReadingCSVLoadingWildCards" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardDescriptionModifiers4" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testDrawCardsInDeckisStatic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableMarbleGetterLogic" classname="test.Milestone1PublicTests" time="0.004"/>
+    <testcase name="testgetSplitDistanceInBoardManagerInterface" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCannotDiscardExceptionConstructorInitializationCheck" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableColourGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInCellSetterLogic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testTypeOfMarbleInCell" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableCurrentPlayerIndexNOGetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableTurnPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableFirePitIsFinal" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariablePlayersGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsSubclassCannotFieldException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testIsCardAnAbstractClass" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariablehHandOfTypeArrayListOfCard" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCardsFileInDeckExistance" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTestingJackIsSubClassOfStandrad" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariablehTrackOfTypeArrayListOfCell" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariablePlayersPresent" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCannotFieldExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedCardGetterLogic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCPUConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableNameIsFinal" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testSplitOutOfRangeExceptionConstructorInitializationCheck" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTrapInCellGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardManagerModifier" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesOfTypeArrayList" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testGameInstanceVariableFirePitNoSetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInCellSetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationTurn" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testBoardConstructorInitializationSafeZonesCorrect" classname="test.Milestone1PublicTests" time="0.006"/>
+    <testcase name="testPlayerConstructorInitializationHandCorrect" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableMarblesOfTypeArrayListOfMarbles" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testBoardInGameType" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testGameInstanceVariablePlayersGetterLogic" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testClassCardExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testColourInMarbleType" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableCellsGetterExists" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingStandardCards1" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testLoadCardPoolInDeckReadingCSVLoadingStandardCards2" classname="test.Milestone1PublicTests" time="0.004"/>
+    <testcase name="testPlayerInstanceVariableNameIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testColourInSafeZoneType" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testInvalidMarbleExceptionConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellConstructorExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSafeZonesIsPresent" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testBoardInstanceVariableSafeZonesIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableGameManagerGetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassJackExists" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCellTypeIsEnum" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTestingQueenIsSubClassOfStandrad" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorfourExists" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testPlayerInstanceVariableHandIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardInstanceVariablRankIsPresent" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testBoardInstanceVariableGameManagerIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testEmptyConstructorInvalidCardException" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testBurnerIsSubClassOfWild" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInstanceVariableColourGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableSelectedMarblesIsFinal" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testFrequencyCardsLoadCardPoolInDeckReadingCSVLoadingWildCards" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testCellInstanceVariableMarbleGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameInstanceVariableCurrentPlayerIndexPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSplitDistanceSetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardsPoolInDeckIsStatic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInstanceVariableColourGetterExists" classname="test.Milestone1PublicTests" time="0.004"/>
+    <testcase name="testGameInstanceVariablePlayersNoSetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorActionException" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testCellInstanceVariableTrapPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testMarbleInstanceVariableColourNoSetter" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testCardsFileInDeckValue" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testFirePitInGameType" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTypeOfCellTypeInCell" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassAceExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardImplementsBoardManager" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCPUSubToPlayer" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testSuitGetter" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableSafeZonesGetterExists" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGetterForInstanceVariableRankDoesNotExistInWeaponSubClasses" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testSuitIsEnum" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandSetterLogic" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testSevenCardConstructorInitialization" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardFileInDeckGetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackIsPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testBoardInstanceVariableTrackIsPrivate" classname="test.Milestone1PublicTests" time="0.002"/>
+    <testcase name="testGetterForInstanceVariableNameDoesNotExistInWeaponSubClasses" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testPlayerInstanceVariableHandGetterLogic" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassIsAbstractInvalidSelectionException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testDrawCardsInDeckRemovedCardsCards" classname="test.Milestone1PublicTests" time="0.003"/>
+    <testcase name="testIllegalDestroyExceptionConstructorInitializationCheck" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testWildCardExists" classname="test.Milestone1PublicTests" time="0.001"/>
+    <testcase name="testPlayerInstanceVariableColourGetterLogicCase1" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testTestingStandardIsSubClassOfCard" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testIllegalSwapExceptionConstructorInitializationCheck" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCellInstanceVariableMarbleIsPrivate" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testGameConstructorInitializationGameMangers" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCardsPoolInDeckSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testConstructorIllegalDestroyException" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableColourPresent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testCPUInstanceVariableBoardManagerSetterIsAbsent" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testSafeZoneInstanceVariableCellsIsFinal" classname="test.Milestone1PublicTests" time="0.0"/>
+    <testcase name="testClassKingExists" classname="test.Milestone1PublicTests" time="0.0"/>
+  </testsuite>
+</testrun>

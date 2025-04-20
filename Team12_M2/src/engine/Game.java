@@ -68,7 +68,7 @@ public class Game implements GameManager {
     
     public void deselectAll() throws InvalidCardException, InvalidMarbleException {
     	
-    	Player currentPlayer = this.players.get(0);
+    	Player currentPlayer = this.players.get(currentPlayerIndex);
     	currentPlayer.selectCard(null);
     	currentPlayer.selectMarble(null);
     }
@@ -82,11 +82,13 @@ public class Game implements GameManager {
     
     public boolean canPlayTurn(){
     	
-    	if (players.get(currentPlayerIndex).getHand().size()==0) return false;  //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
+    	if (players.get(currentPlayerIndex).getHand().size()==0) {return false ;} //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
+    	else if (this.turn + this.players.get(currentPlayerIndex).getHand().size() == 5) {return false ;}
     	return true;
     }
     
     public void playPlayerTurn() throws GameException {
+    	
         if (!canPlayTurn()) {
             endPlayerTurn();
             return;
@@ -127,11 +129,12 @@ public class Game implements GameManager {
     }
     
     public Colour checkWin(){
+    	
     	for(int i=0; i<this.board.getSafeZones().size();i++){
-    		if(this.board.getSafeZones().get(i).isFull()){
-    			return this.board.getSafeZones().get(i).getColour();
-    		}
+    		
+    		if(this.board.getSafeZones().get(i).isFull()){return this.board.getSafeZones().get(i).getColour();}
     	}
+    	
     	return null;
     }
     
@@ -152,7 +155,7 @@ public class Game implements GameManager {
     
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
     	
-    	if (players.get(currentPlayerIndex).getMarbles().get(0)==null)
+    	if (players.get(currentPlayerIndex).getMarbles().size() == 0)
     		
     		throw new CannotFieldException();
     	
@@ -163,7 +166,6 @@ public class Game implements GameManager {
     			players.get(currentPlayerIndex).getMarbles().remove(0);
     		}
     		
-    		catch (CannotFieldException e){}
     		catch (IllegalDestroyException e){}
     	}
     }
