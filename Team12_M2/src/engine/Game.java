@@ -117,7 +117,7 @@ public class Game implements GameManager {
     		
     		for (int i = 0 ; i < this.players.size() ; i++) {
     			
-    			if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit);}
+    			if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit); this.firePit.clear();}
     			
     			players.get(i).setHand(Deck.drawCards());
     		}

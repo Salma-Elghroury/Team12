@@ -15,14 +15,9 @@ public class Saver extends Wild {
         super(name, description, boardManager, gameManager);
     }
     
-  //Milestone 2 Methods
+    //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
+    //Calls super.validateMarbleSize
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	

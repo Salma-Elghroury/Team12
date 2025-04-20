@@ -17,12 +17,7 @@ public class Five extends Standard {
     
     //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
+    //Calls super.validateMarbleSize
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	

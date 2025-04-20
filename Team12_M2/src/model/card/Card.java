@@ -30,29 +30,24 @@ public abstract class Card {
     
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
-    	if (marbles.size() == 0 || marbles.size() == 1 || marbles.size() == 2 || marbles.size() == 3) {
-    		
-    		return true;
-    	}
+    	if (marbles.size() == 1) {return true;}
     	
     	else {return false;}
     }
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	
-    	boolean flag = true ;
+    	Colour playerColour = this.gameManager.getActivePlayerColour();
     	
-    	for (int i = 0 ; i < marbles.size() ; i = 0) {
+    	for (int i = 0 ; i < marbles.size() ; i++) {
     		
-    		if (marbles.get(i).getColour() != Colour.BLUE || marbles.get(i).getColour() != Colour.GREEN || 
-    		    marbles.get(i).getColour() != Colour.RED || marbles.get(i).getColour() != Colour.YELLOW) {
+    		if (marbles.get(i).getColour() != playerColour) {
     			
-    			flag = false ; break;
+    			return false ;
     		}
-    		
     	}
     	
-    	return flag;
+    	return true ;	
     	
     }
     

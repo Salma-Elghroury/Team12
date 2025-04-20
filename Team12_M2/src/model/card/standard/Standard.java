@@ -26,28 +26,7 @@ public class Standard extends Card {
     
     //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
-    
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
-    		
-    		if (marbles.get(i).getColour() != playerColour) {
-    			
-    			return false ;
-    		}
-    	}
-    	
-    	return true ;	
-    	
-    }
+    //Calls super.validateMarbleSize and super.validateMarbleColours
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	

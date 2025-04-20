@@ -60,10 +60,11 @@ public class Player {
     }
     
     public void selectMarble(Marble marble) throws InvalidMarbleException {
-   	 if (this.selectedMarbles.size() >= 2) {
-   	        throw new InvalidMarbleException("Cannot select more than two marbles.");
-   	    }
-   	this.selectedMarbles.add(marble);
+    	
+   	 if (this.selectedMarbles.size() >= 2) {throw new InvalidMarbleException("Cannot select more than two marbles.");}
+   	 
+   	 else if (!(selectedMarbles.contains(marble))) {this.selectedMarbles.add(marble);} //Don't select an already selected marble
+   	 
    }
     
     public void deselectAll() {

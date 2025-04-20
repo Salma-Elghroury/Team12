@@ -25,21 +25,7 @@ public class Ace extends Standard {
     	else {return false;}
     }
     
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
-    		
-    		if (marbles.get(i).getColour() != playerColour) {
-    			
-    			return false ;
-    		}
-    	}
-    	
-    	return true ;	
-    	
-    }
+  //Calls super.validateMarbleColours
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
