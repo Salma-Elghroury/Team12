@@ -102,9 +102,10 @@ public class Board implements BoardManager {
     
     private int getEntryPosition(Colour colour) {
         ArrayList<SafeZone> safeZones = this.getSafeZones();
-        int entryPosition = 23; 
+        int entryPosition = -2;
         for (int i = 0; i < safeZones.size(); i++, entryPosition += 25) {
             if (safeZones.get(i).getColour() == colour) {
+            	if (entryPosition == -2) return 98;
                 return entryPosition;
             }
         }
@@ -113,11 +114,13 @@ public class Board implements BoardManager {
     
     private ArrayList<Cell> validateSteps(Marble marble, int steps) throws IllegalMovementException{
     	
-    	Colour colour = this.gameManager.getActivePlayerColour();
+    	//switch colour case when doing tests. The first is for the J unit and the second for manual
+    	
+    	//Colour colour = this.gameManager.getActivePlayerColour();
+    	Colour colour = Colour.GREEN;
     	SafeZone safeZone = null;
     	
     	for (int i=0 ; i < safeZones.size() ; i++)
-    		
     		if (safeZones.get(i).getColour() == colour) {safeZone = safeZones.get(i) ;}
     	
     	ArrayList<Cell> path = new ArrayList<Cell>();
@@ -208,46 +211,66 @@ public class Board implements BoardManager {
     
    private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
 	   
-	   //Self-Blocking
+	   int marblesInTheWay = 0;
 	   
-	   if (fullPath.contains(marble) && fullPath.indexOf(marble) != 0 && destroy == false) {
+	   //switch colour case when doing tests. The first is for the J unit and the second for manual
+	   //Delete system.out.println when method is all good
+	   
+	   //Colour colour = this.gameManager.getActivePlayerColour();
+	   Colour colour = Colour.GREEN;
+	   
+	   for (int i=1; i<fullPath.size(); i++){
 		   
-		   throw new IllegalMovementException ("Self-Blocking :- Cannot Destroy or Bypass Your Marbles");
-	   }
-	   
-	   //Path-Blockage
-	   
-	   for (int i = 1 ; i < fullPath.size() ; i++) {
-		   
-		   if (fullPath.get(i) != null && destroy == false) {
+		   if (fullPath.get(i).getMarble()!=null){
 			   
-			   throw new IllegalMovementException ("Path Blockage :- Cannot Bypass Any Marble in Path");
+			   System.out.println("Marble found at "+i);
+			   
+			   Colour colourOfMarble = fullPath.get(i).getMarble().getColour();
+			   
+			   System.out.println("Marble colour: "+colourOfMarble+"\nMoving colour: "+colour);
+			   
+			   System.out.println();
+			   
+			   if (fullPath.get(i).getCellType()==CellType.SAFE)
+				   throw new IllegalMovementException("Can not destroy marble in SafeZone");
+			   
+			 //Self-Blocking
+			   
+			   if (colourOfMarble==colour && destroy==false)
+				   throw new IllegalMovementException("Self-Blocking :- Cannot Destroy or Bypass Your Marbles");
+			   
+			 //Base Cell Blockage   
+			   
+			   if (fullPath.get(i).getCellType()==CellType.BASE){
+				   Cell base = track.get(this.getBasePosition(colourOfMarble));
+				   if (base==fullPath.get(i))
+					   throw new IllegalMovementException ("Base Cell Blockage :- Cannot Bypass Other Players' Marbles if Placed in Your Base Cell");
+			   }
+				   
+			   
+			 ////Safe Zone Entry
+			   
+			   if (fullPath.get(i).getCellType()==CellType.ENTRY && destroy==false){
+				   if (i!=fullPath.size()-1 && fullPath.get(i+1).getCellType()==CellType.SAFE){
+					   System.out.println("Entry found");
+					   Cell entry = track.get(this.getEntryPosition(colour));
+					   if (entry==fullPath.get(i))
+						   throw new IllegalMovementException ("Safe Zone Entry :- Can not enter Safe Zone");
+				   }
+				   
+			   }
+				   
+			   if (i!=fullPath.size()-1) marblesInTheWay++;
 			   
 		   }
-	   }
-	   
-	   //Safe Zone Entry
-	   
-	   if (safeZones.get(0) != null) {
 		   
-		   throw new IllegalMovementException ("Safe Zone Entry :- Safe Zone Marbles Cannot be Bypassed or Destroyed (Even if King)");
-	   }
-	   
-	   //Base Cell Blockage
-	   
-	   int basePosition = this.getBasePosition(marble.getColour());
-	   Cell playerBase = this.track.get(basePosition);
-	   
-	   for (int i = 1 ; i < fullPath.size() ; i++) {
+		   	//Path-Blockage
 		   
-		   if (fullPath.contains(playerBase) && fullPath.get(fullPath.indexOf(playerBase)) != null && 
-				   fullPath.get(fullPath.indexOf(playerBase)).getMarble().getColour() != marble.getColour()) {
-			   
-			   throw new IllegalMovementException ("Base Cell Blockage :- Cannot Bypass Other Players' Marbles if Placed in Your Base Cell");
-			   
-		   }
-    	
-    	}
+		   if (marblesInTheWay>1 && destroy==false)
+			   throw new IllegalMovementException ("Path Blockage :- There is more than 1 Marble in Path");
+		   
+		   
+	   }
 	   
    }
     
@@ -442,6 +465,24 @@ public class Board implements BoardManager {
     			list.add(safeZone.getCells().get(i).getMarble());
     	
     	return list;
+    }
+    
+    public static void main(String[]args) throws IllegalMovementException{
+    	// Testing validatePath case marble blocking safe zone entry
+    	ArrayList<Colour> colourOrder = new ArrayList<Colour>();
+    	colourOrder.add(Colour.BLUE);
+    	colourOrder.add(Colour.GREEN);
+    	colourOrder.add(Colour.RED);
+    	colourOrder.add(Colour.YELLOW);
+    	Board board = new Board(colourOrder,null);
+    	Marble marble1 = new Marble(Colour.YELLOW); //marble in the way
+    	board.track.get(23).setMarble(marble1);
+    	Marble moving = new Marble(Colour.GREEN); //marble moving
+    	board.track.get(22).setMarble(moving);
+    	ArrayList<Cell> path = new ArrayList<Cell>();
+    	path = board.validateSteps(moving,2);
+    	System.out.println(path);
+    	board.validatePath(moving, path, false);
     }
     
 }
