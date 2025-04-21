@@ -341,14 +341,11 @@ public class Board implements BoardManager {
 	}
     
    private void validateDestroy(int positionInPath) throws IllegalDestroyException {
-       
-       if(positionInPath == -1){throw new IllegalDestroyException("The marble is not in the track");}
-       
-       Cell cellInPath  = this.track.get(positionInPath);
-       if (!isInTrack(cellInPath.getMarble())) {
-           throw new IllegalDestroyException("The marble is not on the track.");
-       }
-       if (isInBase(cellInPath.getMarble())) {throw new IllegalDestroyException("The marble is in its Base Cell.");}
+       if(positionInPath == -1)
+         {throw new IllegalDestroyException("The marble is not in the track");}
+       Marble marble = track.get(positionInPath).getMarble(); //marble to be destroyed
+       if (positionInPath == getBasePosition(marble.getColour())) 
+         {throw new IllegalDestroyException("The marble is safe in its Base Cell.");}
    }
     
    private void validateFielding(Cell occupiedBaseCell) throws CannotFieldException {
@@ -358,17 +355,8 @@ public class Board implements BoardManager {
 	    }}// in the game description also mentioned to make sure that there are available marbles in the home zone bs it wasnt mentioned fe el method
     
    private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
-	    if (track.get(positionOnTrack).getMarble() == null) {
-	        throw new InvalidMarbleException("The selected marble is not on the track.");
-	    }
-	    Marble marble = track.get(positionOnTrack).getMarble();
-	    ArrayList<Cell> safeZone = getSafeZone(marble.getColour());
-	        Cell targetCell = safeZone.get(positionInSafeZone);
-	        if (targetCell.getMarble() != null) {
-	            if (targetCell.getMarble().equals(marble)) {
-	                throw new InvalidMarbleException("The selected marble is already in the Safe Zone cell.");
-	            }
-	        }
+	   if(positionOnTrack ==-1)  throw new InvalidMarbleException("The selected marble is not on the track.");
+	   if(positionInSafeZone!=-1) throw new InvalidMarbleException("The selected marble is already in the Safe Zone cell.");
 	    }
    
    public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
@@ -378,63 +366,48 @@ public class Board implements BoardManager {
        move(marble,path,destroy); } // not sure lw correct
    
    
-    public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
-    	
-    	try{
-    		validateSwap(marble_1,marble_2);
-    		Marble temp = marble_1;
-    		marble_1 = marble_2;
-    		marble_2 = temp;
-    	}
-    	
-    	catch (IllegalSwapException e) {
-    		System.out.println(e.getMessage());
-    	}
-    }
+   public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
+	   
+   	  validateSwap(marble_1,marble_2);
+   	  int position_1 = getPositionInPath(this.track, marble_1);
+   	  int position_2 = getPositionInPath(this.track, marble_2);
+      this.track.get(position_1).setMarble(marble_2);	
+      this.track.get(position_2).setMarble(marble_1);	
+   }
     
-    public void destroyMarble(Marble marble) throws IllegalDestroyException {
-    	
-    	int marblePosition = this.getPositionInPath(this.track, marble);
-    		
-    		if (this.gameManager.getActivePlayerColour() != marble.getColour()) {this.validateDestroy(marblePosition);}
-    		
-    		this.track.get(marblePosition).setMarble(null);
-    		this.gameManager.sendHome(marble);
-    	
-    }
+   public void destroyMarble(Marble marble) throws IllegalDestroyException {
+   	if (this.gameManager.getActivePlayerColour()!= marble.getColour()) {
+       	int marblePosition = this.getPositionInPath(this.track, marble);
+       	validateDestroy(marblePosition);
+       	this.track.get(marblePosition).setMarble(null);
+       	this.gameManager.sendHome(marble);
+   	}
+   	else throw new IllegalDestroyException("You cannot destroy your marbles!");	
+   }
     
- public void sendToBase(Marble marble) throws CannotFieldException, IllegalDestroyException {
-	 
+    public void sendToBase(Marble marble) throws CannotFieldException, IllegalDestroyException {
+   	 
 	    int base = getBasePosition(marble.getColour());
-	    
-		try{
-			 validateFielding(this.track.get(base));
-			 if(this.track.get(base).getMarble()!=null){
-				 destroyMarble(this.track.get(base).getMarble()); 
+		validateFielding(this.track.get(base));
+		if(this.track.get(base).getMarble()!=null){
+			destroyMarble(this.track.get(base).getMarble()); 
 			 }
-			 
-			 this.track.get(base).setMarble(marble);
-		}
-		
-		catch(CannotFieldException e){
-			throw new CannotFieldException("Base cell is already occupied by your marbles.");
-		}
+		this.track.get(base).setMarble(marble);
  }
     
- public void sendToSafe(Marble marble) throws InvalidMarbleException {
+ public void sendToSafe(Marble marble) throws InvalidMarbleException{
 	    int currentPosition = getPositionInPath(track, marble);
-	    ArrayList<Cell> safeCells = getSafeZone(marble.getColour());
-	    ArrayList<Cell> emptyCells = new ArrayList<>();
-	    for (int i = 0; i < safeCells.size(); i++) {
-         if (safeCells.get(i).getMarble() == null) {
-         	emptyCells.add(safeCells.get(i));
-	    }}
-	Cell targetCell = emptyCells.get((int) (Math.random() * emptyCells.size()));
- int targetIndexInSafeCells = safeCells.indexOf(targetCell);
-	validateSaving(targetIndexInSafeCells, currentPosition);
-	track.get(currentPosition).setMarble(null); 
-	targetCell.setMarble(marble);                     
-	}
+	    ArrayList<Cell> safeZone = getSafeZone(marble.getColour());
+	    int positionInSafe = getPositionInPath(safeZone, marble);
+	    validateSaving(positionInSafe, currentPosition);
+	    for(int i=0; i<safeZone.size(); i++){
+	    	if(safeZone.get(i).getMarble()==null){
+	    		safeZone.get(i).setMarble(marble);
+	    		break;
+	    	}
+	    }
+	    this.track.get(currentPosition).setMarble(null);
+}
  
     
     public ArrayList<Marble> getActionableMarbles(){
