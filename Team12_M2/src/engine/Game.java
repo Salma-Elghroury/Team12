@@ -55,10 +55,8 @@ public class Game implements GameManager {
     //Milestone 2 Methods
     
     public void selectCard(Card card) throws InvalidCardException {
+    	players.get(currentPlayerIndex).selectCard(card);
     	
-    	try {players.get(currentPlayerIndex).selectCard(card);}
-    	
-    	catch (InvalidCardException e){System.out.println(e.getMessage());}
     }
     
     public void selectMarble(Marble marble) throws InvalidMarbleException {
@@ -67,11 +65,8 @@ public class Game implements GameManager {
     }
     
     public void deselectAll() throws InvalidCardException, InvalidMarbleException {
-    	
-    	Player currentPlayer = this.players.get(currentPlayerIndex);
-    	currentPlayer.selectCard(null);
-    	currentPlayer.selectMarble(null);
-    }
+   	 this.players.get(currentPlayerIndex).deselectAll();
+   }
     
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
     	
@@ -81,28 +76,30 @@ public class Game implements GameManager {
     }
     
     public boolean canPlayTurn(){
-    	
-    	if (players.get(currentPlayerIndex).getHand().size()==0) {return false ;} //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
-    	else if (this.turn + this.players.get(currentPlayerIndex).getHand().size() == 5) {return false ;}
-    	return true;
+    	if(this.turn + this.players.get(currentPlayerIndex).getHand().size() == 4) return true;
+    	else return false;
+    	//if (players.get(currentPlayerIndex).getHand().size()==0) {return false ;} //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
+    	//else if () {return false ;}
+    	//return true;
     }
     
-    public void playPlayerTurn() throws GameException {
+public void playPlayerTurn() throws GameException {
     	
         if (!canPlayTurn()) {
             endPlayerTurn();
             return;
         }
         Colour activeColour = getActivePlayerColour();
-        for (int i = 0; i < players.size(); i++) {
+        players.get(currentPlayerIndex).play();
+       /* for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getColour() == activeColour) {
                 players.get(i).play();
             }
-        }
+        }*/
         endPlayerTurn();
     }
     
-    public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
+public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
     	
     	Player currentPlayer = this.players.get(currentPlayerIndex);
     	
@@ -110,21 +107,17 @@ public class Game implements GameManager {
     	
     	this.deselectAll();
     	
-    	if (this.currentPlayerIndex < this.players.size()) {this.currentPlayerIndex ++ ; turn ++ ;}
+    	if (this.currentPlayerIndex < this.players.size()-1) {this.currentPlayerIndex ++ ;}
     	
-    	else {
-    		
-    		this.currentPlayerIndex = 0 ; 
-    		turn = 0 ; 
-    		
-    		for (int i = 0 ; i < this.players.size() ; i++) {
-    			
-    			if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit); this.firePit.clear();}
-    			
+    	else {this.currentPlayerIndex = 0 ; turn++;}
+
+    	if(turn==4) {
+			turn =0;
+			for (int i = 0 ; i < this.players.size() ; i++) {
+				if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit); this.firePit.clear();}
     			players.get(i).setHand(Deck.drawCards());
     		}
-    	
-    	}
+		}
     	
     }
     
