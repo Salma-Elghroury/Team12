@@ -30,9 +30,9 @@ public class Standard extends Card {
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {
+    	if (marbles.size() == 1 && this.validateMarbleColours(marbles) && marbles.get(0) != null) {
     		
-    		this.boardManager.moveBy(marbles.get(0), this.rank , false);
+    		this.boardManager.moveBy(marbles.get(0),this.getRank(),false);
     		
     	}
     	

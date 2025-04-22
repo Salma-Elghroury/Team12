@@ -19,26 +19,11 @@ public class Five extends Standard {
     
     //Calls super.validateMarbleSize
     
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	boolean flag = true ;
-    	
-    	for (int i = 0 ; i < marbles.size() ; i = 0) {
-    		
-    		if (marbles.get(i).getColour() != Colour.BLUE || marbles.get(i).getColour() != Colour.GREEN || 
-    		    marbles.get(i).getColour() != Colour.RED || marbles.get(i).getColour() != Colour.YELLOW) {
-    			
-    			flag = false ; break;
-    		}
-    		
-    	}
-    	
-    	return flag;
-}
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {return true ;}
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1) {this.boardManager.moveBy(marbles.get(0),5,false);}
+    	if (marbles.size() == 1) {super.act(marbles);}
     	
     	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }

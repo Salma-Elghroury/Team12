@@ -28,6 +28,8 @@ public abstract class Card {
 
     public String getDescription() {return description;}
     
+    //Milestone 2 Methods
+    
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
     	if (marbles.size() == 1) {return true;}

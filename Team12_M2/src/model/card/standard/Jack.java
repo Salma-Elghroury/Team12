@@ -26,24 +26,28 @@ public class Jack extends Standard {
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	Marble playerMarble = new Marble (playerColour);
-    	int myMarbles = 0 ;
-    	boolean flag = true ;
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
+    	if (marbles.size() != 1) {
     		
-    		if (myMarbles > 1) {flag = false ; break ;} 
-    		else if (marbles.get(i) == playerMarble) {myMarbles ++ ;}
+    		Colour playerColour = this.gameManager.getActivePlayerColour();
+    		int playerMarbles = 0 ;
+    	
+    		for (int i = 0 ; i < marbles.size() ; i++) {
+    			
+    			if (marbles.get(i).getColour() == playerColour) {playerMarbles ++ ;}
     	}
     	
-    	return flag ;
+    		if (playerMarbles > 1) {return false ;}
+    		else {return true ;}
+    	
+    	}
+    	
+    	else {return super.validateMarbleColours(marbles);}
     	
     }
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {super.act(marbles);}
+    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {this.boardManager.moveBy(marbles.get(0),11,false);}
     	
     	else if (marbles.size() == 2 && this.validateMarbleColours(marbles)) {
     		
