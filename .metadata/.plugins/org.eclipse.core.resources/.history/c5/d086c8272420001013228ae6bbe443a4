@@ -259,7 +259,12 @@ public class Board implements BoardManager {
 				   
 				   if (i != fullPath.size()-1 && fullPath.get(i+1).getCellType()==CellType.SAFE){
 					   
-					   throw new IllegalMovementException ("Safe Zone Entry :- Can not enter Safe Zone");
+					   System.out.println("Entry found");
+					   Cell entry = track.get(this.getEntryPosition(colour));
+					   
+					   if (entry == fullPath.get(i))
+						   
+						   throw new IllegalMovementException ("Safe Zone Entry :- Can not enter Safe Zone");
 				   }
 				   
 			   }
