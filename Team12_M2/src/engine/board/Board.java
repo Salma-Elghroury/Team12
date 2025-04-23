@@ -275,13 +275,13 @@ public class Board implements BoardManager {
 	   
    }
     
-   private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException {
+   private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException, IllegalMovementException {
 		
-	   int position = getPositionInPath(fullPath, marble);
+	  // int position = getPositionInPath(fullPath, marble);
 	    	
 	   //remove from current cell
-	    	
-	   fullPath.get(position).setMarble(null); 
+	   	
+	   fullPath.get(0).setMarble(null); 
 	    	
 	   //handle king
 	    	
@@ -343,16 +343,18 @@ public class Board implements BoardManager {
     
    private void validateDestroy (int positionInPath) throws IllegalDestroyException {
 	   
-       if (positionInPath < 0)
+       if (positionInPath ==-1 )
     	   
          {throw new IllegalDestroyException("The marble is not in the track");}
        
        
-       Marble marble = track.get(positionInPath).getMarble(); //marble to be destroyed
+      // Marble marble = track.get(positionInPath).getMarble(); //marble to be destroyed
        
-       if (this.isInBase(marble)) 
+       if (positionInPath == getBasePosition(track.get(positionInPath).getMarble().getColour())  )
     	   
-         {throw new IllegalDestroyException("The marble is safe in its Base Cell.");}
+         {throw new IllegalDestroyException("The marble is safe in its Base Cell.");} 
+      
+      
    }
     
    private void validateFielding(Cell occupiedBaseCell) throws CannotFieldException {
@@ -393,8 +395,9 @@ public class Board implements BoardManager {
    		
        	int marblePosition = this.getPositionInPath(this.track, marble);
        	
-       	try {validateDestroy(marblePosition);}
-       	catch (IllegalDestroyException d) {throw d ;}
+       	validateDestroy(marblePosition);
+       	/*try {}
+       	catch (IllegalDestroyException d) {throw d ;}*/
        	
        	this.track.get(marblePosition).setMarble(null);
        	this.gameManager.sendHome(marble);
@@ -453,7 +456,7 @@ public class Board implements BoardManager {
     	return list;
     }
     
-    public static void main(String[]args) throws IllegalMovementException{
+    /*public static void main(String[]args) throws IllegalMovementException{
     	// Testing validatePath case marble blocking safe zone entry
     	ArrayList<Colour> colourOrder = new ArrayList<Colour>();
     	colourOrder.add(Colour.BLUE);
@@ -469,6 +472,6 @@ public class Board implements BoardManager {
     	path = board.validateSteps(moving,2);
     	System.out.println(path);
     	board.validatePath(moving, path, false);
-    }
+    }*/
     
 }

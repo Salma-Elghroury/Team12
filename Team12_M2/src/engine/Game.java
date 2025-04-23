@@ -141,7 +141,8 @@ public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException 
     		if(allPlayers.get(i).getColour() == marble.getColour()) {
     			
     			player = allPlayers.get(i);
-    			player.getMarbles().add(marble);
+    			player.regainMarble(marble);
+    			break;
     		}
     	}
     }

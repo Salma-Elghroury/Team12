@@ -48,7 +48,7 @@ public class Player {
     
     //Milestone 2 Methods
     
-    public void regainMarble(Marble marble) {this.getMarbles().add(marble) ;}
+    public void regainMarble(Marble marble) {this.marbles.add(marble) ;}
     
     public Marble getOneMarble() {
     	
