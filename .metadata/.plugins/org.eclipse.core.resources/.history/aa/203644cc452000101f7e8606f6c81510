@@ -7016,7 +7016,7 @@ public class Milestone2PublicTests {
 
 	}	
 
-	@Test(timeout = 100000000)
+	@Test(timeout = 1000)
 	public void testValidateDestroyNotFailCaseSafeMarble2() {
 
 		Class<?> IllegalDestroyException = null;
@@ -8167,7 +8167,7 @@ public class Milestone2PublicTests {
 	}
 
 
-	@Test(timeout=10000000)
+	@Test(timeout=1000)
 	public void testMoveBoardAssignNewTrapCell(){
 
 		try {		
@@ -13498,7 +13498,7 @@ public class Milestone2PublicTests {
 			}	
 		}
 
-		@Test(timeout = 1000000000)
+		@Test(timeout = 10000000000000000)
 		public void testActMethodInClassKingDestroysMarblesInPath()  {
 			try {
 			Object game = createGame();

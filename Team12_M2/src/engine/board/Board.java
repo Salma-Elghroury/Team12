@@ -278,38 +278,42 @@ public class Board implements BoardManager {
 	    	
 	   //remove from current cell
 	   	
-	   fullPath.get(0).setMarble(null); 
+	   
 	    	
 	   //handle king
 	    	
 	   if(destroy){
 	    		
-		   for(int i=1 ; i < fullPath.size() ; i++){
+		   for(int i=0 ; i < fullPath.size() ; i++){
 	    			
 			   if (fullPath.get(i).getMarble() != null) {destroyMarble(fullPath.get(i).getMarble());}
 			   
 	    		}
-	    	}
+	    	}else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
+	 		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
+//	 		   fullPath.get(fullPath.size()-1).setMarble(marble);
+	 	   }
 	    	
 	   //places the marble in the calculated target cell and handles traps
 	    	
 	   if(fullPath.get(fullPath.size() - 1).isTrap()) {
 	    		
-		   try{
+		   
 			   destroyMarble(marble);
 			   fullPath.get(fullPath.size()-1).setTrap(false);
 			   this.assignTrapCell();
-		   }
-		   catch (IllegalDestroyException d) {throw d ;}
+		   
 		   
 	    }
 	   
-	   else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
-		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
-		   fullPath.get(fullPath.size()-1).setMarble(marble);
-	   }
+//	   else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
+//		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
+//		   fullPath.get(fullPath.size()-1).setMarble(marble);
+//	   }
 	    	
 	   else fullPath.get(fullPath.size()-1).setMarble(marble);
+	   
+	   fullPath.get(0).setMarble(null); 
 	}
     
    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
@@ -374,11 +378,9 @@ public class Board implements BoardManager {
 	   
 	   ArrayList<Cell> path = validateSteps(marble,steps);
 	   
-       try {validatePath(marble,path,destroy);}
-       catch (IllegalMovementException e) {throw e;}
+       validatePath(marble,path,destroy);
        
-       try {move(marble,path,destroy);}
-       catch (IllegalDestroyException d) {throw d;}
+       move(marble,path,destroy);
       
    }
    
@@ -393,19 +395,19 @@ public class Board implements BoardManager {
     
    public void destroyMarble(Marble marble) throws IllegalDestroyException {
 	   
-   	if (this.gameManager.getActivePlayerColour() != marble.getColour()) {
+   	
    		
        	int marblePosition = this.getPositionInPath(this.track, marble);
        	
-       	validateDestroy(marblePosition);
+       	//check if marble is player's
+       	if (this.gameManager.getActivePlayerColour() != marble.getColour()) 
+       		validateDestroy(marblePosition);
        	/*try {}
        	catch (IllegalDestroyException d) {throw d ;}*/
        	
        	this.track.get(marblePosition).setMarble(null);
        	this.gameManager.sendHome(marble);
-   	}
    	
-   	else {throw new IllegalDestroyException("You cannot destroy your marbles!");}
    	
    }
     
