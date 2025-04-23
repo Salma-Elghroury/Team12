@@ -154,8 +154,13 @@ public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException 
     		throw new CannotFieldException();
     	
     	else{
+    		
+    		try{
     			board.sendToBase(players.get(currentPlayerIndex).getMarbles().get(0));
     			players.get(currentPlayerIndex).getMarbles().remove(0);
+    		}
+    		
+    		catch (IllegalDestroyException e){}
     	}
     }
     

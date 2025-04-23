@@ -14,4 +14,7 @@ public class Marble {
         return this.colour;
     }
     
+    public String toString(){
+    	return ""+colour;
+    }
 }

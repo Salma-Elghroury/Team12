@@ -38,5 +38,11 @@ public class Cell {
 	public void setTrap(boolean trap) {
 		this.trap = trap;
 	}
+	
+	//Remove
+	
+	public String toString(){
+		return ""+cellType;
+	}
 
 }
