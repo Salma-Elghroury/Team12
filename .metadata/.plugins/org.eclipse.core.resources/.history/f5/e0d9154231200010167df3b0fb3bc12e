@@ -305,7 +305,7 @@ public class Board implements BoardManager {
 	    }
 	   
 	   else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
-		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
+		   destroyMarble(fullPath.get(i).getMarble());
 		   fullPath.get(fullPath.size()-1).setMarble(marble);
 	   }
 	    	

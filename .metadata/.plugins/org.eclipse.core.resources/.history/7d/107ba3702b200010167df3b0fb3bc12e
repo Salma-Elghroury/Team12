@@ -115,8 +115,10 @@ public class Board implements BoardManager {
     
     private ArrayList<Cell> validateSteps(Marble marble, int steps) throws IllegalMovementException{
     	
+    	//switch colour case when doing tests. The first is for the J unit and the second for manual
     	
     	Colour colour = this.gameManager.getActivePlayerColour();
+    	//Colour colour = Colour.GREEN;
     	SafeZone safeZone = null;
     	
     	for (int i=0 ; i < safeZones.size() ; i++)
@@ -212,7 +214,11 @@ public class Board implements BoardManager {
 	   
 	   int marblesInTheWay = 0;
 	   
+	   //switch colour case when doing tests. The first is for the J unit and the second for manual
+	   //Delete system.out.println when method is all good
+	   
 	   Colour colour = this.gameManager.getActivePlayerColour();
+	   //Colour colour = Colour.GREEN;
 	   
 	   for (int i=1 ; i<fullPath.size() ; i++){
 		   
@@ -284,7 +290,7 @@ public class Board implements BoardManager {
 	    	
 	   if(destroy){
 	    		
-		   for(int i=1 ; i < fullPath.size() ; i++){
+		   for(int i=0 ; i < fullPath.size() ; i++){
 	    			
 			   if (fullPath.get(i).getMarble() != null) {destroyMarble(fullPath.get(i).getMarble());}
 			   
@@ -295,19 +301,14 @@ public class Board implements BoardManager {
 	    	
 	   if(fullPath.get(fullPath.size() - 1).isTrap()) {
 	    		
-		   try{
-			   destroyMarble(marble);
-			   fullPath.get(fullPath.size()-1).setTrap(false);
-			   this.assignTrapCell();
-		   }
+		   try{destroyMarble(marble);}
 		   catch (IllegalDestroyException d) {throw d ;}
+	    		
+		   fullPath.get(fullPath.size()-1).setTrap(false);
+	    		
+		   this.assignTrapCell();
 		   
 	    }
-	   
-	   else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
-		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
-		   fullPath.get(fullPath.size()-1).setMarble(marble);
-	   }
 	    	
 	   else fullPath.get(fullPath.size()-1).setMarble(marble);
 	}
@@ -352,9 +353,9 @@ public class Board implements BoardManager {
        
       // Marble marble = track.get(positionInPath).getMarble(); //marble to be destroyed
        
-       if (isInBase(track.get(positionInPath).getMarble()))
+       if (positionInPath == getBasePosition(track.get(positionInPath).getMarble().getColour())  )
     	   
-         {throw new IllegalDestroyException("The marble is safe in its Base Cell.");}
+         {throw new IllegalDestroyException("The marble is safe in its Base Cell.");} 
       
       
    }
@@ -458,8 +459,22 @@ public class Board implements BoardManager {
     	return list;
     }
     
-    public static void main(String[]args) throws IllegalMovementException{
-    	
-    }
+    /*public static void main(String[]args) throws IllegalMovementException{
+    	// Testing validatePath case marble blocking safe zone entry
+    	ArrayList<Colour> colourOrder = new ArrayList<Colour>();
+    	colourOrder.add(Colour.BLUE);
+    	colourOrder.add(Colour.GREEN);
+    	colourOrder.add(Colour.RED);
+    	colourOrder.add(Colour.YELLOW);
+    	Board board = new Board(colourOrder,null);
+    	Marble marble1 = new Marble(Colour.YELLOW); //marble in the way
+    	board.track.get(23).setMarble(marble1);
+    	Marble moving = new Marble(Colour.GREEN); //marble moving
+    	board.track.get(22).setMarble(moving);
+    	ArrayList<Cell> path = new ArrayList<Cell>();
+    	path = board.validateSteps(moving,2);
+    	System.out.println(path);
+    	board.validatePath(moving, path, false);
+    }*/
     
 }

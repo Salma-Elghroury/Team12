@@ -303,11 +303,6 @@ public class Board implements BoardManager {
 		   catch (IllegalDestroyException d) {throw d ;}
 		   
 	    }
-	   
-	   else if (fullPath.get(fullPath.size() - 1).getMarble()!= null) {
-		   destroyMarble(fullPath.get(fullPath.size()-1).getMarble());
-		   fullPath.get(fullPath.size()-1).setMarble(marble);
-	   }
 	    	
 	   else fullPath.get(fullPath.size()-1).setMarble(marble);
 	}
