@@ -17,13 +17,6 @@ public class Burner extends Wild {
     
     //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
-    
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	
     	Colour playerColour = this.gameManager.getActivePlayerColour();

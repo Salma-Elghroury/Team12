@@ -17,15 +17,6 @@ public class Four  extends Standard {
     
     //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
-    
-    //Calls super.validateMarbleColours
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {this.boardManager.moveBy(marbles.get(0),-4,false);}

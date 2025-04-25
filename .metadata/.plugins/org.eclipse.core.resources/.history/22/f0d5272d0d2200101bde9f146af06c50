@@ -1,4 +1,4 @@
-package model.card.standard;
+package model.card.wild;
 
 import java.util.ArrayList;
 
@@ -9,19 +9,15 @@ import engine.board.BoardManager;
 import exception.ActionException;
 import exception.InvalidMarbleException;
 
-public class Ace extends Standard {
+public class Saver extends Wild {
 
-    public Ace(String name, String description, Suit suit, BoardManager boardManager, GameManager gameManager) {
-    	
-        super(name, description, 1, suit, boardManager, gameManager);
+    public Saver(String name, String description, BoardManager boardManager, GameManager gameManager) {
+        super(name, description, boardManager, gameManager);
     }
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1 || marbles.size() == 0) {return true;}
-    	
-    	else {return false;}
-    }
+    //Milestone 2 Methods
+    
+    //Calls super.validateMarbleSize
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	
@@ -41,9 +37,8 @@ public class Ace extends Standard {
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (this instanceof Ace) {this.gameManager.fieldMarble();}
-    	else {super.act(marbles);}
-    	
+    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {this.boardManager.sendToSafe(marbles.get(0));}
+    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
-    
+
 }

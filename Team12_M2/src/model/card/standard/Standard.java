@@ -26,8 +26,6 @@ public class Standard extends Card {
     
     //Milestone 2 Methods
     
-    //Calls super.validateMarbleSize and super.validateMarbleColours
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (marbles.size() == 1 && this.validateMarbleColours(marbles) && marbles.get(0) != null) {

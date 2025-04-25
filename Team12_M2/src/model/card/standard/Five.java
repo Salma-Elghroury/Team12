@@ -17,8 +17,6 @@ public class Five extends Standard {
     
     //Milestone 2 Methods
     
-    //Calls super.validateMarbleSize
-    
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {return true ;}
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {

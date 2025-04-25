@@ -17,22 +17,13 @@ public class Five extends Standard {
     
     //Milestone 2 Methods
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
+    //Calls super.validateMarbleSize
     
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	return this.validateMarbleSize(marbles) ;
-    	
-    }
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {return true ;}
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1) {this.boardManager.moveBy(marbles.get(0),5,false);}
+    	if (marbles.size() == 1) {super.act(marbles);}
     	
     	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }

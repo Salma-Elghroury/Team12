@@ -24,35 +24,18 @@ public class Standard extends Card {
 
     public Suit getSuit() {return suit;}
     
-    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-    	
-    	if (marbles.size() == 1) {return true;}
-    	
-    	else {return false;}
-    }
+    //Milestone 2 Methods
     
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
-    		
-    		if (marbles.get(i).getColour() != playerColour) {
-    			
-    			return false ;
-    		}
-    	}
-    	
-    	return true ;	
-    	
-    }
+    //Calls super.validateMarbleSize and super.validateMarbleColours
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {
+    	if (marbles.size() == 1 && this.validateMarbleColours(marbles) && marbles.get(0) != null) {
     		
-    		this.boardManager.moveBy(marbles.get(0), this.rank , false);
+    		this.boardManager.moveBy(marbles.get(0),this.getRank(),false);
     		
     	}
+    	
+    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 }

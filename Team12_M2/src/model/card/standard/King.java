@@ -24,8 +24,6 @@ public class King extends Standard {
     	else {return false;}
     }
     
-   //Calls super.validateMarbleColour
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (marbles.size() == 0) {this.gameManager.fieldMarble();}

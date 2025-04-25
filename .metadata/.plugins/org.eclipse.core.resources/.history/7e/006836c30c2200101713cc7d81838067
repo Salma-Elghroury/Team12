@@ -15,6 +15,8 @@ public class Queen extends Standard {
         super(name, description, 12, suit, boardManager, gameManager);
     }
     
+    //Milestone 2 Methods
+    
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
     	if (marbles.size() == 1 || marbles.size() == 0) {return true;}
@@ -22,21 +24,7 @@ public class Queen extends Standard {
     	else {return false;}
     }
     
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
-    		
-    		if (marbles.get(i).getColour() != playerColour) {
-    			
-    			return false ;
-    		}
-    	}
-    	
-    	return true ;	
-    	
-    }
+  //Calls super.validateMarbleColour
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	

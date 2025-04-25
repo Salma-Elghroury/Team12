@@ -17,24 +17,6 @@ public class Saver extends Wild {
     
     //Milestone 2 Methods
     
-    //Calls super.validateMarbleSize
-    
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-    	
-    	Colour playerColour = this.gameManager.getActivePlayerColour();
-    	
-    	for (int i = 0 ; i < marbles.size() ; i++) {
-    		
-    		if (marbles.get(i).getColour() != playerColour) {
-    			
-    			return false ;
-    		}
-    	}
-    	
-    	return true ;	
-    	
-    }
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {this.boardManager.sendToSafe(marbles.get(0));}

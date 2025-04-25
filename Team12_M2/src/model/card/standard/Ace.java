@@ -25,8 +25,6 @@ public class Ace extends Standard {
     	else {return false;}
     }
     
-  //Calls super.validateMarbleColours
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (marbles.size() == 0) {this.gameManager.fieldMarble();}   //Fielding Requires No Marbles

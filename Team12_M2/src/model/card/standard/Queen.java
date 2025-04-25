@@ -24,8 +24,6 @@ public class Queen extends Standard {
     	else {return false;}
     }
     
-  //Calls super.validateMarbleColour
-    
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
     	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {super.act(marbles);}
