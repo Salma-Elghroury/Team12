@@ -56,65 +56,52 @@ public class Game implements GameManager {
     
     public void selectCard(Card card) throws InvalidCardException {
     	players.get(currentPlayerIndex).selectCard(card);
-    	
     }
     
     public void selectMarble(Marble marble) throws InvalidMarbleException {
-    	
         players.get(currentPlayerIndex).selectMarble(marble);
     }
     
     public void deselectAll() throws InvalidCardException, InvalidMarbleException {
-   	 this.players.get(currentPlayerIndex).deselectAll();
+    	this.players.get(currentPlayerIndex).deselectAll();
    }
     
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
     	
-    	if(1<=splitDistance && splitDistance<=6) {this.board.setSplitDistance(splitDistance);}
-    	
-    	else {throw new SplitOutOfRangeException("The split is outside the appropriate 1�6 range");}
+    	if(1<=splitDistance && splitDistance<=6) this.board.setSplitDistance(splitDistance);
+    	else throw new SplitOutOfRangeException("The split is outside the appropriate 1-6 range");
     }
     
     public boolean canPlayTurn(){
-    	if(this.turn + this.players.get(currentPlayerIndex).getHand().size() == 4) return true;
+    	if(this.turn+this.players.get(currentPlayerIndex).getHand().size()== 4) return true;
     	else return false;
-    	//if (players.get(currentPlayerIndex).getHand().size()==0) {return false ;} //What does turn refer to???? and why is currentPlayerIndex referring to the NEXT player??
-    	//else if () {return false ;}
-    	//return true;
     }
     
-public void playPlayerTurn() throws GameException {
-    	
-        if (!canPlayTurn()) {
-            endPlayerTurn();
-            return;
-        }
-        Colour activeColour = getActivePlayerColour();
-        players.get(currentPlayerIndex).play();
-       /* for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getColour() == activeColour) {
-                players.get(i).play();
-            }
-        }*/
+    public void playPlayerTurn() throws GameException {
+        if (canPlayTurn()) players.get(currentPlayerIndex).play();
         endPlayerTurn();
     }
     
-public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
+    public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException {
     	
     	Player currentPlayer = this.players.get(currentPlayerIndex);
-    	
     	this.firePit.add(currentPlayer.getSelectedCard());
-    	
+    	currentPlayer.getHand().remove(currentPlayer.getSelectedCard());
     	this.deselectAll();
     	
-    	if (this.currentPlayerIndex < this.players.size()-1) {this.currentPlayerIndex ++ ;}
-    	
-    	else {this.currentPlayerIndex = 0 ; turn++;}
+    	if (this.currentPlayerIndex < 3) this.currentPlayerIndex++;
+    	else {
+    		this.currentPlayerIndex = 0;
+    		turn++;
+    	}
 
     	if(turn==4) {
 			turn =0;
 			for (int i = 0 ; i < this.players.size() ; i++) {
-				if (Deck.getPoolSize() < 4) {Deck.refillPool(firePit); this.firePit.clear();}
+				if (Deck.getPoolSize() < 4) {
+					Deck.refillPool(firePit);
+					this.firePit.clear();	
+				}
     			players.get(i).setHand(Deck.drawCards());
     		}
 		}
@@ -123,11 +110,8 @@ public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException 
     
     public Colour checkWin(){
     	
-    	for(int i=0; i<this.board.getSafeZones().size();i++){
-    		
-    		if(this.board.getSafeZones().get(i).isFull()){return this.board.getSafeZones().get(i).getColour();}
-    	}
-    	
+    	for(int i=0; i<this.board.getSafeZones().size(); i++)
+    		if(this.board.getSafeZones().get(i).isFull())return this.board.getSafeZones().get(i).getColour();
     	return null;
     }
     
@@ -135,43 +119,32 @@ public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException 
     	
     	ArrayList<Player> allPlayers = this.getPlayers();
     	Player player;
+    	for (int i = 0 ; i < allPlayers.size() ; i++)
+    		if(allPlayers.get(i).getColour() == marble.getColour())
+    			allPlayers.get(i).regainMarble(marble);
     	
-    	for (int i = 0 ; i < allPlayers.size() ; i++) {
-    		
-    		if(allPlayers.get(i).getColour() == marble.getColour()) {
-    			
-    			player = allPlayers.get(i);
-    			player.regainMarble(marble);
-    			break;
-    		}
-    	}
     }
     
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
     	
     	if (players.get(currentPlayerIndex).getMarbles().size() == 0)
-    		
     		throw new CannotFieldException();
     	
     	else{
     			board.sendToBase(players.get(currentPlayerIndex).getMarbles().get(0));
     			players.get(currentPlayerIndex).getMarbles().remove(0);
     	}
+    	
     }
     
     public void discardCard(Colour colour) throws CannotDiscardException {
         Player targetPlayer = null;
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            if (player.getColour().equals(colour)) {
-                targetPlayer = player;
-                break;
-            }
-        }
+        for (int i = 0; i < players.size(); i++) 
+            if (players.get(i).getColour().equals(colour)) 
+                targetPlayer = players.get(i);
         ArrayList<Card> hand = targetPlayer.getHand();
-        if (hand.isEmpty()) {
+        if (hand.isEmpty())
             throw new CannotDiscardException("The player has no cards in hand to discard.");
-        }
         int randomIndex = (int) (Math.random() * hand.size());
         Card cardToDiscard = hand.get(randomIndex);
         hand.remove(cardToDiscard);
@@ -180,27 +153,20 @@ public void endPlayerTurn() throws InvalidCardException, InvalidMarbleException 
     
     public void discardCard() throws CannotDiscardException {
     	
-	    ArrayList<Colour> otherColours = new ArrayList<>();
-	    ArrayList<Colour> allColours = new ArrayList<>();
-	    allColours.add(Colour.RED);
-	    allColours.add(Colour.BLUE);
-	    allColours.add(Colour.GREEN);
-	    allColours.add(Colour.YELLOW);
+	    ArrayList<Colour> colours = new ArrayList<>();
+	    colours.add(Colour.RED);
+	    colours.add(Colour.BLUE);
+	    colours.add(Colour.GREEN);
+	    colours.add(Colour.YELLOW);
+	    colours.remove(players.get(currentPlayerIndex).getColour());
+	    int randomColourIndex = (int) (Math.random()*3);
+	    discardCard(colours.get(randomColourIndex));
 	    
-	    for (int i = 0; i < allColours.size(); i++) {
-	    	
-	        Colour colour = allColours.get(i);
-	        if (!colour.equals(players.get(currentPlayerIndex).getColour())) {otherColours.add(colour);}
-	    }
-	    
-	    int randomColourIndex = (int) (Math.random() * otherColours.size());
-	    Colour randomColour = otherColours.get(randomColourIndex);
-	    discardCard(randomColour);}
+    }
     
     public Colour getActivePlayerColour(){return players.get(currentPlayerIndex).getColour();}
     
     public Colour getNextPlayerColour(){
-    	
     	if (currentPlayerIndex==3) return players.get(0).getColour();
     	return players.get(currentPlayerIndex+1).getColour();
     }

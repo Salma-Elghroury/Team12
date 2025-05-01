@@ -18,7 +18,7 @@ public class CPU extends Player {
         this.boardManager = boardManager;
     }
     
-  //given in CMS
+    //given in CMS
     public void play() throws GameException {
     	// Retrieve a list of action-able marbles from the board manager.
     	ArrayList<Marble> actionableMarbles = boardManager.getActionableMarbles();

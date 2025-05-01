@@ -19,43 +19,30 @@ public class Jack extends Standard {
     
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
-    	if (marbles.size() == 1 || marbles.size() == 2) {return true;}
+    	if (marbles.size() == 1 || marbles.size() == 2) return true;
+    	else return false;
     	
-    	else {return false;}
     }
     
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
     	
-    	if (marbles.size() != 1) {
-    		
+    	if (marbles.size() == 2) {
     		Colour playerColour = this.gameManager.getActivePlayerColour();
-    		int playerMarbles = 0 ;
-    	
-    		for (int i = 0 ; i < marbles.size() ; i++) {
-    			
-    			if (marbles.get(i).getColour() == playerColour) {playerMarbles ++ ;}
+    		if ((marbles.get(0).getColour()==playerColour && marbles.get(1).getColour()!=playerColour) ||
+    				(marbles.get(1).getColour()==playerColour && marbles.get(0).getColour()!=playerColour))
+    			return true;
+    		else return false;
     	}
     	
-    		if (playerMarbles > 1) {return false ;}
-    		else {return true ;}
-    	
-    	}
-    	
-    	else {return super.validateMarbleColours(marbles);}
+    	else return super.validateMarbleColours(marbles);
     	
     }
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {this.boardManager.moveBy(marbles.get(0),11,false);}
+    	if (marbles.size()==1) this.boardManager.moveBy(marbles.get(0),11,false);
+    	else if (marbles.size()==2) this.boardManager.swap(marbles.get(0), marbles.get(1));
     	
-    	else if (marbles.size() == 2 && this.validateMarbleColours(marbles)) {
-    		
-    		this.boardManager.swap(marbles.get(0), marbles.get(1));
-    		
-    	}
-    	
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 
 }

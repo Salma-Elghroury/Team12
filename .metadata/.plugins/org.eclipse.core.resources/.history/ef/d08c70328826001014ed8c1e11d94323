@@ -1,0 +1,50 @@
+package model.card.standard;
+
+import java.util.ArrayList;
+
+import model.Colour;
+import model.player.Marble;
+import engine.GameManager;
+import engine.board.BoardManager;
+import exception.ActionException;
+import exception.InvalidMarbleException;
+
+public class Jack extends Standard {
+
+    public Jack(String name, String description, Suit suit, BoardManager boardManager, GameManager gameManager) {
+        super(name, description, 11, suit, boardManager, gameManager);
+    }
+    
+    //Milestone 2 Methods 
+    
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+    	
+    	if (marbles.size() == 1 || marbles.size() == 2) return true;
+    	else return false;
+    	
+    }
+    
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+    	
+    	if (marbles.size() == 2) {
+    		Colour playerColour = this.gameManager.getActivePlayerColour();
+    		if ((marbles.get(0).getColour()==playerColour && marbles.get(1).getColour()!=playerColour) ||
+    				(marbles.get(1).getColour()==playerColour && marbles.get(0).getColour()!=playerColour))
+    			return true;
+    		else return false;
+    	}
+    	
+    	else return super.validateMarbleColours(marbles);
+    	
+    }
+    
+    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
+    	
+    	if (marbles.size()==1) this.boardManager.moveBy(marbles.get(0),11,false);
+    	
+    	else if (marbles.size()==2) this.boardManager.swap(marbles.get(0), marbles.get(1));
+    	
+    	else throw new InvalidMarbleException ("Invalid Marbles");
+    }
+
+}

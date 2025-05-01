@@ -19,22 +19,20 @@ public class Seven extends Standard {
     
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
-    	if (marbles.size() == 1 || marbles.size() == 2) {return true;}
+    	if (marbles.size() == 1 || marbles.size() == 2) return true;
+    	else return false;
     	
-    	else {return false;}
     }
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {super.act(marbles);}
-    	else if (marbles.size() == 2 && this.validateMarbleColours(marbles)) {
-    		
+    	if (marbles.size() == 1) super.act(marbles);
+    	
+    	else if (marbles.size() == 2) {
     		this.boardManager.moveBy(marbles.get(0),this.boardManager.getSplitDistance(),false);
     		this.boardManager.moveBy(marbles.get(1),7-this.boardManager.getSplitDistance(),false);
-    		
     	}
     	
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
     }
 
 }

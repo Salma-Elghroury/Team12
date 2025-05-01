@@ -18,9 +18,7 @@ public class Saver extends Wild {
     //Milestone 2 Methods
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-    	
-    	if (this.validateMarbleSize(marbles) && this.validateMarbleColours(marbles)) {this.boardManager.sendToSafe(marbles.get(0));}
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
+    	this.boardManager.sendToSafe(marbles.get(0));
     }
 
 }

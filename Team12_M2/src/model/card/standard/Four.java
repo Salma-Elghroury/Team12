@@ -18,9 +18,7 @@ public class Four  extends Standard {
     //Milestone 2 Methods
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-    	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {this.boardManager.moveBy(marbles.get(0),-4,false);}
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
+    	this.boardManager.moveBy(marbles.get(0),-4,false);
     }
 
 }

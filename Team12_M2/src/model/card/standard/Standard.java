@@ -27,13 +27,6 @@ public class Standard extends Card {
     //Milestone 2 Methods
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-    	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles) && marbles.get(0) != null) {
-    		
-    		this.boardManager.moveBy(marbles.get(0),this.getRank(),false);
-    		
-    	}
-    	
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
+    	this.boardManager.moveBy(marbles.get(0),rank,false);
     }
 }

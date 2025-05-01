@@ -5,6 +5,7 @@
 		<item value="400" key="height"/>
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="deleteSubPackages"/>
 	</section>
 	<section name="RefactoringWizard.Clean Up">
 		<item value="600" key="width"/>

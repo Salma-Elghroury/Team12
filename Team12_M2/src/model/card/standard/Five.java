@@ -20,10 +20,7 @@ public class Five extends Standard {
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {return true ;}
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-    	
-    	if (marbles.size() == 1) {super.act(marbles);}
-    	
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
+    	super.act(marbles);
     }
 
 }

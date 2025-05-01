@@ -48,49 +48,46 @@ public class Player {
     
     //Milestone 2 Methods
     
-    public void regainMarble(Marble marble) {this.marbles.add(marble) ;}
+    public void regainMarble(Marble marble) {this.marbles.add(marble);}
     
     public Marble getOneMarble() {
     	
-    	if (this.marbles.size() == 0) {return null ;}
-    	
-    	else {return this.getMarbles().get(0) ;}
+    	if (this.marbles.size() == 0) return null;
+    	else return this.getMarbles().get(0);
     	
     }
     
     public void selectCard(Card card) throws InvalidCardException{
     	
-    	if (this.hand.contains(card)) {this.selectedCard=card;}
+    	if (this.hand.contains(card)) this.selectedCard=card;
+    	else throw new InvalidCardException("The card does not belong to your hand.");
     	
-    	else {throw new InvalidCardException("The card does not belong to your hand.");}
     }
     
     public void selectMarble(Marble marble) throws InvalidMarbleException {
     	
-   	 if (this.selectedMarbles.size() >= 2) {throw new InvalidMarbleException("Cannot select more than two marbles.");}
-   	 
-   	 else if (!(selectedMarbles.contains(marble))) {this.selectedMarbles.add(marble);} //Don't select an already selected marble
+   	 if (this.selectedMarbles.size() >= 2) throw new InvalidMarbleException("Cannot select more than two marbles.");
+   	 else if (!(selectedMarbles.contains(marble))) this.selectedMarbles.add(marble);
    	 
    }
     
     public void deselectAll() {
-        
+    	
         this.selectedCard = null;
         this.selectedMarbles.clear();
     }
     
     public void play() throws GameException{
     	
-    	if (selectedCard == null) {throw new InvalidCardException();}
+    	if (selectedCard == null) throw new InvalidCardException();
     	
     	else{
-    		
-    		if (!selectedCard.validateMarbleSize(selectedMarbles)) {throw new InvalidMarbleException("Invalid size of marbles.");}
-    		
-    		if (!selectedCard.validateMarbleColours(selectedMarbles)) {throw new InvalidMarbleException("Invalid colours of marbles.");}
-    		
-    		if (selectedCard.validateMarbleColours(selectedMarbles) && selectedCard.validateMarbleSize(selectedMarbles)) {selectedCard.act(selectedMarbles);}
+    		if (!selectedCard.validateMarbleSize(selectedMarbles)) throw new InvalidMarbleException("Invalid size of marbles.");
+    		if (!selectedCard.validateMarbleColours(selectedMarbles)) throw new InvalidMarbleException("Invalid colours of marbles.");
+    		if (selectedCard.validateMarbleColours(selectedMarbles) && selectedCard.validateMarbleSize(selectedMarbles))
+    			selectedCard.act(selectedMarbles);
     	}
+    	
     }
 
 }

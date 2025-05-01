@@ -19,22 +19,16 @@ public class Ten extends Standard {
     
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
     	
-    	if (marbles.size() == 1 || marbles.size() == 0) {return true;}
+    	if (marbles.size() == 1 || marbles.size() == 0) return true;
+    	else return false;
     	
-    	else {return false;}
     }
     
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
     	
-    	if (marbles.size() == 1 && this.validateMarbleColours(marbles)) {super.act(marbles);}
-    	
-    	else if (marbles.size() == 0 && this.validateMarbleColours(marbles)) {
-    		
-    		Colour nextPlayerColour = this.gameManager.getNextPlayerColour();
-    		this.gameManager.discardCard(nextPlayerColour);
-    	}
-    	
-    	else {throw new InvalidMarbleException ("Invalid Marbles");}
+    	if (marbles.size() == 1) super.act(marbles);
+    	else if (marbles.size() == 0) this.gameManager.discardCard(this.gameManager.getNextPlayerColour());
+    
     }
 
 }
