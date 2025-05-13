@@ -26,6 +26,7 @@
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID"/>
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\rodai\Uni\CSEN 401\Milestone 2 Private Test"/>
 			<item value="C:\Users\rodai\Uni\CSEN 401"/>
 			<item value="C:\Users\rodai\Uni\CSEN 401\Team12\Private Tests"/>
 		</list>
