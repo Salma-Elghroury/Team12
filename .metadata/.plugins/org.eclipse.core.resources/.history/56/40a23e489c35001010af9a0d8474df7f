@@ -1,0 +1,436 @@
+package stageController;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import engine.Game;
+import engine.board.Cell;
+import engine.board.CellType;
+import model.Colour;
+import model.card.Card;
+import model.card.Deck;
+import model.card.standard.Standard;
+import model.card.wild.Wild;
+import model.player.CPU;
+import model.player.Marble;
+import model.player.Player;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+
+public class mainWindow {
+	
+	GridPane gameBoard;
+	StackPane firepit;
+	Scene scene;
+	Game game;
+	HBox playerMarbles;
+	VBox CPU1Marbles;
+	HBox CPU2Marbles;
+	HBox CPU3Marbles;
+	Circle playerMarble1;
+	Circle playerMarble2;
+	Circle playerMarble3;
+	Circle playerMarble4;
+	Circle CPU1Marble1;
+	Circle CPU1Marble2;
+	Circle CPU1Marble3;
+	Circle CPU1Marble4;
+	Circle CPU2Marble1;
+	Circle CPU2Marble2;
+	Circle CPU2Marble3;
+	Circle CPU2Marble4;
+	Circle CPU3Marble1;
+	Circle CPU3Marble2;
+	Circle CPU3Marble3;
+	Circle CPU3Marble4;
+	StackPane playerCard1;
+	StackPane playerCard2;
+	StackPane playerCard3;
+	StackPane playerCard4;
+	ArrayList<StackPane> trackView;
+	HBox marbles1;
+	VBox marbles2;
+	HBox marbles3;
+	VBox marbles4;
+	ArrayList<Card> hand1;
+	ArrayList<Card> hand2;
+	ArrayList<Card> hand3;
+	ArrayList<Card> hand4;
+	final Image cardImage = new Image("Card Back Rotated.png");
+	VBox CPU1Hand;
+	VBox CPU3Hand;
+	HBox CPU2Hand;
+	HBox playerHand;
+	Label turn_info;
+	int round;
+	int turn;
+	ArrayList<StackPane> safeZone1;
+	ArrayList<StackPane> safeZone2;
+	ArrayList<StackPane> safeZone3;
+	ArrayList<StackPane> safeZone4;
+	Button startTurn;
+	
+	public mainWindow () {}
+	
+	public mainWindow (Label player) {
+		
+        this.firepit = new StackPane();
+        
+        try {this.game = new Game (player.getText());}
+        catch (IOException e) {e.getMessage();}
+		
+        turn = 1;
+        round = 1;
+        
+        Colour mainColour = game.getPlayers().get(0).getColour();
+        Colour cpu1Colour = game.getPlayers().get(1).getColour();
+        Colour cpu2Colour = game.getPlayers().get(2).getColour();
+        Colour cpu3Colour = game.getPlayers().get(3).getColour();
+        
+        Label human = createPlayerLabel(player.getText(),mainColour);
+        Label CPU1 = createPlayerLabel("CPU 1",cpu1Colour);
+        Label CPU2 = createPlayerLabel("CPU 2",cpu2Colour);
+        Label CPU3 = createPlayerLabel("CPU 3",cpu3Colour);
+        
+        StackPane Bottom = new StackPane(human);
+        Bottom.setAlignment(Pos.BOTTOM_CENTER);
+        
+        StackPane Left = new StackPane(CPU1);
+        Left.setAlignment(Pos.CENTER_LEFT);
+        
+        StackPane Top = new StackPane(CPU2);
+        Top.setAlignment(Pos.TOP_CENTER);
+
+        StackPane Right = new StackPane(CPU3);
+        Right.setAlignment(Pos.CENTER_RIGHT);
+     
+        //Intialize Empty Firepit in the Center of the Board
+        
+        firepit.setAlignment(Pos.CENTER);
+        Image firepitimage = new Image ("Firepit.png");
+        ImageView firepitImage = new ImageView(firepitimage);
+        firepitImage.setFitHeight(200);
+        firepitImage.setFitWidth(200);
+        firepit.getChildren().add(firepitImage);
+        
+        //Initialize Marbles & their Colors
+        
+        marbles1 = new HBox();
+        playerMarble1 = marble(game.getPlayers().get(0));
+        playerMarble2 = marble(game.getPlayers().get(0));
+        playerMarble3 = marble(game.getPlayers().get(0));
+        playerMarble4 = marble(game.getPlayers().get(0));
+        marbles1.getChildren().addAll(playerMarble1,playerMarble2,playerMarble3,playerMarble4);
+        marbles1.setSpacing(5);
+        marbles1.setTranslateX(480);
+        marbles1.setTranslateY(750);
+        
+        marbles2 = new VBox();
+        CPU1Marble1 = marble(game.getPlayers().get(1));
+        CPU1Marble2 = marble(game.getPlayers().get(1));
+        CPU1Marble3 = marble(game.getPlayers().get(1));
+        CPU1Marble4 = marble(game.getPlayers().get(1));
+        marbles2.getChildren().addAll(CPU1Marble1,CPU1Marble2,CPU1Marble3,CPU1Marble4);
+        marbles2.setSpacing(5);
+        marbles2.setTranslateX(75);
+        marbles2.setTranslateY(375);
+        
+        marbles3 = new HBox();
+        CPU2Marble1 = marble(game.getPlayers().get(2));
+        CPU2Marble2 = marble(game.getPlayers().get(2));
+        CPU2Marble3 = marble(game.getPlayers().get(2));
+        CPU2Marble4 = marble(game.getPlayers().get(2));
+        marbles3.getChildren().addAll(CPU2Marble1,CPU2Marble2,CPU2Marble3,CPU2Marble4);
+        marbles3.setSpacing(5);
+        marbles3.setTranslateX(480);
+        marbles3.setTranslateY(50);
+        
+        marbles4 = new VBox();
+        CPU3Marble1 = marble(game.getPlayers().get(3));
+        CPU3Marble2 = marble(game.getPlayers().get(3));
+        CPU3Marble3 = marble(game.getPlayers().get(3));
+        CPU3Marble4 = marble(game.getPlayers().get(3));
+        marbles4.getChildren().addAll(CPU3Marble1,CPU3Marble2,CPU3Marble3,CPU3Marble4);
+        marbles4.setSpacing(5);
+        marbles4.setTranslateX(925);
+        marbles4.setTranslateY(375);
+        
+        //Initialize the Track
+        
+        trackView = new ArrayList<StackPane>();
+        gameBoard = createTrack(game.getBoard().getTrack());
+    	gameBoard.setAlignment(Pos.CENTER);
+    	safeZone1 = new ArrayList<StackPane>();
+    	safeZone2 = new ArrayList<StackPane>();
+    	safeZone3 = new ArrayList<StackPane>();
+    	safeZone4 = new ArrayList<StackPane>();
+    	addSafeZones(gameBoard);
+    	
+    	//Distribute Cards
+    	
+    	hand1 = game.getPlayers().get(0).getHand();
+		hand2 = game.getPlayers().get(1).getHand();
+		hand3 = game.getPlayers().get(2).getHand();
+		hand4 = game.getPlayers().get(3).getHand();
+		
+		CPU1Hand = new VBox(5);
+		setCPUHand(4,cardImage,CPU1Hand);
+		CPU1Hand.setTranslateX(100);
+		CPU1Hand.setTranslateY(270);
+		
+		CPU3Hand = new VBox(5);
+		setCPUHand(4,cardImage,CPU3Hand);
+		CPU3Hand.setTranslateX(830);
+		CPU3Hand.setTranslateY(270);
+	
+		CPU2Hand = new HBox(5);
+		Image cardImage2 = new Image("Card Back.png");
+		setCPUHand(4,cardImage,CPU2Hand);
+		CPU2Hand.setTranslateX(370);
+		CPU2Hand.setTranslateY(80);
+		
+		//Main Player Cards (Hurts Just Thinking About It)
+		
+		playerHand = new HBox(5);
+		
+		for (int i=0; i<4; i++){
+			StackPane r = playerCard(hand1.get(i));
+			switch (i){
+			case 0: playerCard1 = r; break;
+			case 1: playerCard2 = r; break;
+			case 2: playerCard3 = r; break;
+			case 3: playerCard4 = r; break;
+			default: break;
+			}	
+			playerHand.getChildren().add(r);
+		}
+		
+		playerHand.setTranslateX(300);
+		playerHand.setTranslateY(600);
+
+
+	   // Current and Next player turn
+		turn_info = new Label(updateTurn());
+		turn_info.setWrapText(true);
+		turn_info.setFont(Font.font(25));
+		turn_info.setPrefSize(300,250);
+		
+		startTurn = new Button("Start turn");
+		startTurn.setMouseTransparent(true);
+		startTurn.setTranslateX(300);
+		startTurn.setTranslateY(250);
+		
+       //Adding Nodes to the Root
+        
+        StackPane root = new StackPane(gameBoard,firepit);
+        root.getChildren().addAll(Top,Right,Left,Bottom);
+        root.getChildren().addAll(marbles1,marbles2,marbles3,marbles4);
+        root.getChildren().addAll(CPU1Hand,CPU2Hand,CPU3Hand,playerHand);
+        root.getChildren().add(turn_info); // Add label last so it's on top
+        StackPane.setAlignment(turn_info, Pos.TOP_RIGHT);
+        root.getChildren().add(startTurn);
+        root.setStyle("-fx-background: saddlebrown");
+        scene = new Scene (root,1000,800);
+	}
+	
+	//GUI Design Methods
+	
+	 public Label createPlayerLabel(String name, Colour color) {
+	    	
+	        Label label = new Label(name);
+	        label.setStyle("-fx-padding: 10; -fx-background-color:" + toHexColor(color) + "; -fx-background-radius: 5;");
+	        label.setTextFill(Color.BLACK);
+	        return label;
+	    }
+	 
+	 public String toHexColor(Colour colour) {
+		 
+		    switch (colour) {
+		        case RED: return "#e74c3c";
+		        case BLUE: return "#3498db";
+		        case GREEN: return "#2ecc71";
+		        default: return "#f1c40f";
+		    }
+	 }
+	 
+	 public void setCPUHand(int count, Image cardImage, HBox hand){
+		 
+		 for (int i = 0; i < 4; i++) {
+			    ImageView cardView1 = new ImageView(cardImage);
+			    cardView1.setFitHeight(70);
+			    cardView1.setFitWidth(60);
+			    hand.getChildren().add(cardView1);
+			}
+	 }
+	 
+	 public void setCPUHand(int count, Image cardImage, VBox hand){
+		 
+		 for (int i = 0; i < 4; i++) {
+			    ImageView cardView1 = new ImageView(cardImage);
+			    cardView1.setFitHeight(60);
+			    cardView1.setFitWidth(70);
+			    hand.getChildren().add(cardView1);
+			}
+	 }
+	 
+	 public Circle marble (Player player) {
+		 return new Circle (5,Paint.valueOf(toHexColor(player.getColour())));
+	 }
+	
+	 
+	 public GridPane createTrack(ArrayList<Cell> track) {
+		 
+		    int size = 25;
+		    int row = 0, col = 0;
+		    GridPane UItrack = new GridPane();
+		    
+		    for (int i = 0; i < 100; i++) {
+		        Cell cell = track.get(i);
+		        if (i <= size) {row = 0; col = i;} 
+		        else if (i < 50) {row = i-size; col = size;} 
+		        else if (i < 75) {row = size; col = size - (i - size*2);} 
+		        else {row = size - (i - size*3); col = 0;}
+
+		        StackPane cellView = createCells(cell);
+		        trackView.add(cellView);
+		        UItrack.add(cellView, col, row);
+		        
+		    }
+
+		    return UItrack;
+		}
+
+	 
+	 public StackPane createCells(Cell cell) {
+		 
+		    Rectangle tile = new Rectangle(13, 13);
+		    
+		    if (cell.getCellType() == CellType.BASE) {tile.setFill(Color.BLACK);} 
+		    else if (cell.getCellType() == CellType.ENTRY) {tile.setFill(Color.CADETBLUE);} 
+		    else {tile.setFill(Color.BEIGE);}
+
+		    tile.setStroke(Color.BLACK);
+
+		    StackPane stack = new StackPane();
+		    stack.getChildren().add(tile);
+		    return stack;
+		}
+	 
+	 public void addSafeZones (GridPane board) {
+		 
+		 //SafeZone3
+		 
+		 for (int row = 1; row < 5; row++) {
+		        Rectangle cell = new Rectangle(13, 13);
+		        cell.setFill(Color.BEIGE);
+		        cell.setStroke(Color.BLACK);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone3.add(r);
+		        board.add(r,23,row);
+		    }
+		 
+		 //SafeZone1
+		 
+		 for (int col = 24; col > 20; col--) {
+			 	Rectangle cell = new Rectangle(13, 13);
+		        cell.setFill(Color.BEIGE);
+		        cell.setStroke(Color.BLACK);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone1.add(r);
+		        board.add(r,col,23);
+		 }
+		 
+		 //SafeZone2
+		 
+		 for (int row = 24; row > 20; row--) {
+			 
+			 	Rectangle cell = new Rectangle(13, 13);
+		        cell.setFill(Color.BEIGE);
+		        cell.setStroke(Color.BLACK);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone2.add(r);
+		        board.add(r,2,row);
+		 }
+		 
+		 //SafeZone4
+		 
+		 for (int col = 1; col < 5; col++) {
+			 
+		        Rectangle cell = new Rectangle(13, 13);
+		        cell.setFill(Color.BEIGE);
+		        cell.setStroke(Color.BLACK);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone4.add(r);
+		        board.add(r,col,2);
+		 }
+		 
+	 }
+	 
+	 public String updateTurn(){
+		    ArrayList<Player> players = game.getPlayers();
+		    String current="";
+		    String next="";
+		    for(Player p: players){
+		    	if(game.getActivePlayerColour()==p.getColour())
+		    		current = p.getName();
+		    	if(game.getNextPlayerColour()==p.getColour())
+		    		next = p.getName();
+		    }
+		    return "Round: "+round+"\nTurn: "+turn+"\nCurrent Player: "+current+"\nNext Player: " + next;
+	 }
+	 
+	 public StackPane playerCard(Card card){
+		 
+		 StackPane visibleCard = new StackPane();
+		 visibleCard.setMaxSize(100,130);
+		 Rectangle background = new Rectangle(100,130);
+		 background.setFill(Color.BEIGE);
+		 VBox info = new VBox();
+		 info.setSpacing(5);
+		 Label cardInfo = new Label();
+		 cardInfo.setPrefSize(100,130);
+		 cardInfo.setWrapText(true);
+		 cardInfo.setFont(new Font(10));
+		 cardInfo.setTextFill(Color.BLACK);
+		 if (card instanceof Standard){
+			 Standard st = (Standard)card;
+			 cardInfo.setText(st.getName()+" of "+st.getSuit().toString()+"\n"+st.getDescription()+"\nRank: "+st.getRank());
+		 }
+		 else {
+			 cardInfo.setText(card.getName()+"\n"+card.getDescription());
+		 }
+		 info.getChildren().add(cardInfo);
+		 visibleCard.getChildren().addAll(background,info);
+		return visibleCard;
+		 
+	 }
+	  
+	//Getters and Setters
+
+	public Scene getScene() {return scene;}
+		
+}

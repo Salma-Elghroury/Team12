@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import engine.Game;
 import engine.board.Cell;
 import engine.board.CellType;
+import exception.GameException;
 import model.Colour;
 import model.card.Card;
 import model.card.Deck;
@@ -14,12 +15,16 @@ import model.card.wild.Wild;
 import model.player.CPU;
 import model.player.Marble;
 import model.player.Player;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class mainWindow {
 	
@@ -83,6 +89,10 @@ public class mainWindow {
 	ArrayList<StackPane> safeZone2;
 	ArrayList<StackPane> safeZone3;
 	ArrayList<StackPane> safeZone4;
+	Button playerButton;
+	StackPane root;
+	Card chosenCard = null;
+	Label chosen = new Label();
 	
 	public mainWindow () {}
 	
@@ -229,16 +239,27 @@ public class mainWindow {
 		turn_info.setFont(Font.font(25));
 		turn_info.setPrefSize(300,250);
 		
+		playerButton = new Button("Start turn");
+		playerButton.setDisable(false);
+		playerButton.setTranslateX(300);
+		playerButton.setTranslateY(250);
+		playerButton.setOnMouseClicked(new EventHandler<Event>(){
+			public void handle(Event event) {
+				startTurn();
+			}
+		});
 		
        //Adding Nodes to the Root
         
-        StackPane root = new StackPane(gameBoard,firepit);
+        root = new StackPane(gameBoard,firepit);
         root.getChildren().addAll(Top,Right,Left,Bottom);
         root.getChildren().addAll(marbles1,marbles2,marbles3,marbles4);
         root.getChildren().addAll(CPU1Hand,CPU2Hand,CPU3Hand,playerHand);
         root.getChildren().add(turn_info); // Add label last so it's on top
         StackPane.setAlignment(turn_info, Pos.TOP_RIGHT);
+        root.getChildren().add(playerButton);
         root.setStyle("-fx-background: saddlebrown");
+        
         scene = new Scene (root,1000,800);
 	}
 	
@@ -420,6 +441,72 @@ public class mainWindow {
 		 visibleCard.getChildren().addAll(background,info);
 		return visibleCard;
 		 
+	 }
+	 
+	 //Action methods
+	 
+	 public void startTurn(){
+		 playerButton.setText("Pick Card");
+		 Label instruction = new Label("Pick one card");
+		 instruction.setTranslateX(300);
+		 instruction.setTranslateY(275);
+		 root.getChildren().add(instruction);
+		 chosen.setTranslateX(320);
+		 chosen.setTranslateY(300);
+		 root.getChildren().add(chosen);
+		 playerCard1.setOnMouseClicked(new EventHandler<Event>(){
+			public void handle(Event event) {
+				chosenCard = hand1.get(0);
+				if (hand1.get(0) instanceof Standard)
+					chosen.setText("Chosen Card: "+hand1.get(0).getName()+" of "+((Standard)hand1.get(0)).getSuit());
+				else chosen.setText("Chosen Card: "+hand1.get(0).getName());
+			}
+		 });
+		 playerCard2.setOnMouseClicked(new EventHandler<Event>(){
+				public void handle(Event event) {
+					chosenCard = hand1.get(1);
+					if (hand1.get(1) instanceof Standard)
+						chosen.setText("Chosen Card: "+hand1.get(1).getName()+" of "+((Standard)hand1.get(1)).getSuit());
+					else chosen.setText("Chosen Card: "+hand1.get(1).getName());
+				}
+			 });
+		 playerCard3.setOnMouseClicked(new EventHandler<Event>(){
+				public void handle(Event event) {
+					chosenCard = hand1.get(2);
+					if (hand1.get(2) instanceof Standard)
+						chosen.setText("Chosen Card: "+hand1.get(2).getName()+" of "+((Standard)hand1.get(2)).getSuit());
+					else chosen.setText("Chosen Card: "+hand1.get(2).getName());
+				}
+			 });
+		 playerCard4.setOnMouseClicked(new EventHandler<Event>(){
+				public void handle(Event event) {
+					chosenCard = hand1.get(3);
+					if (hand1.get(3) instanceof Standard)
+						chosen.setText("Chosen Card: "+hand1.get(3).getName()+" of "+((Standard)hand1.get(3)).getSuit());
+					else chosen.setText("Chosen Card: "+hand1.get(3).getName());
+				}
+			 });
+		 
+	 }
+	 
+	 public void showExceptionMessage(String m){
+		 Stage error = new Stage();
+		 error.setTitle("Error");
+		 Label e1 = new Label ("Oh oh, looks like you made a mistake.");
+		 TextField message = new TextField();
+		 message.setEditable(false);
+		 message.setFont(new Font(20));
+		 message.setText(m);
+		 Button backButton = new Button ("Go Back");
+		 backButton.setOnAction(E -> {
+			 error.close();
+		 });
+		 VBox window = new VBox (50,e1,message,backButton);
+		 window.setAlignment(Pos.CENTER);
+		 Scene scene = new Scene (window,400,300);
+		 error.setScene(scene);
+		 error.show();
+		 error.setResizable(false);
 	 }
 	  
 	//Getters and Setters
