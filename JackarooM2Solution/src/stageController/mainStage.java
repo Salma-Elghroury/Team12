@@ -34,7 +34,6 @@ public class mainStage extends Application {
 		Scene nameScene = name.getSceneName();
 		stage.setScene(nameScene);
 		
-		//Take Given Name When Start Button is Pressed
 		
 		name.getStartButton().setOnMouseClicked(new EventHandler<Event>() {
 			
@@ -45,22 +44,15 @@ public class mainStage extends Application {
 				if (playerName.isEmpty()) {name.getEnterName().setText("Name Cannot Be Empty, Please Enter a Name:");}
 				
 				else {
-					 
 					mainWindow main = new mainWindow(createPlayerLabel(""+playerName));
 					Scene scene = main.getScene();
 					stage.setScene(scene);
 					stage.hide();
 					stage.show();
 					stage.centerOnScreen();
-					
-					//Distribute Cards
-					
 				}
-				
 			}	
-			
 		});
-		
 		stage.setResizable(false);
 		stage.show();
 		

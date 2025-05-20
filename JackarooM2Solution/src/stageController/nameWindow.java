@@ -1,6 +1,7 @@
 package stageController;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,8 +22,8 @@ public class nameWindow {
 		this.nameField = new TextField();
 		this.startButton = new Button ("Jackaroo!!!");
 		VBox window = new VBox (50,enterName,nameField,startButton);
+		window.setAlignment(Pos.CENTER);
 		this.sceneName = new Scene (window,400,300);
-		
 	}
 
 	public TextField getNameField() {return nameField;}

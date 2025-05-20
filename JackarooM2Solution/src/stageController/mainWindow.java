@@ -37,22 +37,39 @@ public class mainWindow {
 	StackPane firepit;
 	Scene scene;
 	Game game;
-	HBox marbles1;
-	HBox marbles2;
-	HBox marbles3;
-	HBox marbles4;
+	HBox playerMarbles;
+	VBox CPU1Marbles;
+	HBox CPU2Marbles;
+	HBox CPU3Marbles;
+	Circle playerMarble1;
+	Circle playerMarble2;
+	Circle playerMarble3;
+	Circle playerMarble4;
+	Circle CPU1Marble1;
+	Circle CPU1Marble2;
+	Circle CPU1Marble3;
+	Circle CPU1Marble4;
+	Circle CPU2Marble1;
+	Circle CPU2Marble2;
+	Circle CPU2Marble3;
+	Circle CPU2Marble4;
+	Circle CPU3Marble1;
+	Circle CPU3Marble2;
+	Circle CPU3Marble3;
+	Circle CPU3Marble4;
+	StackPane playerCard1;
+	StackPane playerCard2;
+	StackPane playerCard3;
+	StackPane playerCard4;
 	
 	public mainWindow () {}
 	
 	public mainWindow (Label player) {
 		
         this.firepit = new StackPane();
-		//Create New Game
         
         try {this.game = new Game (player.getText());}
         catch (IOException e) {e.getMessage();}
-        
-        //Initializing Player Names and Colours
 		
         Colour mainColour = game.getPlayers().get(0).getColour();
         Colour cpu1Colour = game.getPlayers().get(1).getColour();
@@ -79,23 +96,53 @@ public class mainWindow {
         //Intialize Empty Firepit in the Center of the Board
         
         firepit.setAlignment(Pos.CENTER);
-        Image firepitImage = new Image ("Firepit.png");
-        ImageView firepitimage = new ImageView(firepitImage);
-        firepitimage.setFitHeight(200);
-        firepitimage.setFitWidth(200);
-        firepit.getChildren().add(firepitimage);
+        Image firepitimage = new Image ("Firepit.png");
+        ImageView firepitImage = new ImageView(firepitimage);
+        firepitImage.setFitHeight(200);
+        firepitImage.setFitWidth(200);
+        firepit.getChildren().add(firepitImage);
         
         //Initialize Marbles & their Colors
         
-        HBox marbles1 = marbleRow(game.getPlayers().get(0));
-        HBox marbles2 = marbleRow(game.getPlayers().get(1));
-        HBox marbles3 = marbleRow(game.getPlayers().get(2));
-        HBox marbles4 = marbleRow(game.getPlayers().get(3));
+        HBox marbles1 = new HBox();
+        playerMarble1 = marble(game.getPlayers().get(0));
+        playerMarble2 = marble(game.getPlayers().get(0));
+        playerMarble3 = marble(game.getPlayers().get(0));
+        playerMarble4 = marble(game.getPlayers().get(0));
+        marbles1.getChildren().addAll(playerMarble1,playerMarble2,playerMarble3,playerMarble4);
+        marbles1.setSpacing(5);
+        marbles1.setTranslateX(480);
+        marbles1.setTranslateY(750);
         
-        marbles1.setAlignment(Pos.BOTTOM_RIGHT);
-        marbles2.setAlignment(Pos.BOTTOM_LEFT);
-        marbles3.setAlignment(Pos.TOP_LEFT);
-        marbles4.setAlignment(Pos.TOP_RIGHT);
+        VBox marbles2 = new VBox();
+        CPU1Marble1 = marble(game.getPlayers().get(1));
+        CPU1Marble2 = marble(game.getPlayers().get(1));
+        CPU1Marble3 = marble(game.getPlayers().get(1));
+        CPU1Marble4 = marble(game.getPlayers().get(1));
+        marbles2.getChildren().addAll(CPU1Marble1,CPU1Marble2,CPU1Marble3,CPU1Marble4);
+        marbles2.setSpacing(5);
+        marbles2.setTranslateX(75);
+        marbles2.setTranslateY(375);
+        
+        HBox marbles3 = new HBox();
+        CPU2Marble1 = marble(game.getPlayers().get(2));
+        CPU2Marble2 = marble(game.getPlayers().get(2));
+        CPU2Marble3 = marble(game.getPlayers().get(2));
+        CPU2Marble4 = marble(game.getPlayers().get(2));
+        marbles3.getChildren().addAll(CPU2Marble1,CPU2Marble2,CPU2Marble3,CPU2Marble4);
+        marbles3.setSpacing(5);
+        marbles3.setTranslateX(480);
+        marbles3.setTranslateY(50);
+        
+        VBox marbles4 = new VBox();
+        CPU3Marble1 = marble(game.getPlayers().get(3));
+        CPU3Marble2 = marble(game.getPlayers().get(3));
+        CPU3Marble3 = marble(game.getPlayers().get(3));
+        CPU3Marble4 = marble(game.getPlayers().get(3));
+        marbles4.getChildren().addAll(CPU3Marble1,CPU3Marble2,CPU3Marble3,CPU3Marble4);
+        marbles4.setSpacing(5);
+        marbles4.setTranslateX(925);
+        marbles4.setTranslateY(375);
         
         //Initialize the Track
         
@@ -166,7 +213,8 @@ public class mainWindow {
 
 	   // Current and Next player turn
 		Label turn_info = new Label(updateTurn());
-		turn_info.setFont(Font.font(30));
+		turn_info.setWrapText(true);
+		turn_info.setFont(Font.font(25));
 		turn_info.setPrefSize(300,250);
 		
 		
@@ -206,18 +254,8 @@ public class mainWindow {
 		    }
 	 }
 	 
-	 public static HBox marbleRow (Player player) {
-		 
-		 HBox marbles = new HBox();
-		 marbles.setSpacing(5);
-		 
-		 for (Marble marble : player.getMarbles()) {
-			 
-			 Circle oneMarble = new Circle (5,Paint.valueOf(toHexColor(player.getColour())));
-			 marbles.getChildren().add(oneMarble);
-		 }
-		 
-		 return marbles;
+	 public static Circle marble (Player player) {
+		 return new Circle (5,Paint.valueOf(toHexColor(player.getColour())));
 	 }
 	
 	 
