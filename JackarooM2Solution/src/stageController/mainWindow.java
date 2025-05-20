@@ -16,6 +16,7 @@ import model.player.Marble;
 import model.player.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -61,6 +62,27 @@ public class mainWindow {
 	StackPane playerCard2;
 	StackPane playerCard3;
 	StackPane playerCard4;
+	ArrayList<StackPane> trackView;
+	HBox marbles1;
+	VBox marbles2;
+	HBox marbles3;
+	VBox marbles4;
+	ArrayList<Card> hand1;
+	ArrayList<Card> hand2;
+	ArrayList<Card> hand3;
+	ArrayList<Card> hand4;
+	final Image cardImage = new Image("Card Back Rotated.png");
+	VBox CPU1Hand;
+	VBox CPU3Hand;
+	HBox CPU2Hand;
+	HBox playerHand;
+	Label turn_info;
+	int round;
+	int turn;
+	ArrayList<StackPane> safeZone1;
+	ArrayList<StackPane> safeZone2;
+	ArrayList<StackPane> safeZone3;
+	ArrayList<StackPane> safeZone4;
 	
 	public mainWindow () {}
 	
@@ -71,6 +93,9 @@ public class mainWindow {
         try {this.game = new Game (player.getText());}
         catch (IOException e) {e.getMessage();}
 		
+        turn = 1;
+        round = 1;
+        
         Colour mainColour = game.getPlayers().get(0).getColour();
         Colour cpu1Colour = game.getPlayers().get(1).getColour();
         Colour cpu2Colour = game.getPlayers().get(2).getColour();
@@ -104,7 +129,7 @@ public class mainWindow {
         
         //Initialize Marbles & their Colors
         
-        HBox marbles1 = new HBox();
+        marbles1 = new HBox();
         playerMarble1 = marble(game.getPlayers().get(0));
         playerMarble2 = marble(game.getPlayers().get(0));
         playerMarble3 = marble(game.getPlayers().get(0));
@@ -114,7 +139,7 @@ public class mainWindow {
         marbles1.setTranslateX(480);
         marbles1.setTranslateY(750);
         
-        VBox marbles2 = new VBox();
+        marbles2 = new VBox();
         CPU1Marble1 = marble(game.getPlayers().get(1));
         CPU1Marble2 = marble(game.getPlayers().get(1));
         CPU1Marble3 = marble(game.getPlayers().get(1));
@@ -124,7 +149,7 @@ public class mainWindow {
         marbles2.setTranslateX(75);
         marbles2.setTranslateY(375);
         
-        HBox marbles3 = new HBox();
+        marbles3 = new HBox();
         CPU2Marble1 = marble(game.getPlayers().get(2));
         CPU2Marble2 = marble(game.getPlayers().get(2));
         CPU2Marble3 = marble(game.getPlayers().get(2));
@@ -134,7 +159,7 @@ public class mainWindow {
         marbles3.setTranslateX(480);
         marbles3.setTranslateY(50);
         
-        VBox marbles4 = new VBox();
+        marbles4 = new VBox();
         CPU3Marble1 = marble(game.getPlayers().get(3));
         CPU3Marble2 = marble(game.getPlayers().get(3));
         CPU3Marble3 = marble(game.getPlayers().get(3));
@@ -146,64 +171,51 @@ public class mainWindow {
         
         //Initialize the Track
         
+        trackView = new ArrayList<StackPane>();
         gameBoard = createTrack(game.getBoard().getTrack());
     	gameBoard.setAlignment(Pos.CENTER);
+    	safeZone1 = new ArrayList<StackPane>();
+    	safeZone2 = new ArrayList<StackPane>();
+    	safeZone3 = new ArrayList<StackPane>();
+    	safeZone4 = new ArrayList<StackPane>();
     	addSafeZones(gameBoard);
     	
     	//Distribute Cards
     	
-    	ArrayList<Card> hand1 = game.getPlayers().get(0).getHand();
-		ArrayList<Card> hand2 = game.getPlayers().get(1).getHand();
-		ArrayList<Card> hand3 = game.getPlayers().get(2).getHand();
-		ArrayList<Card> hand4 = game.getPlayers().get(3).getHand();
+    	hand1 = game.getPlayers().get(0).getHand();
+		hand2 = game.getPlayers().get(1).getHand();
+		hand3 = game.getPlayers().get(2).getHand();
+		hand4 = game.getPlayers().get(3).getHand();
 		
-		VBox CPU1Hand = new VBox(5);
-		Image cardImage = new Image("Card Back Rotated.png");
-		VBox CPU3Hand = new VBox(5);
-
-		for (int i = 0; i < 4; i++) {
-			
-		    ImageView cardView1 = new ImageView(cardImage);
-		    cardView1.setFitHeight(60);
-		    cardView1.setFitWidth(70);
-		    CPU1Hand.getChildren().add(cardView1);
-		}
-		
+		CPU1Hand = new VBox(5);
+		setCPUHand(4,cardImage,CPU1Hand);
 		CPU1Hand.setTranslateX(100);
 		CPU1Hand.setTranslateY(270);
 		
-		for (int i = 0; i < 4; i++) {
-			
-		    ImageView cardView3 = new ImageView(cardImage);
-		    cardView3.setFitHeight(60);
-		    cardView3.setFitWidth(70);
-		    CPU3Hand.getChildren().add(cardView3);
-		}
-		
+		CPU3Hand = new VBox(5);
+		setCPUHand(4,cardImage,CPU3Hand);
 		CPU3Hand.setTranslateX(830);
 		CPU3Hand.setTranslateY(270);
 	
-		
-		HBox CPU2Hand = new HBox(5);
+		CPU2Hand = new HBox(5);
 		Image cardImage2 = new Image("Card Back.png");
-
-		for (int i = 0; i < 4; i++) {
-			
-		    ImageView cardView3 = new ImageView(cardImage2);
-		    cardView3.setFitHeight(70);
-		    cardView3.setFitWidth(60);
-		    CPU2Hand.getChildren().add(cardView3);
-		}
-		
+		setCPUHand(4,cardImage,CPU2Hand);
 		CPU2Hand.setTranslateX(370);
 		CPU2Hand.setTranslateY(80);
 		
 		//Main Player Cards (Hurts Just Thinking About It)
 		
-		HBox playerHand = new HBox(5);
+		playerHand = new HBox(5);
 		
 		for (int i=0; i<4; i++){
 			StackPane r = playerCard(hand1.get(i));
+			switch (i){
+			case 0: playerCard1 = r; break;
+			case 1: playerCard2 = r; break;
+			case 2: playerCard3 = r; break;
+			case 3: playerCard4 = r; break;
+			default: break;
+			}	
 			playerHand.getChildren().add(r);
 		}
 		
@@ -212,7 +224,7 @@ public class mainWindow {
 
 
 	   // Current and Next player turn
-		Label turn_info = new Label(updateTurn());
+		turn_info = new Label(updateTurn());
 		turn_info.setWrapText(true);
 		turn_info.setFont(Font.font(25));
 		turn_info.setPrefSize(300,250);
@@ -232,57 +244,73 @@ public class mainWindow {
 	
 	//GUI Design Methods
 	
-	 public static Label createPlayerLabel(String name, Colour color) {
+	 public Label createPlayerLabel(String name, Colour color) {
 	    	
 	        Label label = new Label(name);
 	        label.setStyle("-fx-padding: 10; -fx-background-color:" + toHexColor(color) + "; -fx-background-radius: 5;");
 	        label.setTextFill(Color.BLACK);
-
 	        return label;
 	    }
 	 
-	 public static String toHexColor(Colour colour) {
+	 public String toHexColor(Colour colour) {
 		 
 		    switch (colour) {
-		    
-		   
 		        case RED: return "#e74c3c";
 		        case BLUE: return "#3498db";
 		        case GREEN: return "#2ecc71";
 		        default: return "#f1c40f";
-		        
 		    }
 	 }
 	 
-	 public static Circle marble (Player player) {
+	 public void setCPUHand(int count, Image cardImage, HBox hand){
+		 
+		 for (int i = 0; i < 4; i++) {
+			    ImageView cardView1 = new ImageView(cardImage);
+			    cardView1.setFitHeight(70);
+			    cardView1.setFitWidth(60);
+			    hand.getChildren().add(cardView1);
+			}
+	 }
+	 
+	 public void setCPUHand(int count, Image cardImage, VBox hand){
+		 
+		 for (int i = 0; i < 4; i++) {
+			    ImageView cardView1 = new ImageView(cardImage);
+			    cardView1.setFitHeight(60);
+			    cardView1.setFitWidth(70);
+			    hand.getChildren().add(cardView1);
+			}
+	 }
+	 
+	 public Circle marble (Player player) {
 		 return new Circle (5,Paint.valueOf(toHexColor(player.getColour())));
 	 }
 	
 	 
-	 public static GridPane createTrack(ArrayList<Cell> track) {
+	 public GridPane createTrack(ArrayList<Cell> track) {
 		 
 		    int size = 25;
 		    int row = 0, col = 0;
 		    GridPane UItrack = new GridPane();
 		    
 		    for (int i = 0; i < 100; i++) {
-		    	
 		        Cell cell = track.get(i);
-		        
 		        if (i <= size) {row = 0; col = i;} 
 		        else if (i < 50) {row = i-size; col = size;} 
 		        else if (i < 75) {row = size; col = size - (i - size*2);} 
 		        else {row = size - (i - size*3); col = 0;}
 
 		        StackPane cellView = createCells(cell);
+		        trackView.add(cellView);
 		        UItrack.add(cellView, col, row);
+		        
 		    }
 
 		    return UItrack;
 		}
 
 	 
-	 private static StackPane createCells(Cell cell) {
+	 public StackPane createCells(Cell cell) {
 		 
 		    Rectangle tile = new Rectangle(13, 13);
 		    
@@ -297,41 +325,61 @@ public class mainWindow {
 		    return stack;
 		}
 	 
-	 public static GridPane addSafeZones (GridPane board) {
+	 public void addSafeZones (GridPane board) {
+		 
+		 //SafeZone3
 		 
 		 for (int row = 1; row < 5; row++) {
-			 
 		        Rectangle cell = new Rectangle(13, 13);
 		        cell.setFill(Color.BEIGE);
 		        cell.setStroke(Color.BLACK);
-		        board.add(cell,23,row);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone3.add(r);
+		        board.add(r,23,row);
 		    }
 		 
-		 for (int col = 21; col < 25; col++) {
-			 
+		 //SafeZone1
+		 
+		 for (int col = 24; col > 20; col--) {
 			 	Rectangle cell = new Rectangle(13, 13);
 		        cell.setFill(Color.BEIGE);
 		        cell.setStroke(Color.BLACK);
-		        board.add(cell,col,23);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone1.add(r);
+		        board.add(r,col,23);
 		 }
 		 
-		 for (int row = 21; row < 25; row++) {
+		 //SafeZone2
+		 
+		 for (int row = 24; row > 20; row--) {
 			 
 			 	Rectangle cell = new Rectangle(13, 13);
 		        cell.setFill(Color.BEIGE);
 		        cell.setStroke(Color.BLACK);
-		        board.add(cell,2,row);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone2.add(r);
+		        board.add(r,2,row);
 		 }
+		 
+		 //SafeZone4
 		 
 		 for (int col = 1; col < 5; col++) {
 			 
 		        Rectangle cell = new Rectangle(13, 13);
 		        cell.setFill(Color.BEIGE);
 		        cell.setStroke(Color.BLACK);
-		        board.add(cell,col,2);
+		        StackPane r = new StackPane();
+		        r.setPrefSize(13, 13);
+		        r.getChildren().add(cell);
+		        safeZone4.add(r);
+		        board.add(r,col,2);
 		 }
-		 
-		 return board;
 		 
 	 }
 	 
@@ -345,10 +393,11 @@ public class mainWindow {
 		    	if(game.getNextPlayerColour()==p.getColour())
 		    		next = p.getName();
 		    }
-		    return "Current Player: " + current+'\n'+"Next Player: " + next;
+		    return "Round: "+round+"\nTurn: "+turn+"\nCurrent Player: "+current+"\nNext Player: " + next;
 	 }
 	 
-	 public static StackPane playerCard(Card card){
+	 public StackPane playerCard(Card card){
+		 
 		 StackPane visibleCard = new StackPane();
 		 visibleCard.setMaxSize(100,130);
 		 Rectangle background = new Rectangle(100,130);
