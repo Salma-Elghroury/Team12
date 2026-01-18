@@ -9,4 +9,14 @@
 <fullyQualifiedTypeName name="javafx.stage.Stage"/>
 <fullyQualifiedTypeName name="javafx.scene.control.Label"/>
 <fullyQualifiedTypeName name="stageController.mainWindow"/>
+<fullyQualifiedTypeName name="javafx.application.Application"/>
+<fullyQualifiedTypeName name="engine.Game"/>
+<fullyQualifiedTypeName name="javafx.scene.Scene"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.AnchorPane"/>
+<fullyQualifiedTypeName name="javafx.scene.image.Image"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundImage"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundRepeat"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundPosition"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundSize"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.Background"/>
 </qualifiedTypeNameHistroy>
