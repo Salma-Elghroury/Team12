@@ -208,17 +208,6 @@ public class BoardView {
 		}
 	}
 	
-	public void turnOff(){
-		for (int i=0; i<playerHand.size() ;i++)
-			playerHand.get(i).turnOff();
-		for (int i=0; i<4; i++){
-			playerMarbles.get(i).turnOff();
-			cpu1Marbles.get(i).turnOff();
-			cpu2Marbles.get(i).turnOff();
-			cpu3Marbles.get(i).turnOff();
-		}
-	}
-	
 	public void translateCardFromDeck(int playerIndex, CardView card, int cardIndex){
 		double x = 0, y = 0, angle = 0;
 		switch (playerIndex){
@@ -235,29 +224,42 @@ public class BoardView {
 		translate.setDuration(Duration.seconds(1));
 		RotateTransition rotate = new RotateTransition();
 		rotate.setToAngle(angle);
-		rotate.setDuration(Duration.seconds(0.5));
+		if (angle == 0)
+			rotate.setDuration(Duration.seconds(0.5));
+		else
+			rotate.setDuration(Duration.seconds(0));
 		SequentialTransition animation = new SequentialTransition(card, translate, rotate);
 		animation.play();
+//		translate.setNode(card);
+//		translate.play();
+//		translate.setOnFinished(E -> {
+//			if (playerIndex==1) rotateCard(card,90);
+//			if (playerIndex==3) rotateCard(card,-90);
+//		});
+	}
+	
+	public void rotateCard(CardView card, double angle){
+		RotateTransition rotate = new RotateTransition();
+		rotate.setNode(card);
+		rotate.setDuration(Duration.seconds(0.5));
+		rotate.setToAngle(angle);
+		rotate.play();
 	}
 	
 	public void translateCardToFirepit(CardView card, int playerIndex){
 		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(card);
 		translate.setDuration(Duration.seconds(1));
 		translate.setToX(firePitXPosition-8);
 		translate.setToY(firePitYPosition-8);
-		RotateTransition rotate = new RotateTransition();
-		rotate.setToAngle(0);
-		rotate.setDuration(Duration.seconds(0.5));
-		SequentialTransition animation = new SequentialTransition(card, translate, rotate);
-		animation.play();
+		translate.play();
+		translate.setOnFinished(E -> {
+			if (playerIndex==1 ||playerIndex==3) rotateCard(card,0);
+		});
 	}
 	
 	public void flipCard(CardView image){
 		image.frontCard(image.getCard());
 	}
 
-	public void translateMarble(){
-		
-	}
-	
 }

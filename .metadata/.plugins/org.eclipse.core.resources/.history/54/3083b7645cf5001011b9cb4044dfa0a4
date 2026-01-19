@@ -8,7 +8,6 @@ import model.player.Marble;
 import engine.Game;
 import exception.GameException;
 import exception.InvalidCardException;
-import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,7 +25,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GameStage {
 	
@@ -232,13 +230,11 @@ public class GameStage {
 		discard.setMouseTransparent(true);
 		discard.setEffect(null);
 		discard.setDisable(true);
-		boardView.turnOff();
-		PauseTransition pause = new PauseTransition();
-		pause.setDuration(Duration.seconds(1.7));
-		pause.play();
-		pause.setOnFinished(E -> {
-			status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
-		});
+		status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
+	}
+
+	public void startCPUTurn(){
+		
 	}
 	
 }

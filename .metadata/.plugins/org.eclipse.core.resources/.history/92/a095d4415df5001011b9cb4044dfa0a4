@@ -232,13 +232,16 @@ public class GameStage {
 		discard.setMouseTransparent(true);
 		discard.setEffect(null);
 		discard.setDisable(true);
-		boardView.turnOff();
 		PauseTransition pause = new PauseTransition();
 		pause.setDuration(Duration.seconds(1.7));
 		pause.play();
 		pause.setOnFinished(E -> {
 			status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
 		});
+	}
+
+	public void startCPUTurn(){
+		
 	}
 	
 }

@@ -8,7 +8,6 @@ import model.player.Marble;
 import engine.Game;
 import exception.GameException;
 import exception.InvalidCardException;
-import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,7 +25,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GameStage {
 	
@@ -41,7 +39,6 @@ public class GameStage {
 	ArrayList<MarbleView> chosenMarbles;
 	ArrayList<Colour> colorOrder;
 	String playerName;
-	Label status;
 	
 	public GameStage(String x){
 		playerName = x;
@@ -110,7 +107,7 @@ public class GameStage {
 		discard = makeButton("Discard Card","#850000",109.6,34.3,133.6,838.4);
 		
 		// Status
-		status = new Label();
+		Label status = new Label();
 		status.setFont(new Font("Times New Roman",25));
 		status.setStyle("-fx-text-fill: white");
 		status.setTranslateX(797.8);
@@ -232,13 +229,10 @@ public class GameStage {
 		discard.setMouseTransparent(true);
 		discard.setEffect(null);
 		discard.setDisable(true);
-		boardView.turnOff();
-		PauseTransition pause = new PauseTransition();
-		pause.setDuration(Duration.seconds(1.7));
-		pause.play();
-		pause.setOnFinished(E -> {
-			status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
-		});
+	}
+
+	public void startCPUTurn(){
+		
 	}
 	
 }

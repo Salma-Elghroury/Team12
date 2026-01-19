@@ -8,7 +8,6 @@ import model.card.Card;
 import model.player.Marble;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -208,56 +207,47 @@ public class BoardView {
 		}
 	}
 	
-	public void turnOff(){
-		for (int i=0; i<playerHand.size() ;i++)
-			playerHand.get(i).turnOff();
-		for (int i=0; i<4; i++){
-			playerMarbles.get(i).turnOff();
-			cpu1Marbles.get(i).turnOff();
-			cpu2Marbles.get(i).turnOff();
-			cpu3Marbles.get(i).turnOff();
-		}
-	}
-	
 	public void translateCardFromDeck(int playerIndex, CardView card, int cardIndex){
-		double x = 0, y = 0, angle = 0;
+		TranslateTransition translate = new TranslateTransition();
+		translate.setDuration(Duration.seconds(1));
 		switch (playerIndex){
-		case 0: x = playerHandXPosition[cardIndex]-3; y = playerHandYPosition[cardIndex]-8; break;
-		case 1: x = cpu1HandXPosition[cardIndex]+25; y = cpu1HandYPosition[cardIndex]-33; angle = 90; break;
-		case 2: x = cpu2HandXPosition[cardIndex]-3; y = cpu2HandYPosition[cardIndex]-8; break;
-		case 3: x = cpu3HandXPosition[cardIndex]+25; y = cpu3HandYPosition[cardIndex]-33; angle = -90; break;
+		case 0: translate.setToX(playerHandXPosition[cardIndex]-3); translate.setToY(playerHandYPosition[cardIndex]-8); break;
+		case 1: translate.setToX(cpu1HandXPosition[cardIndex]+25); translate.setToY(cpu1HandYPosition[cardIndex]-33); break;
+		case 2: translate.setToX(cpu2HandXPosition[cardIndex]-3); translate.setToY(cpu2HandYPosition[cardIndex]-8); break;
+		case 3: translate.setToX(cpu3HandXPosition[cardIndex]+25); translate.setToY(cpu3HandYPosition[cardIndex]-33); break;
 		default: break;
 		}
-		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(card);
 		translate.setDelay(Duration.seconds(1));
-		translate.setToX(x);
-		translate.setToY(y);
-		translate.setDuration(Duration.seconds(1));
+		translate.play();
+		translate.setOnFinished(E -> {
+			if (playerIndex==1) rotateCard(card,90);
+			if (playerIndex==3) rotateCard(card,-90);
+		});
+	}
+	
+	public void rotateCard(CardView card, double angle){
 		RotateTransition rotate = new RotateTransition();
-		rotate.setToAngle(angle);
+		rotate.setNode(card);
 		rotate.setDuration(Duration.seconds(0.5));
-		SequentialTransition animation = new SequentialTransition(card, translate, rotate);
-		animation.play();
+		rotate.setToAngle(angle);
+		rotate.play();
 	}
 	
 	public void translateCardToFirepit(CardView card, int playerIndex){
 		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(card);
 		translate.setDuration(Duration.seconds(1));
 		translate.setToX(firePitXPosition-8);
 		translate.setToY(firePitYPosition-8);
-		RotateTransition rotate = new RotateTransition();
-		rotate.setToAngle(0);
-		rotate.setDuration(Duration.seconds(0.5));
-		SequentialTransition animation = new SequentialTransition(card, translate, rotate);
-		animation.play();
+		translate.play();
+		translate.setOnFinished(E -> {
+			if (playerIndex==1 ||playerIndex==3) rotateCard(card,0);
+		});
 	}
 	
 	public void flipCard(CardView image){
 		image.frontCard(image.getCard());
 	}
 
-	public void translateMarble(){
-		
-	}
-	
 }

@@ -19,4 +19,7 @@
 <fullyQualifiedTypeName name="javafx.scene.layout.BackgroundPosition"/>
 <fullyQualifiedTypeName name="javafx.scene.layout.BackgroundSize"/>
 <fullyQualifiedTypeName name="javafx.scene.layout.Background"/>
+<fullyQualifiedTypeName name="javafx.animation.SequentialTransition"/>
+<fullyQualifiedTypeName name="javafx.animation.PauseTransition"/>
+<fullyQualifiedTypeName name="javafx.util.Duration"/>
 </qualifiedTypeNameHistroy>

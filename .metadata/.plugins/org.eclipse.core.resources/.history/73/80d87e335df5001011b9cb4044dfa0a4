@@ -208,17 +208,6 @@ public class BoardView {
 		}
 	}
 	
-	public void turnOff(){
-		for (int i=0; i<playerHand.size() ;i++)
-			playerHand.get(i).turnOff();
-		for (int i=0; i<4; i++){
-			playerMarbles.get(i).turnOff();
-			cpu1Marbles.get(i).turnOff();
-			cpu2Marbles.get(i).turnOff();
-			cpu3Marbles.get(i).turnOff();
-		}
-	}
-	
 	public void translateCardFromDeck(int playerIndex, CardView card, int cardIndex){
 		double x = 0, y = 0, angle = 0;
 		switch (playerIndex){
@@ -256,8 +245,4 @@ public class BoardView {
 		image.frontCard(image.getCard());
 	}
 
-	public void translateMarble(){
-		
-	}
-	
 }

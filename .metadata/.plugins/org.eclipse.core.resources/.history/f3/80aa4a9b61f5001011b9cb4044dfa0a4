@@ -256,8 +256,4 @@ public class BoardView {
 		image.frontCard(image.getCard());
 	}
 
-	public void translateMarble(){
-		
-	}
-	
 }

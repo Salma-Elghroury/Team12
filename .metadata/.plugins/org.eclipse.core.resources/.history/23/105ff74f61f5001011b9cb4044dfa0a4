@@ -241,4 +241,16 @@ public class GameStage {
 		});
 	}
 	
+	public void getMovedMarbles(){
+		game.getBoard().getTrack();
+	}
+
+	public void startCPUTurn(){
+		try {
+			game.playPlayerTurn();
+		} catch (GameException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 }

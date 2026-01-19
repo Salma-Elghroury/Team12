@@ -64,7 +64,6 @@ public class CardView extends ImageView implements EventTarget, Styleable{
 	
 	public void turnOff(){
 		this.setMouseTransparent(true);
-		this.setEffect(null);
 	}
 	
 	

@@ -240,5 +240,13 @@ public class GameStage {
 			status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
 		});
 	}
+
+	public void startCPUTurn(){
+		try {
+			game.playPlayerTurn();
+		} catch (GameException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 }
