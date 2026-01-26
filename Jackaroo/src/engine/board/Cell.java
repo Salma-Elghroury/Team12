@@ -3,15 +3,15 @@ package engine.board;
 import model.player.Marble;
 
 public class Cell {
-    private Marble marble;
-    private CellType cellType;
-    private boolean trap;
+	private Marble marble;
+	private CellType cellType;
+	private boolean trap;
 
-    public Cell(CellType cellType) {
-        this.cellType = cellType;
-        this.marble = null;
-        this.trap = false;
-    }
+	public Cell(CellType cellType) {
+		this.cellType = cellType;
+		this.marble = null;
+		this.trap = false;
+	}
 
 	public Marble getMarble() {
 		return marble;

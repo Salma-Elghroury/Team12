@@ -10,46 +10,62 @@ import javafx.scene.paint.Color;
 import model.Colour;
 import model.player.Marble;
 
-public class MarbleView extends ImageView implements EventTarget, Styleable{
-	
+public class MarbleView extends ImageView implements EventTarget, Styleable {
+
 	Marble marble;
 	private DropShadow shadow;
-	
-	public MarbleView(Marble marble){
+	int playerIndex;
+
+	public MarbleView(Marble marble, int playerIndex) {
 		super(getMarble(marble.getColour()));
 		this.marble = marble;
+		this.playerIndex = playerIndex;
 		this.shadow = new DropShadow();
 		shadow.setColor(Color.WHITE);
 		shadow.setRadius(5);
 		shadow.setBlurType(BlurType.GAUSSIAN);
 	}
-	
-	public Marble getMarble(){
+
+	public Marble getMarble() {
 		return marble;
 	}
-	
-	private static Image getMarble(Colour colour){
-		String name = "";
-		switch (colour){
-		case GREEN: name = "Green marble.png";break;
-		case RED: name = "Red marble.png";break;
-		case YELLOW: name = "Yellow marble.png";break;
-		case BLUE: name = "Blue marble.png";break;
-		default: break;
-		}
-		return new Image(name,16,16,false,false);
+
+	public int getPlayerIndex() {
+		return playerIndex;
 	}
-	
-	public void turnOn(){
+
+	private static Image getMarble(Colour colour) {
+		String name = "/marbles/";
+		switch (colour) {
+		case GREEN:
+			name += "Green marble.png";
+			break;
+		case RED:
+			name += "Red marble.png";
+			break;
+		case YELLOW:
+			name += "Yellow marble.png";
+			break;
+		case BLUE:
+			name += "Blue marble.png";
+			break;
+		default:
+			break;
+		}
+		return new Image(name, 16, 16, false, false);
+	}
+
+	public void turnOn() {
 		this.setMouseTransparent(false);
-		this.setOnMouseClicked(E ->{
-			if (this.getEffect()==null)
+		this.setOnMouseClicked(E -> {
+			if (this.getEffect() == null)
 				this.setEffect(shadow);
-			else this.setEffect(null);
+			else
+				this.setEffect(null);
 		});
 	}
-	
-	public void turnOff(){
+
+	public void turnOff() {
 		this.setMouseTransparent(true);
 		this.setEffect(null);
 	}

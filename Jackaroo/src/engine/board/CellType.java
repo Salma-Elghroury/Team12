@@ -1,5 +1,5 @@
 package engine.board;
 
 public enum CellType {
-    NORMAL, SAFE, ENTRY, BASE
+	NORMAL, SAFE, ENTRY, BASE
 }

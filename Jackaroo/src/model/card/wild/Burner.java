@@ -10,18 +10,20 @@ import model.player.Marble;
 
 public class Burner extends Wild {
 
-    public Burner(String name, String description, BoardManager boardManager, GameManager gameManager) {
-        super(name, description, boardManager, gameManager);
-    }
-    
-    @Override
-    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-        return !super.validateMarbleColours(marbles);
-    }
+	public Burner(String name, String description, BoardManager boardManager,
+			GameManager gameManager) {
+		super(name, description, boardManager, gameManager);
+	}
 
-    @Override
-    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        boardManager.destroyMarble(marbles.get(0));
-    }
-    
+	@Override
+	public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+		return !super.validateMarbleColours(marbles);
+	}
+
+	@Override
+	public void act(ArrayList<Marble> marbles) throws ActionException,
+			InvalidMarbleException {
+		boardManager.destroyMarble(marbles.get(0));
+	}
+
 }

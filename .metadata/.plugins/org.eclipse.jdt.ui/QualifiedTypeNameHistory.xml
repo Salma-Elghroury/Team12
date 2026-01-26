@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javafx.scene.layout.HBox"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.VBox"/>
+<fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="model.card.standard.Standard"/>
-<fullyQualifiedTypeName name="model.card.wild.Wild"/>
-<fullyQualifiedTypeName name="javafx.scene.paint.Color"/>
-<fullyQualifiedTypeName name="javafx.geometry.Pos"/>
-<fullyQualifiedTypeName name="javafx.scene.Node"/>
-<fullyQualifiedTypeName name="javafx.scene.control.Button"/>
-<fullyQualifiedTypeName name="javafx.stage.Stage"/>
-<fullyQualifiedTypeName name="javafx.scene.control.Label"/>
-<fullyQualifiedTypeName name="stageController.mainWindow"/>
-<fullyQualifiedTypeName name="javafx.application.Application"/>
-<fullyQualifiedTypeName name="engine.Game"/>
-<fullyQualifiedTypeName name="javafx.scene.Scene"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.AnchorPane"/>
-<fullyQualifiedTypeName name="javafx.scene.image.Image"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundImage"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundRepeat"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundPosition"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.BackgroundSize"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.Background"/>
-<fullyQualifiedTypeName name="javafx.animation.SequentialTransition"/>
-<fullyQualifiedTypeName name="javafx.animation.PauseTransition"/>
-<fullyQualifiedTypeName name="javafx.util.Duration"/>
+<fullyQualifiedTypeName name="engine.board.Cell"/>
 </qualifiedTypeNameHistroy>

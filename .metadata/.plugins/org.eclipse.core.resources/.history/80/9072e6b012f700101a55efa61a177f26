@@ -1,0 +1,279 @@
+package stage;
+
+import java.util.ArrayList;
+
+import model.Colour;
+import model.card.Card;
+import model.player.Marble;
+import engine.Game;
+import exception.GameException;
+import exception.InvalidCardException;
+import javafx.animation.PauseTransition;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class GameStage {
+	
+	Scene scene;
+	Game game;
+	AnchorPane root;
+	private DropShadow shadow;
+	BoardView boardView;
+	Button play;
+	Button discard;
+	ArrayList<CardView> chosenCards;
+	ArrayList<MarbleView> chosenMarbles;
+	ArrayList<Colour> colorOrder;
+	String playerName;
+	Label status;
+	
+	public GameStage(String x){
+		playerName = x;
+		try {
+			this.game = new Game(playerName);
+		} catch (Exception e){displayError(e.getMessage());}
+		
+		shadow = new DropShadow();
+		shadow.setBlurType(BlurType.GAUSSIAN);
+		shadow.setColor(Color.WHEAT);
+		shadow.setWidth(5);
+		chosenCards = new ArrayList<CardView>();
+		chosenMarbles = new ArrayList<MarbleView>();
+		
+		root = new AnchorPane();
+		//background
+		Image image = new Image("Background.png");
+		BackgroundImage bgIm = new BackgroundImage(image,
+				BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER,
+				new BackgroundSize(1050,950,true,true,true,true)
+				);
+		Background bg = new Background(bgIm);
+		root.setBackground(bg);
+		
+		//Set up labels
+		colorOrder = new ArrayList<Colour>();
+		colorOrder.add(game.getPlayers().get(0).getColour());
+		colorOrder.add(game.getPlayers().get(1).getColour());
+		colorOrder.add(game.getPlayers().get(2).getColour());
+		colorOrder.add(game.getPlayers().get(3).getColour());
+		Label human = createPlayerLabel(playerName, colorOrder.get(0));
+		human.setTranslateX(481.9);
+        human.setTranslateY(905.2);
+        Label cpu1 = createPlayerLabel("Wizard", colorOrder.get(1));
+        cpu1.setTranslateX(5.6);
+        cpu1.setTranslateY(457.4);
+        Label cpu2 = createPlayerLabel("Dragon", colorOrder.get(2));
+        cpu2.setTranslateX(481.9);
+        cpu2.setTranslateY(10);
+        Label cpu3 = createPlayerLabel("Pixie", colorOrder.get(3));
+        cpu3.setTranslateX(958.1);
+        cpu3.setTranslateY(457.4);
+        root.getChildren().addAll(human,cpu1,cpu2,cpu3);
+        
+        //set up board
+        
+        boardView = new BoardView(game.getBoard());
+        for (int i=0; i<boardView.cells.size(); i++)
+        	root.getChildren().addAll(boardView.getCells().get(i));
+        for (int i=0; i<game.getPlayers().size(); i++){
+        	ArrayList<Marble> marbles = game.getPlayers().get(i).getMarbles();
+        	for (int j=0; j<marbles.size(); j++){
+        		boardView.setUpMarble(i, j, marbles.get(j));
+        		root.getChildren().add(boardView.getMarbles().get(i).get(j));
+        	}
+        }
+        
+        // set up deck
+        
+		root.getChildren().add(boardView.getDeck());
+		
+		//Buttons
+		
+		play = makeButton("Play","#c07d00",66.3,33.3,155.3,785.8);
+		discard = makeButton("Discard Card","#850000",109.6,34.3,133.6,838.4);
+		
+		// Status
+		status = new Label();
+		status.setFont(new Font("Times New Roman",25));
+		status.setStyle("-fx-text-fill: white");
+		status.setTranslateX(797.8);
+		status.setTranslateY(63.2);
+		status.setText("Playing: "+playerName+"\nNext: Wizard");
+		root.getChildren().add(status);
+		
+		startRound();
+        
+        scene = new Scene(root,1050,950);
+        
+	}
+	
+	private Button makeButton(String name, String color, double width, double height, double x, double y){
+		Button button = new Button();
+		button.setText(name);
+		button.setTranslateX(x);
+		button.setTranslateY(y);
+		button.setPrefSize(width,height);
+		button.setFont(new Font("Times New Roman",13));
+		button.setStyle("-fx-background-color: "+color+"; -fx-text-fill: white; -fx-padding: 10px; -fx-background-radius: 20px;");
+		button.setEffect(shadow);
+		root.getChildren().add(button);
+		return button;
+	}
+	
+	public Scene getScene(){
+		return scene;
+	}
+	
+	private Label createPlayerLabel(String name, Colour color) {
+        Label label = new Label(name);
+        label.setAlignment(Pos.CENTER);
+        label.setPrefSize(86.2,35.2);
+        label.setFont(new Font("Times New Roman",14));
+        label.setStyle("-fx-padding: 5; -fx-background-color: " + toHex(color) + "; -fx-background-radius: 45;");
+        label.setTextFill(Color.WHITE);
+        return label;
+    }
+	
+	private String toHex(Colour colour) {
+	    switch (colour) {
+	        case RED: return "#f07a64";
+	        case BLUE: return "#26bebe";
+	        case GREEN: return "#94c98a";
+	        case YELLOW: return "#e9da7a";
+	        default: return "";
+	    }
+	}
+	
+	public String getPlayerName(Colour colour){
+		if (colour == colorOrder.get(1)) return "Wizard";
+		if (colour == colorOrder.get(2)) return "Dragon";
+		if (colour == colorOrder.get(2)) return "Pixie";
+		return playerName;
+	}
+	
+	public void displayError(String message){
+		Stage errorStage = new Stage();
+		errorStage.setResizable(false);
+		VBox errorRoot = new VBox(2);
+		errorRoot.setPrefSize(100, 100);
+		Label errorLabel = new Label("Error: "+message);
+		errorLabel.setPrefSize(100, 75);
+		errorLabel.setWrapText(true);
+		Button errorButton = new Button("Exit");
+		errorButton.setPrefSize(50, 10);
+		errorRoot.getChildren().addAll(errorLabel, errorButton);
+		Scene errorScene = new Scene(errorRoot, 100, 100);
+		errorStage.setScene(errorScene);
+		errorStage.show();
+		errorButton.setOnMouseClicked(E -> {errorStage.close();});
+	}
+	
+	public void startRound(){
+		boardView.startRound(game,root);
+		if (!game.canPlayTurn()){
+			//Maybe have something show they've been skipped?
+			updateStatus();
+			return;
+		}
+		beginPlayerTurn();
+	}
+	
+	public void beginPlayerTurn(){
+		play.setMouseTransparent(false);
+		play.setDisable(false);
+		play.setEffect(shadow);
+		play.setOnMouseClicked(E -> {
+			getChosen();
+			try {
+				if (chosenCards.size()>1) throw new InvalidCardException("Must choose a card.");
+				if (chosenCards.size()>1) throw new InvalidCardException("Can not choose more than one card.");
+				game.selectCard(chosenCards.get(0).getCard());
+				for (int i=0; i<chosenMarbles.size(); i++)
+					game.selectMarble(chosenMarbles.get(i).getMarble());
+				game.playPlayerTurn();
+				game.endPlayerTurn();
+				endPlayerTurn();
+			} catch (Exception e) {
+				displayError(e.getMessage());
+				game.deselectAll();
+				deselectChosen();
+			}
+		});
+		discard.setMouseTransparent(false);
+		discard.setEffect(shadow);
+		discard.setDisable(false);
+		discard.setOnMouseClicked(E -> {
+			try {
+				game.discardCard(game.getActivePlayerColour());
+				Card selected = game.getFirePit().get(game.getFirePit().size()-1);
+				int i;
+				for (i=0; i<boardView.getHands().get(0).size(); i++)
+					if (boardView.getHands().get(0).get(i).getCard()==selected)
+						chosenCards.add(boardView.getHands().get(0).get(i));
+				game.endPlayerTurn();
+				endPlayerTurn();
+			} catch (GameException e) {
+				displayError(e.getMessage());
+				game.deselectAll();
+				deselectChosen();
+			}
+		});
+	}
+	
+	public void getChosen(){
+		for (int i=0; i<boardView.getHands().get(0).size(); i++)
+			if (boardView.getHands().get(0).get(i).getEffect()!=null)
+				chosenCards.add(boardView.getHands().get(0).get(i));
+		for (int i=0; i<4; i++){
+			for (int j=0; j<4; j++)
+				if (boardView.getMarbles().get(i).get(j).getEffect()!=null)
+					chosenMarbles.add(boardView.getMarbles().get(i).get(j));
+		}
+	}
+	
+	public void deselectChosen(){
+		chosenCards.clear();
+		chosenMarbles.clear();
+	}
+	
+	public void endPlayerTurn(){
+		boardView.translateCardToFirepit(chosenCards.get(0),0);
+		play.setMouseTransparent(true);
+		play.setDisable(true);
+		play.setEffect(null);
+		discard.setMouseTransparent(true);
+		discard.setEffect(null);
+		discard.setDisable(true);
+		boardView.turnOff();
+		PauseTransition pause = new PauseTransition();
+		pause.setDuration(Duration.seconds(1.7));
+		pause.play();
+		pause.setOnFinished(E -> {
+			updateStatus();
+		});
+	}
+	
+	public void updateStatus(){
+		status.setText("Playing: "+getPlayerName(game.getActivePlayerColour())+"\nNext: "+getPlayerName(game.getNextPlayerColour()));
+	}
+	
+}

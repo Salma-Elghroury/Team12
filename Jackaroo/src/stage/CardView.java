@@ -12,13 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public class CardView extends ImageView implements EventTarget, Styleable{
-	
+public class CardView extends ImageView implements EventTarget, Styleable {
+
 	Card card;
 	private DropShadow shadow;
-	private static Image backCard = new Image("Back Card.png",120.2,175.1,true,true);
-	
-	public CardView(Card card){
+	private static Image backCard = new Image("/cards/Back Card.png", 120.2, 175.1,
+			true, true);
+
+	public CardView(Card card) {
 		super(backCard);
 		this.card = card;
 		this.shadow = new DropShadow();
@@ -26,47 +27,57 @@ public class CardView extends ImageView implements EventTarget, Styleable{
 		shadow.setRadius(5);
 		shadow.setBlurType(BlurType.GAUSSIAN);
 	}
-	
-	public Card getCard(){
+
+	public Card getCard() {
 		return card;
 	}
-	
-	public void frontCard(Card card){
-		this.setImage(new Image(getName(card),120.2,175.1,true,true));
+
+	public void frontCard(Card card) {
+		this.setImage(new Image(getName(card), 120.2, 175.1, true, true));
 	}
-	
-	public String getName(Card card){
-		String name="";
-		if (card instanceof Wild){
-			if (card instanceof Burner) name = "Marble Burner.png";
-			else name = "Marble Saver.png";
+
+	public String getName(Card card) {
+		String name = "/cards/";
+		if (card instanceof Wild) {
+			if (card instanceof Burner)
+				name += "Marble Burner.png";
+			else
+				name += "Marble Saver.png";
 		}
-		if (card instanceof Standard){
-			switch(((Standard)card).getSuit()){
-			case HEART: name = ((Standard)card).getName() + " of Heart.png"; break;
-			case DIAMOND: name = ((Standard)card).getName() + " of Diamond.png"; break;
-			case CLUB: name = ((Standard)card).getName() + " of Diamond.png"; break;
-			case SPADE: name = ((Standard)card).getName() + " of Diamond.png"; break;
-			default: break;
+		if (card instanceof Standard) {
+			switch (((Standard) card).getSuit()) {
+			case HEART:
+				name += ((Standard) card).getName() + " of Heart.png";
+				break;
+			case DIAMOND:
+				name += ((Standard) card).getName() + " of Diamond.png";
+				break;
+			case CLUB:
+				name += ((Standard) card).getName() + " of Diamond.png";
+				break;
+			case SPADE:
+				name += ((Standard) card).getName() + " of Diamond.png";
+				break;
+			default:
+				break;
 			}
 		}
 		return name;
 	}
-	
-	public void turnOn(){
+
+	public void turnOn() {
 		this.setMouseTransparent(false);
-		this.setOnMouseClicked(E ->{
-			if (this.getEffect()==null)
+		this.setOnMouseClicked(E -> {
+			if (this.getEffect() == null)
 				this.setEffect(shadow);
-			else this.setEffect(null);
+			else
+				this.setEffect(null);
 		});
 	}
-	
-	public void turnOff(){
+
+	public void turnOff() {
 		this.setMouseTransparent(true);
 		this.setEffect(null);
 	}
-	
-	
 
 }

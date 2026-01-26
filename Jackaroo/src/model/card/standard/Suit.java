@@ -1,5 +1,5 @@
 package model.card.standard;
 
 public enum Suit {
-    HEART, DIAMOND, CLUB, SPADE
+	HEART, DIAMOND, CLUB, SPADE
 }

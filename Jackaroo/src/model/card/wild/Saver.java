@@ -10,13 +10,15 @@ import model.player.Marble;
 
 public class Saver extends Wild {
 
-    public Saver(String name, String description, BoardManager boardManager, GameManager gameManager) {
-        super(name, description, boardManager, gameManager);
-    }
+	public Saver(String name, String description, BoardManager boardManager,
+			GameManager gameManager) {
+		super(name, description, boardManager, gameManager);
+	}
 
-    @Override
-    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        boardManager.sendToSafe(marbles.get(0));
-    }
+	@Override
+	public void act(ArrayList<Marble> marbles) throws ActionException,
+			InvalidMarbleException {
+		boardManager.sendToSafe(marbles.get(0));
+	}
 
 }
