@@ -5,8 +5,8 @@
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="model.card.standard.Standard"/>
 <fullyQualifiedTypeName name="stage.BoardView"/>
-<fullyQualifiedTypeName name="stage.GameStage"/>
 <fullyQualifiedTypeName name="engine.board.Cell"/>
-<fullyQualifiedTypeName name="javafx.animation.PauseTransition"/>
+<fullyQualifiedTypeName name="stage.GameStage"/>
 <fullyQualifiedTypeName name="javafx.util.Duration"/>
+<fullyQualifiedTypeName name="javafx.animation.PauseTransition"/>
 </qualifiedTypeNameHistroy>

@@ -23,8 +23,10 @@ public class Ten extends Standard {
 	@Override
 	public void act(ArrayList<Marble> marbles) throws ActionException,
 			InvalidMarbleException {
-		if (marbles.isEmpty())
+		if (marbles.isEmpty()){
+			gameManager.setExtraTime(2);
 			gameManager.discardCard(gameManager.getNextPlayerColour());
+		}
 
 		else
 			super.act(marbles);

@@ -45,7 +45,7 @@ public class BoardView {
 			388.5, 380.3, 370.7, 366.5, 385.8, 405.3, 424.5, 424.5, 424.5,
 			424.5, 424.5, 424.5, 445.5, 466.5, 487.6, 508.6, 508.6, 508.6,
 			508.6, 508.6, 508.6, 526.7, 546.4, 566.7, 563, 553.5, 545.5, 566.7,
-			587.9, 603.8, 601.1, 593.1, 613.3, 633.4, 653.6, 673.8, 694, 694,
+			587.9, 609.1, 601.1, 593.1, 613.3, 633.4, 653.6, 673.8, 694, 694,
 			694, 694 };
 	final private static double[] homeZone1XPositions = { 700.4, 717.2, 700.4,
 			684.4 };
@@ -319,7 +319,7 @@ public class BoardView {
 		animation.play();
 	}
 
-	public void translateCardToFirepit(CardView card, int playerIndex, AnchorPane root) {
+	public void translateCardToFirepit(CardView card, int playerIndex, AnchorPane root, double extraTime) {
 		if (card == null) {
 	        System.out.println("Card is null in translateCardFromDeck for player " + playerIndex);
 	        return;
@@ -334,6 +334,7 @@ public class BoardView {
 		rotate.setToAngle(0);
 		rotate.setDuration(Duration.seconds(0.5));
 		SequentialTransition animation = new SequentialTransition();
+		animation.setDelay(Duration.seconds(extraTime));
 		animation.setNode(card);
 		animation.getChildren().addAll(translate, rotate);
 		animation.play();
@@ -391,6 +392,7 @@ public class BoardView {
 	}
 
 	public void sendMarbleHome(MarbleView marble, int playerIndex) {
+		marblesInHome[playerIndex] += 1;
 		TranslateTransition translate = new TranslateTransition();
 		translate.setDelay(Duration.seconds(0.5));
 		translate.setToX(cellPositions.get(2 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
@@ -398,7 +400,6 @@ public class BoardView {
 		translate.setDuration(Duration.seconds(0.5));
 		translate.setNode(marble);
 		translate.play();
-		marblesInHome[playerIndex] += 1;
 	}
 	
 	public void sendMarbleToCell(MarbleView marble, Cell cell){

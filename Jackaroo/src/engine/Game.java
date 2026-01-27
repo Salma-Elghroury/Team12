@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import stage.GameStage;
 import engine.board.Board;
 import engine.board.SafeZone;
 import exception.CannotDiscardException;
@@ -26,6 +29,7 @@ public class Game implements GameManager {
 	private int currentPlayerIndex;
 	private final ArrayList<Card> firePit;
 	private int turn;
+	private double extraTime = 0;
 
 	public Game(String playerName) throws IOException {
 		turn = 0;
@@ -68,6 +72,11 @@ public class Game implements GameManager {
 	public ArrayList<Card> getFirePit() {
 		return firePit;
 	}
+	
+	public void setExtraTime(double seconds){
+		this.extraTime=seconds;
+		GameStage.setTurnDuration(2+extraTime);
+	}
 
 	public void selectCard(Card card) throws InvalidCardException {
 		players.get(currentPlayerIndex).selectCard(card);
@@ -90,6 +99,7 @@ public class Game implements GameManager {
 	}
 
 	public boolean canPlayTurn() {
+		System.out.println("Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 		return players.get(currentPlayerIndex).getHand().size() == (4 - turn);
 	}
 
@@ -98,6 +108,7 @@ public class Game implements GameManager {
 	}
 
 	public void endPlayerTurn() {
+		System.out.println("Current Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 		Card selected = players.get(currentPlayerIndex).getSelectedCard();
 		players.get(currentPlayerIndex).getHand().remove(selected);
 		firePit.add(selected);
@@ -120,6 +131,8 @@ public class Game implements GameManager {
 			}
 
 		}
+		
+		System.out.println("Next Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 
 	}
 
@@ -166,6 +179,11 @@ public class Game implements GameManager {
 				this.firePit.add(player.getHand().remove(randIndex));
 			}
 		}
+		
+		GameStage.discardCard(firePit.get(firePit.size()-1), colour, extraTime);
+		
+		extraTime = 0;
+		
 	}
 
 	@Override
@@ -173,7 +191,6 @@ public class Game implements GameManager {
 		int randIndex = (int) (Math.random() * 4);
 		while (randIndex == currentPlayerIndex)
 			randIndex = (int) (Math.random() * 4);
-
 		discardCard(players.get(randIndex).getColour());
 	}
 
@@ -185,6 +202,11 @@ public class Game implements GameManager {
 	@Override
 	public Colour getNextPlayerColour() {
 		return players.get((currentPlayerIndex + 1) % 4).getColour();
+	}
+	
+	public boolean isRoundOver(){
+		System.out.println("Round check: "+ (turn==0));
+		return turn==0 || players.get(0).getHand().size()==4;
 	}
 
 }

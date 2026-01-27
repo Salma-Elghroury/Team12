@@ -11,6 +11,8 @@ public interface GameManager {
 
 	public void fieldMarble() throws CannotFieldException,
 			IllegalDestroyException;
+	
+	public void setExtraTime(double seconds);
 
 	public void discardCard(Colour colour) throws CannotDiscardException;
 

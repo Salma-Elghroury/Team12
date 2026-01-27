@@ -36,7 +36,7 @@ public class GameStage {
 
 	Scene scene;
 	Game game;
-	AnchorPane root;
+	static AnchorPane root;
 	private DropShadow shadow;
 	static BoardView boardView;
 	Button play;
@@ -47,7 +47,8 @@ public class GameStage {
 	String playerName;
 	Label status;
 	static double turnDuration;
-	int turn = 0;
+	private boolean isPlayerTurnActive = false;
+    private boolean isProcessingTurn = false;
 
 	public GameStage(String x) {
 		playerName = x;
@@ -215,69 +216,7 @@ public class GameStage {
 			errorStage.close();
 		});
 	}
-
-	public void startRound() {
-		turn = 0;
-		boardView.startRound(game, root);
-		beginPlayerTurn();
-	}
-
-	public void beginPlayerTurn() {
-		if (!game.canPlayTurn()) {
-			// Maybe have something show they've been skipped?
-			System.out.println("Skipped");
-			updateStatus();
-			cpuTurn(1);
-			return;
-		}
-		System.out.println("Player turn started");
-		boardView.turnOn();
-		play.setMouseTransparent(false);
-		play.setDisable(false);
-		play.setEffect(shadow);
-		play.setOnMouseClicked(E -> {
-			getChosen();
-			System.out.println("Play clicked");
-			try {
-				if (chosenCards.size() == 0)
-					throw new InvalidCardException(
-							"Must select a card to play.");
-				if (chosenCards.size() > 1)
-					throw new InvalidCardException(
-							"Can not choose more than one card.");
-				game.selectCard(chosenCards.get(0).getCard());
-				for (int i = 0; i < chosenMarbles.size(); i++)
-					game.selectMarble(chosenMarbles.get(i).getMarble());
-				game.playPlayerTurn();
-				endPlayerTurn();
-			} catch (GameException e) {
-				displayError(e.getMessage());
-				game.deselectAll();
-				deselectChosen();
-			}
-		});
-		discard.setMouseTransparent(false);
-		discard.setEffect(shadow);
-		discard.setDisable(false);
-		discard.setOnMouseClicked(E -> {
-			System.out.println("Discard clicked");
-			try {
-				game.discardCard(game.getActivePlayerColour());
-				Card selected = game.getFirePit().get(
-						game.getFirePit().size() - 1);
-				int i;
-				for (i = 0; i < boardView.getHands().get(0).size(); i++)
-					if (boardView.getHands().get(0).get(i).getCard() == selected)
-						chosenCards.add(boardView.getHands().get(0).get(i));
-				endPlayerTurn();
-			} catch (GameException e) {
-				displayError(e.getMessage());
-				game.deselectAll();
-				deselectChosen();
-			}
-		});
-	}
-
+	
 	public void getChosen() {
 		for (int i = 0; i < boardView.getHands().get(0).size(); i++)
 			if (boardView.getHands().get(0).get(i).getEffect() != null)
@@ -294,78 +233,268 @@ public class GameStage {
 		chosenMarbles.clear();
 	}
 
-	public void endPlayerTurn() {
-		CardView card = chosenCards.get(0);
-		boardView.translateCardToFirepit(card, 0, root);
-		play.setMouseTransparent(true);
-		play.setDisable(true);
-		play.setEffect(null);
-		discard.setMouseTransparent(true);
-		discard.setEffect(null);
-		discard.setDisable(true);
-		boardView.turnOff();
-		game.endPlayerTurn();
-		PauseTransition pause = new PauseTransition();
-		pause.setDuration(Duration.seconds(turnDuration));
-		pause.play();
-		pause.setOnFinished(E -> {
-			setTurnDuration(2);
-			updateStatus();
-			deselectChosen();
-			cpuTurn(1);
-		});
-	}
-	
-	public void cpuTurn(int playerIndex){
-		if (!game.canPlayTurn()){
-			game.endPlayerTurn();
-			System.out.println("Skipped");
-	        if (playerIndex < 3) {
-	            cpuTurn(playerIndex + 1);
-	        } else {
-	        	turn+=1;
-	        	if (turn==4){
-					startRound();
-					System.out.println("Started round");
-				}
-				else
-					beginPlayerTurn();
-	        }
-			updateStatus();
-			return;
-		}
-		try {
-			System.out.println("CPU "+playerIndex+" playing");
-			game.playPlayerTurn();
-			Card card = game.getPlayers().get(playerIndex).getSelectedCard();
-			CardView cardView = boardView.getCardView(card, playerIndex);
-			boardView.translateCardToFirepit(cardView, playerIndex, root);
-			PauseTransition pause = new PauseTransition();
-			pause.setDuration(Duration.seconds(turnDuration));
-			pause.play();
-			pause.setOnFinished(E -> {
-				game.endPlayerTurn();
-				setTurnDuration(2);
-				updateStatus();
-				if (playerIndex<3)
-					cpuTurn(playerIndex+1);
-				else{
-					System.out.println("Might begin player turn");
-					turn+=1;
-					if (turn==4){
-						startRound();
-						System.out.println("Started round");
-					}
-					else
-						beginPlayerTurn();
-				}
-			});
-		} catch (GameException e) {
-			displayError(e.getMessage());
-		}
-		
-	}
+	public void beginPlayerTurn() {
+		System.out.println("beginPlayerTurn called - isProcessingTurn: " + isProcessingTurn);
 
+		if (isProcessingTurn) {
+	            return; // Don't start a new turn while processing
+	        }
+	        
+	        // Reset flags
+	        isPlayerTurnActive = true;
+	        
+	        // Clear previous selections
+	        deselectChosen();
+	        game.deselectAll();
+	        
+	        if (!game.canPlayTurn()) {
+	            System.out.println("Player cannot play, skipping turn");
+	            // Skip this player's turn
+	            skipPlayerTurn();
+	            return;
+	        }
+	        
+	        System.out.println("Starting player turn for: " + game.getActivePlayerColour());
+	        
+	        // Enable UI
+	        boardView.turnOn();
+	        play.setMouseTransparent(false);
+	        play.setDisable(false);
+	        play.setEffect(shadow);
+	        discard.setMouseTransparent(false);
+	        discard.setEffect(shadow);
+	        discard.setDisable(false);
+	        
+	        // Set up button handlers
+	        play.setOnMouseClicked(E -> {
+	            if (isProcessingTurn) return;
+	            isProcessingTurn = true;
+	            handlePlayerPlay();
+	        });
+	        
+	        discard.setOnMouseClicked(E -> {
+	            if (isProcessingTurn) return;
+	            isProcessingTurn = true;
+	            handlePlayerDiscard();
+	        });
+	    }
+	    
+	    private void handlePlayerPlay() {
+	        getChosen();
+	        try {
+	            if (chosenCards.isEmpty()) {
+	                throw new InvalidCardException("Must select a card to play.");
+	            }
+	            if (chosenCards.size() > 1) {
+	                throw new InvalidCardException("Cannot choose more than one card.");
+	            }
+	            
+	            // Make selections in game engine
+	            game.selectCard(chosenCards.get(0).getCard());
+	            for (MarbleView marbleView : chosenMarbles) {
+	                game.selectMarble(marbleView.getMarble());
+	            }
+	            
+	            // Play the turn in game engine
+	            game.playPlayerTurn();
+	            
+	            // Animate and end turn
+	            animateAndEndTurn(0);
+	            
+	        } catch (GameException e) {
+	            displayError(e.getMessage());
+	            game.deselectAll();
+	            deselectChosen();
+	            isProcessingTurn = false; // Reset flag to allow retry
+	        }
+	    }
+	    
+	    private void handlePlayerDiscard() {
+	        try {
+	            game.discardCard(game.getActivePlayerColour());
+	            Card selected = game.getFirePit().get(game.getFirePit().size() - 1);
+	            
+	            // Find the card view that was discarded
+	            for (CardView cardView : boardView.getHands().get(0)) {
+	                if (cardView.getCard() == selected) {
+	                    chosenCards.add(cardView);
+	                    break;
+	                }
+	            }
+	            
+	            // Animate and end turn
+	            animateAndEndTurn(0);
+	            
+	        } catch (GameException e) {
+	            displayError(e.getMessage());
+	            game.deselectAll();
+	            deselectChosen();
+	            isProcessingTurn = false; // Reset flag to allow retry
+	        }
+	    }
+	    
+	    private void animateAndEndTurn(int playerIndex) {
+	        // Disable UI during animation
+	        play.setMouseTransparent(true);
+	        play.setDisable(true);
+	        play.setEffect(null);
+	        discard.setMouseTransparent(true);
+	        discard.setEffect(null);
+	        discard.setDisable(true);
+	        boardView.turnOff();
+	        
+	        // Animate card to firepit
+	        if (!chosenCards.isEmpty()) {
+	            CardView card = chosenCards.get(0);
+	            boardView.translateCardToFirepit(card, playerIndex, root, 0);
+	        }
+	        
+	        // Wait for animation, then update game state
+	        PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
+	        pause.setOnFinished(E -> {
+	            // IMPORTANT: End turn in game engine AFTER animation
+	            game.endPlayerTurn();
+	            deselectChosen();
+	            isProcessingTurn = false;
+	            setTurnDuration(2);
+	            updateStatus();
+	            
+	            // Move to next player
+	            if (playerIndex == 0) {
+	                // Human player just finished, go to CPU 1
+	                startCPUTurn(1);
+	            } else if (playerIndex < 3) {
+	                // Current CPU finished, go to next CPU
+	                startCPUTurn(playerIndex + 1);
+	            } else {
+	                // All CPUs finished, check if round is over
+	                checkAndStartNewRoundOrPlayerTurn();
+	            }
+	        });
+	        pause.play();
+	    }
+	    
+	    private void skipPlayerTurn() {
+	        if (isProcessingTurn) return;
+	        isProcessingTurn = true;
+	        
+	        System.out.println("Skipping player turn");
+	        
+	        // Just end the turn in game engine
+	        game.endPlayerTurn();
+	        isProcessingTurn = false;
+	        updateStatus();
+	        
+	        // Move to next player
+	        startCPUTurn(1);
+	    }
+	    
+	    private void startCPUTurn(int playerIndex) {
+	        System.out.println("Starting CPU turn for index: " + playerIndex);
+	        
+	        if (isProcessingTurn) {
+	            // Wait a bit and try again
+	            PauseTransition wait = new PauseTransition(Duration.seconds(0.5));
+	            wait.setOnFinished(E -> startCPUTurn(playerIndex));
+	            wait.play();
+	            return;
+	        }
+	        
+	        isProcessingTurn = true;
+	        
+	        if (!game.canPlayTurn()) {
+	            System.out.println("CPU " + playerIndex + " cannot play, skipping");
+	            game.endPlayerTurn();
+	            isProcessingTurn = false;
+	            
+	            if (playerIndex < 3) {
+	                startCPUTurn(playerIndex + 1);
+	            } else {
+	                checkAndStartNewRoundOrPlayerTurn();
+	            }
+	            return;
+	        }
+	        
+	        try {
+	            // CPU plays its turn
+	            game.playPlayerTurn();
+	            
+	            // Get the card that was played
+	            Card card = game.getPlayers().get(playerIndex).getSelectedCard();
+	            CardView cardView = boardView.getCardView(card, playerIndex);
+	            
+	            if (cardView != null) {
+	                // Animate the card movement
+	                boardView.translateCardToFirepit(cardView, playerIndex, root, 0);
+	            }
+	            
+	            // Wait for animation, then end turn
+	            PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
+	            pause.setOnFinished(E -> {
+	                game.endPlayerTurn();
+	                isProcessingTurn = false;
+	                setTurnDuration(2);
+	                updateStatus();
+	                
+	                if (playerIndex < 3) {
+	                    startCPUTurn(playerIndex + 1);
+	                } else {
+	                    checkAndStartNewRoundOrPlayerTurn();
+	                }
+	            });
+	            pause.play();
+	            
+	        } catch (GameException e) {
+	            System.err.println("Error in CPU turn: " + e.getMessage());
+	            // Even if error, end the turn and continue
+	            game.endPlayerTurn();
+	            isProcessingTurn = false;
+	            updateStatus();
+	            
+	            if (playerIndex < 3) {
+	                startCPUTurn(playerIndex + 1);
+	            } else {
+	                checkAndStartNewRoundOrPlayerTurn();
+	            }
+	        }
+	    }
+	    
+	    private void checkAndStartNewRoundOrPlayerTurn() {
+	        System.out.println("Checking if round is over...");
+	        
+	        // Check if all players have no cards left
+	        boolean roundOver = game.isRoundOver();
+	        
+	        if (roundOver) {
+	            System.out.println("Round over, starting new round");
+	            // Start new round
+	            startRound();
+	        } else {
+	            System.out.println("Round not over, starting player turn");
+	            // Start next player's turn
+	            beginPlayerTurn();
+	        }
+	    }
+	    
+	    public void startRound() {
+	        System.out.println("Starting new round");
+	        
+	        // Clear any existing state
+	        isProcessingTurn = false;
+	        isPlayerTurnActive = false;
+	        deselectChosen();
+	        
+	        // Start the round in the board view
+	        boardView.startRound(game, root);
+	        
+	        // Wait a bit for cards to be dealt, then start first turn
+	        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+	        pause.setOnFinished(E -> {
+	            beginPlayerTurn();
+	        });
+	        pause.play();
+	    }
+	
 	public void updateStatus() {
 		status.setText("Playing: "
 				+ getPlayerName(game.getActivePlayerColour()) + "\nNext: "
@@ -404,6 +533,16 @@ public class GameStage {
 		MarbleView target = boardView.getMarbleView(marble, playerIndex);
 		double seconds = boardView.moveMarbleBy(target, cells);
 		return seconds;
+	}
+
+	public static void discardCard(Card card, Colour colour, double extraTime) {
+		int playerIndex = -1;
+		for (int i=0; i<colorOrder.size(); i++){
+			if (colorOrder.get(i)==colour)
+				playerIndex = i;
+		}
+		CardView cardView = boardView.getCardView(card, playerIndex);
+		boardView.translateCardToFirepit(cardView, playerIndex, root, extraTime);
 	}
 
 }

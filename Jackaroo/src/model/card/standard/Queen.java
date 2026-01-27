@@ -23,8 +23,10 @@ public class Queen extends Standard {
 	@Override
 	public void act(ArrayList<Marble> marbles) throws ActionException,
 			InvalidMarbleException {
-		if (marbles.isEmpty())
+		if (marbles.isEmpty()){
+			gameManager.setExtraTime(2);
 			this.gameManager.discardCard();
+		}
 
 		else
 			super.act(marbles);
