@@ -7,6 +7,7 @@ import model.card.Card;
 import model.card.standard.Standard;
 import model.player.Marble;
 import engine.Game;
+import engine.board.Cell;
 import exception.GameException;
 import exception.InvalidCardException;
 import javafx.animation.PauseTransition;
@@ -37,12 +38,12 @@ public class GameStage {
 	Game game;
 	AnchorPane root;
 	private DropShadow shadow;
-	BoardView boardView;
+	static BoardView boardView;
 	Button play;
 	Button discard;
 	ArrayList<CardView> chosenCards;
 	ArrayList<MarbleView> chosenMarbles;
-	ArrayList<Colour> colorOrder;
+	static ArrayList<Colour> colorOrder;
 	String playerName;
 	Label status;
 
@@ -279,10 +280,6 @@ public class GameStage {
 		game.endPlayerTurn();
 		CardView card = chosenCards.get(0);
 		boardView.translateCardToFirepit(card, 0);
-		if (chosenMarbles.size() == 0) {
-			boardView.fieldMarble(0);
-		}
-
 		play.setMouseTransparent(true);
 		play.setDisable(true);
 		play.setEffect(null);
@@ -291,7 +288,7 @@ public class GameStage {
 		discard.setDisable(true);
 		boardView.turnOff();
 		PauseTransition pause = new PauseTransition();
-		pause.setDuration(Duration.seconds(1.7));
+		pause.setDuration(Duration.seconds(2));
 		pause.play();
 		pause.setOnFinished(E -> {
 			updateStatus();
@@ -302,6 +299,40 @@ public class GameStage {
 		status.setText("Playing: "
 				+ getPlayerName(game.getActivePlayerColour()) + "\nNext: "
 				+ getPlayerName(game.getNextPlayerColour()));
+	}
+	
+	public static int getPlayerIndex(Marble marble){
+		int playerIndex = -1;
+		for (int i=0; i<4; i++){
+			if (marble.getColour()==colorOrder.get(i))
+				playerIndex = i;
+		}
+		return playerIndex;
+	}
+	
+	public static void sendMarbleHome(Marble marble){
+		int playerIndex = GameStage.getPlayerIndex(marble);
+		MarbleView target = boardView.getMarbleView(marble, playerIndex);
+		boardView.sendMarbleHome(target, playerIndex);
+	}
+	
+	public static void fieldMarble(Marble marble){
+		int playerIndex = GameStage.getPlayerIndex(marble);
+		MarbleView target = boardView.getMarbleView(marble, playerIndex);
+		boardView.fieldMarble(target, playerIndex);
+	}
+	
+	public static void sendMarbleToCell(Marble marble, Cell cell){
+		int playerIndex = GameStage.getPlayerIndex(marble);
+		MarbleView target = boardView.getMarbleView(marble, playerIndex);
+		boardView.sendMarbleToCell(target, cell);
+	}
+	
+	public static double moveMarbleBy(Marble marble, ArrayList<Cell> cells){
+		int playerIndex = GameStage.getPlayerIndex(marble);
+		MarbleView target = boardView.getMarbleView(marble, playerIndex);
+		double seconds = boardView.moveMarbleBy(target, cells);
+		return seconds;
 	}
 
 }

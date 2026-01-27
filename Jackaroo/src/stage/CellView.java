@@ -7,6 +7,8 @@ import engine.board.Cell;
 public class CellView extends Circle {
 
 	Cell cell;
+	double x;
+	double y;
 
 	public CellView(Cell cell, double x, double y) {
 		super(8);
@@ -14,6 +16,20 @@ public class CellView extends Circle {
 		this.setTranslateY(y);
 		this.setFill(Paint.valueOf("f1d0a5"));
 		this.cell = cell;
+		this.x = x;
+		this.y = y;
+	}
+
+	public Cell getCell() {
+		return cell;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
 	}
 
 }

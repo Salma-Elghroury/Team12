@@ -2,6 +2,10 @@ package engine.board;
 
 import java.util.ArrayList;
 
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import stage.BoardView;
+import stage.GameStage;
 import engine.GameManager;
 import exception.CannotFieldException;
 import exception.IllegalDestroyException;
@@ -229,23 +233,40 @@ public class Board implements BoardManager {
 		Cell targetCell = fullPath.get(fullPath.size() - 1);
 
 		currentCell.setMarble(null);
+		
+		//edit removed first cell since it is the current
+		
+		fullPath.remove(0);
 
 		if (destroy) {
 			for (Cell cell : fullPath) {
-				if (cell.getMarble() != null)
+				if (cell.getMarble() != null){
+					GameStage.sendMarbleHome(cell.getMarble());
 					destroyMarble(cell.getMarble());
+				}
+					
 			}
 		}
 
-		else if (targetCell.getMarble() != null)
-			destroyMarble(targetCell.getMarble());
-
+		else if (targetCell.getMarble() != null){
+			GameStage.sendMarbleHome(targetCell.getMarble());
+			destroyMarble(targetCell.getMarble());	
+		}
+			
 		targetCell.setMarble(marble);
+		double seconds = GameStage.moveMarbleBy(marble, fullPath);
 
 		if (targetCell.isTrap()) {
-			destroyMarble(marble);
-			targetCell.setTrap(false);
-			assignTrapCell();
+			PauseTransition pause = new PauseTransition();
+			pause.setDuration(Duration.seconds(seconds));
+			pause.play();
+			pause.setOnFinished(E -> {
+				try {
+					destroyMarble(marble);
+				} catch (Exception e) {}
+				targetCell.setTrap(false);
+				assignTrapCell();
+			});
 		}
 
 	}
@@ -337,6 +358,10 @@ public class Board implements BoardManager {
 
 		track.get(trackPosition_1).setMarble(marble_2);
 		track.get(trackPosition_2).setMarble(marble_1);
+		
+		GameStage.sendMarbleToCell(marble_1, track.get(trackPosition_2));
+		GameStage.sendMarbleToCell(marble_2, track.get(trackPosition_1));
+		
 	}
 
 	@Override
@@ -349,6 +374,9 @@ public class Board implements BoardManager {
 
 		this.track.get(positionOnTrack).setMarble(null);
 		this.gameManager.sendHome(marble);
+		
+		GameStage.sendMarbleHome(marble);
+		
 	}
 
 	@Override
@@ -363,6 +391,9 @@ public class Board implements BoardManager {
 		}
 
 		baseCell.setMarble(marble);
+		
+		GameStage.fieldMarble(marble);
+		
 	}
 
 	@Override
@@ -384,6 +415,8 @@ public class Board implements BoardManager {
 		int randIndex = (int) (Math.random() * freeSpaces.size());
 		freeSpaces.get(randIndex).setMarble(marble);
 		this.track.get(positionOnTrack).setMarble(null);
+		
+		GameStage.sendMarbleToCell(marble, freeSpaces.get(randIndex));
 	}
 
 	@Override

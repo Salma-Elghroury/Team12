@@ -227,6 +227,7 @@ public class BoardView {
 	}
 
 	public void startRound(Game game, AnchorPane root) {
+		PauseTransition pause = new PauseTransition(Duration.seconds(2.6));
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++) {
 				CardView temp = new CardView(game.getPlayers().get(i).getHand()
@@ -238,7 +239,6 @@ public class BoardView {
 				translateCardFromDeck(i, temp, j);
 			}
 		turnOn();
-		PauseTransition pause = new PauseTransition(Duration.seconds(2.6));
 		pause.play();
 		pause.setOnFinished(E -> {
 			for (int i = 0; i < 4; i++)
@@ -337,10 +337,28 @@ public class BoardView {
 	public void flipCard(CardView image) {
 		image.frontCard(image.getCard());
 	}
+	
+	public MarbleView getMarbleView(Marble marble, int playerIndex){
+		MarbleView target = null;
+		for (int i=0; i<4; i++){
+			if (marbles.get(playerIndex).get(i).getMarble()==marble)
+				target = marbles.get(playerIndex).get(i);
+		}
+		return target;
+		
+	}
+	
+	public CellView getCellView(Cell cell){
+		for (int i=0; i<cells.size(); i++){
+			for (int j=0; j<cells.get(i).size(); j++){
+				if (cells.get(i).get(j).getCell()==cell)
+					return cells.get(i).get(j);
+			}
+		}
+		return null;
+	}
 
-	public void fieldMarble(int playerIndex) {
-		MarbleView marble = marbles.get(playerIndex).get(
-				marblesInHome[playerIndex] - 1);
+	public void fieldMarble(MarbleView marble, int playerIndex) {
 		marblesInHome[playerIndex] -= 1;
 		TranslateTransition translate = new TranslateTransition();
 		translate.setDelay(Duration.seconds(1.5));
@@ -351,18 +369,42 @@ public class BoardView {
 		translate.play();
 	}
 
-	public void sendMarbleHome(MarbleView marble) {
-		int playerIndex = marble.getPlayerIndex();
+	public void sendMarbleHome(MarbleView marble, int playerIndex) {
 		TranslateTransition translate = new TranslateTransition();
 		translate.setDelay(Duration.seconds(0.5));
-		translate
-				.setToX(cellPositions.get(2 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
-		translate
-				.setToY(cellPositions.get(3 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
+		translate.setToX(cellPositions.get(2 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
+		translate.setToY(cellPositions.get(3 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
 		translate.setDuration(Duration.seconds(0.5));
 		translate.setNode(marble);
 		translate.play();
 		marblesInHome[playerIndex] += 1;
+	}
+	
+	public void sendMarbleToCell(MarbleView marble, Cell cell){
+		CellView cellView = getCellView(cell);
+		TranslateTransition translate = new TranslateTransition();
+		translate.setDelay(Duration.seconds(0.5));
+		translate.setToX(cellView.getX());
+		translate.setToY(cellView.getY());
+		translate.setDuration(Duration.seconds(0.5));
+		translate.setNode(marble);
+		translate.play();
+	}
+	
+	public double moveMarbleBy(MarbleView marble, ArrayList<Cell> cells){
+		SequentialTransition animation = new SequentialTransition();
+		for (int i=0; i<cells.size(); i++){
+			CellView cellView = getCellView(cells.get(i));
+			TranslateTransition translate = new TranslateTransition();
+			translate.setDelay(Duration.seconds(0.1));
+			translate.setToX(cellView.getX());
+			translate.setToY(cellView.getY());
+			translate.setDuration(Duration.seconds(0.1));
+			animation.getChildren().add(translate);
+		}
+		animation.setNode(marble);
+		animation.play();
+		return animation.getTotalDuration().toSeconds();
 	}
 
 }
