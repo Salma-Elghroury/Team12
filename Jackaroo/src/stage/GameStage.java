@@ -46,6 +46,8 @@ public class GameStage {
 	static ArrayList<Colour> colorOrder;
 	String playerName;
 	Label status;
+	static double turnDuration;
+	int turn = 0;
 
 	public GameStage(String x) {
 		playerName = x;
@@ -54,6 +56,8 @@ public class GameStage {
 		} catch (Exception e) {
 			displayError(e.getMessage());
 		}
+		
+		turnDuration = 2;
 
 		shadow = new DropShadow();
 		shadow.setBlurType(BlurType.GAUSSIAN);
@@ -149,6 +153,13 @@ public class GameStage {
 	public Scene getScene() {
 		return scene;
 	}
+	
+	public static void setTurnDuration(double duration){
+		if (duration>2)
+			turnDuration = duration;
+		else
+			turnDuration = 2;
+	}
 
 	private Label createPlayerLabel(String name, Colour color) {
 		Label label = new Label(name);
@@ -181,7 +192,7 @@ public class GameStage {
 			return "Wizard";
 		if (colour == colorOrder.get(2))
 			return "Dragon";
-		if (colour == colorOrder.get(2))
+		if (colour == colorOrder.get(3))
 			return "Pixie";
 		return playerName;
 	}
@@ -206,21 +217,27 @@ public class GameStage {
 	}
 
 	public void startRound() {
+		turn = 0;
 		boardView.startRound(game, root);
-		if (!game.canPlayTurn()) {
-			// Maybe have something show they've been skipped?
-			updateStatus();
-			return;
-		}
 		beginPlayerTurn();
 	}
 
 	public void beginPlayerTurn() {
+		if (!game.canPlayTurn()) {
+			// Maybe have something show they've been skipped?
+			System.out.println("Skipped");
+			updateStatus();
+			cpuTurn(1);
+			return;
+		}
+		System.out.println("Player turn started");
+		boardView.turnOn();
 		play.setMouseTransparent(false);
 		play.setDisable(false);
 		play.setEffect(shadow);
 		play.setOnMouseClicked(E -> {
 			getChosen();
+			System.out.println("Play clicked");
 			try {
 				if (chosenCards.size() == 0)
 					throw new InvalidCardException(
@@ -243,6 +260,7 @@ public class GameStage {
 		discard.setEffect(shadow);
 		discard.setDisable(false);
 		discard.setOnMouseClicked(E -> {
+			System.out.println("Discard clicked");
 			try {
 				game.discardCard(game.getActivePlayerColour());
 				Card selected = game.getFirePit().get(
@@ -277,9 +295,8 @@ public class GameStage {
 	}
 
 	public void endPlayerTurn() {
-		game.endPlayerTurn();
 		CardView card = chosenCards.get(0);
-		boardView.translateCardToFirepit(card, 0);
+		boardView.translateCardToFirepit(card, 0, root);
 		play.setMouseTransparent(true);
 		play.setDisable(true);
 		play.setEffect(null);
@@ -287,12 +304,66 @@ public class GameStage {
 		discard.setEffect(null);
 		discard.setDisable(true);
 		boardView.turnOff();
+		game.endPlayerTurn();
 		PauseTransition pause = new PauseTransition();
-		pause.setDuration(Duration.seconds(2));
+		pause.setDuration(Duration.seconds(turnDuration));
 		pause.play();
 		pause.setOnFinished(E -> {
+			setTurnDuration(2);
 			updateStatus();
+			deselectChosen();
+			cpuTurn(1);
 		});
+	}
+	
+	public void cpuTurn(int playerIndex){
+		if (!game.canPlayTurn()){
+			game.endPlayerTurn();
+			System.out.println("Skipped");
+	        if (playerIndex < 3) {
+	            cpuTurn(playerIndex + 1);
+	        } else {
+	        	turn+=1;
+	        	if (turn==4){
+					startRound();
+					System.out.println("Started round");
+				}
+				else
+					beginPlayerTurn();
+	        }
+			updateStatus();
+			return;
+		}
+		try {
+			System.out.println("CPU "+playerIndex+" playing");
+			game.playPlayerTurn();
+			Card card = game.getPlayers().get(playerIndex).getSelectedCard();
+			CardView cardView = boardView.getCardView(card, playerIndex);
+			boardView.translateCardToFirepit(cardView, playerIndex, root);
+			PauseTransition pause = new PauseTransition();
+			pause.setDuration(Duration.seconds(turnDuration));
+			pause.play();
+			pause.setOnFinished(E -> {
+				game.endPlayerTurn();
+				setTurnDuration(2);
+				updateStatus();
+				if (playerIndex<3)
+					cpuTurn(playerIndex+1);
+				else{
+					System.out.println("Might begin player turn");
+					turn+=1;
+					if (turn==4){
+						startRound();
+						System.out.println("Started round");
+					}
+					else
+						beginPlayerTurn();
+				}
+			});
+		} catch (GameException e) {
+			displayError(e.getMessage());
+		}
+		
 	}
 
 	public void updateStatus() {

@@ -260,6 +260,7 @@ public class Board implements BoardManager {
 			PauseTransition pause = new PauseTransition();
 			pause.setDuration(Duration.seconds(seconds));
 			pause.play();
+			seconds+= 1;
 			pause.setOnFinished(E -> {
 				try {
 					destroyMarble(marble);
@@ -268,6 +269,8 @@ public class Board implements BoardManager {
 				assignTrapCell();
 			});
 		}
+		
+		GameStage.setTurnDuration(seconds);
 
 	}
 
