@@ -378,8 +378,6 @@ public class Board implements BoardManager {
 		this.track.get(positionOnTrack).setMarble(null);
 		this.gameManager.sendHome(marble);
 		
-		GameStage.sendMarbleHome(marble);
-		
 	}
 
 	@Override

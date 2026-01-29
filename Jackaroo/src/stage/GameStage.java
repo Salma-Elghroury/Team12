@@ -188,7 +188,7 @@ public class GameStage {
 		}
 	}
 
-	public String getPlayerName(Colour colour) {
+	private String getPlayerName(Colour colour) {
 		if (colour == colorOrder.get(1))
 			return "Wizard";
 		if (colour == colorOrder.get(2))
@@ -198,7 +198,7 @@ public class GameStage {
 		return playerName;
 	}
 
-	public void displayError(String message) {
+	private void displayError(String message) {
 		Stage errorStage = new Stage();
 		errorStage.setResizable(false);
 		VBox errorRoot = new VBox(2);
@@ -217,7 +217,7 @@ public class GameStage {
 		});
 	}
 	
-	public void getChosen() {
+	private void getChosen() {
 		for (int i = 0; i < boardView.getHands().get(0).size(); i++)
 			if (boardView.getHands().get(0).get(i).getEffect() != null)
 				chosenCards.add(boardView.getHands().get(0).get(i));
@@ -228,13 +228,12 @@ public class GameStage {
 		}
 	}
 
-	public void deselectChosen() {
+	private void deselectChosen() {
 		chosenCards.clear();
 		chosenMarbles.clear();
 	}
 
-	public void beginPlayerTurn() {
-		System.out.println("beginPlayerTurn called - isProcessingTurn: " + isProcessingTurn);
+	private void beginPlayerTurn() {
 
 		if (isProcessingTurn) {
 	            return; // Don't start a new turn while processing
@@ -248,13 +247,10 @@ public class GameStage {
 	        game.deselectAll();
 	        
 	        if (!game.canPlayTurn()) {
-	            System.out.println("Player cannot play, skipping turn");
 	            // Skip this player's turn
 	            skipPlayerTurn();
 	            return;
 	        }
-	        
-	        System.out.println("Starting player turn for: " + game.getActivePlayerColour());
 	        
 	        // Enable UI
 	        boardView.turnOn();
@@ -346,7 +342,7 @@ public class GameStage {
 	        // Animate card to firepit
 	        if (!chosenCards.isEmpty()) {
 	            CardView card = chosenCards.get(0);
-	            boardView.translateCardToFirepit(card, playerIndex, root, 0);
+	            boardView.translateCardToFirepit(card, playerIndex, root);
 	        }
 	        
 	        // Wait for animation, then update game state
@@ -378,8 +374,6 @@ public class GameStage {
 	        if (isProcessingTurn) return;
 	        isProcessingTurn = true;
 	        
-	        System.out.println("Skipping player turn");
-	        
 	        // Just end the turn in game engine
 	        game.endPlayerTurn();
 	        isProcessingTurn = false;
@@ -390,7 +384,6 @@ public class GameStage {
 	    }
 	    
 	    private void startCPUTurn(int playerIndex) {
-	        System.out.println("Starting CPU turn for index: " + playerIndex);
 	        
 	        if (isProcessingTurn) {
 	            // Wait a bit and try again
@@ -403,8 +396,8 @@ public class GameStage {
 	        isProcessingTurn = true;
 	        
 	        if (!game.canPlayTurn()) {
-	            System.out.println("CPU " + playerIndex + " cannot play, skipping");
 	            game.endPlayerTurn();
+	            updateStatus();
 	            isProcessingTurn = false;
 	            
 	            if (playerIndex < 3) {
@@ -425,7 +418,7 @@ public class GameStage {
 	            
 	            if (cardView != null) {
 	                // Animate the card movement
-	                boardView.translateCardToFirepit(cardView, playerIndex, root, 0);
+	                boardView.translateCardToFirepit(cardView, playerIndex, root);
 	            }
 	            
 	            // Wait for animation, then end turn
@@ -445,12 +438,10 @@ public class GameStage {
 	            pause.play();
 	            
 	        } catch (GameException e) {
-	            System.err.println("Error in CPU turn: " + e.getMessage());
-	            // Even if error, end the turn and continue
+	        	displayError(e.getMessage());
 	            game.endPlayerTurn();
 	            isProcessingTurn = false;
 	            updateStatus();
-	            
 	            if (playerIndex < 3) {
 	                startCPUTurn(playerIndex + 1);
 	            } else {
@@ -460,24 +451,18 @@ public class GameStage {
 	    }
 	    
 	    private void checkAndStartNewRoundOrPlayerTurn() {
-	        System.out.println("Checking if round is over...");
 	        
 	        // Check if all players have no cards left
 	        boolean roundOver = game.isRoundOver();
 	        
 	        if (roundOver) {
-	            System.out.println("Round over, starting new round");
-	            // Start new round
 	            startRound();
 	        } else {
-	            System.out.println("Round not over, starting player turn");
-	            // Start next player's turn
 	            beginPlayerTurn();
 	        }
 	    }
 	    
-	    public void startRound() {
-	        System.out.println("Starting new round");
+	    private void startRound() {
 	        
 	        // Clear any existing state
 	        isProcessingTurn = false;
@@ -495,13 +480,39 @@ public class GameStage {
 	        pause.play();
 	    }
 	
-	public void updateStatus() {
+	private void updateStatus() {
+		
+		if (game.checkWin()!=null){
+			displayWin(game.checkWin());
+			return;
+		}
 		status.setText("Playing: "
 				+ getPlayerName(game.getActivePlayerColour()) + "\nNext: "
 				+ getPlayerName(game.getNextPlayerColour()));
 	}
 	
-	public static int getPlayerIndex(Marble marble){
+	private void displayWin(Colour colour) {
+		Stage stage = new Stage();
+		stage.setResizable(false);
+		VBox root = new VBox(2);
+		root.setPrefSize(300, 300);
+		String winner = getPlayerName(colour);
+		Label label = new Label("Winner: " + winner);
+		label.setPrefSize(100, 75);
+		label.setWrapText(true);
+		Button button = new Button("Exit");
+		button.setPrefSize(50, 10);
+		root.getChildren().addAll(label, button);
+		Scene scene = new Scene(root, 100, 100);
+		stage.setScene(scene);
+		stage.show();
+		button.setOnMouseClicked(E -> {
+			stage.close();
+		});
+		
+	}
+
+	private static int getPlayerIndex(Marble marble){
 		int playerIndex = -1;
 		for (int i=0; i<4; i++){
 			if (marble.getColour()==colorOrder.get(i))
@@ -535,14 +546,22 @@ public class GameStage {
 		return seconds;
 	}
 
-	public static void discardCard(Card card, Colour colour, double extraTime) {
+	public static void discardCard(Card card, Colour colour) {
 		int playerIndex = -1;
 		for (int i=0; i<colorOrder.size(); i++){
 			if (colorOrder.get(i)==colour)
 				playerIndex = i;
 		}
 		CardView cardView = boardView.getCardView(card, playerIndex);
-		boardView.translateCardToFirepit(cardView, playerIndex, root, extraTime);
+		boardView.translateCardToFirepit(cardView, playerIndex, root);
+	}
+	
+	public static void discardCardDelayed(Card card, Colour colour){
+		PauseTransition pause = new PauseTransition(Duration.seconds(1.7));
+		pause.setOnFinished(E -> {
+			discardCard(card, colour);
+		});
+		pause.play();
 	}
 
 }

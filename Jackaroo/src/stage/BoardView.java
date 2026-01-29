@@ -120,7 +120,6 @@ public class BoardView {
 	ArrayList<CardView> cpu2Hand = new ArrayList<CardView>();
 	ArrayList<CardView> cpu3Hand = new ArrayList<CardView>();
 	ArrayList<ArrayList<CardView>> hands = new ArrayList<ArrayList<CardView>>();
-	private int[] marblesInHome = { 4, 4, 4, 4 };
 
 	public BoardView(Board board) {
 		this.board = board;
@@ -175,10 +174,9 @@ public class BoardView {
 		int index = 2;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				Cell safeCell = board.getSafeZones().get(i).getCells().get(j);
 				double x = cellPositions.get(index)[j];
 				double y = cellPositions.get(index + 1)[j];
-				CellView cellView = new CellView(safeCell, x, y);
+				CellView cellView = new CellView(null, x, y);
 				cells.get(1 + i).add(cellView);
 			}
 			index = index + 2;
@@ -187,9 +185,10 @@ public class BoardView {
 		// SafeZones
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
+				Cell safeCell = board.getSafeZones().get(i).getCells().get(j);
 				double x = cellPositions.get(index)[j];
 				double y = cellPositions.get(index + 1)[j];
-				CellView cellView = new CellView(null, x, y);
+				CellView cellView = new CellView(safeCell, x, y);
 				cells.get(5 + i).add(cellView);
 			}
 			index = index + 2;
@@ -218,11 +217,12 @@ public class BoardView {
 	}
 
 	public void setUpMarble(int playerIndex, int marbleIndex, Marble marble) {
-		MarbleView marbleView = new MarbleView(marble, playerIndex);
+		CellView homeCell = cells.get(1+playerIndex).get(marbleIndex);
+		MarbleView marbleView = new MarbleView(marble, playerIndex, homeCell);
 		marbleView
-				.setTranslateX(cellPositions.get(2 + (2 * playerIndex))[marbleIndex] - 8);
+				.setTranslateX(homeCell.getX() - 8);
 		marbleView
-				.setTranslateY(cellPositions.get(3 + (2 * playerIndex))[marbleIndex] - 8);
+				.setTranslateY(homeCell.getY() - 8);
 		marbles.get(playerIndex).add(marbleView);
 	}
 	
@@ -319,11 +319,7 @@ public class BoardView {
 		animation.play();
 	}
 
-	public void translateCardToFirepit(CardView card, int playerIndex, AnchorPane root, double extraTime) {
-		if (card == null) {
-	        System.out.println("Card is null in translateCardFromDeck for player " + playerIndex);
-	        return;
-	    }
+	public void translateCardToFirepit(CardView card, int playerIndex, AnchorPane root) {
 		root.getChildren().remove(card);
 		root.getChildren().add(card);
 		TranslateTransition translate = new TranslateTransition();
@@ -334,7 +330,6 @@ public class BoardView {
 		rotate.setToAngle(0);
 		rotate.setDuration(Duration.seconds(0.5));
 		SequentialTransition animation = new SequentialTransition();
-		animation.setDelay(Duration.seconds(extraTime));
 		animation.setNode(card);
 		animation.getChildren().addAll(translate, rotate);
 		animation.play();
@@ -381,7 +376,6 @@ public class BoardView {
 	}
 
 	public void fieldMarble(MarbleView marble, int playerIndex) {
-		marblesInHome[playerIndex] -= 1;
 		TranslateTransition translate = new TranslateTransition();
 		translate.setDelay(Duration.seconds(1.5));
 		translate.setToX(trackXPositions[playerIndex * 25] - 8);
@@ -392,11 +386,12 @@ public class BoardView {
 	}
 
 	public void sendMarbleHome(MarbleView marble, int playerIndex) {
-		marblesInHome[playerIndex] += 1;
+		
+		CellView cell = marble.getHomeCell();
 		TranslateTransition translate = new TranslateTransition();
 		translate.setDelay(Duration.seconds(0.5));
-		translate.setToX(cellPositions.get(2 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
-		translate.setToY(cellPositions.get(3 + (2 * playerIndex))[marblesInHome[playerIndex]] - 8);
+		translate.setToX(cell.getX() - 8);
+		translate.setToY(cell.getY() - 8);
 		translate.setDuration(Duration.seconds(0.5));
 		translate.setNode(marble);
 		translate.play();
@@ -408,6 +403,7 @@ public class BoardView {
 		translate.setDelay(Duration.seconds(0.5));
 		translate.setToX(cellView.getX()-8);
 		translate.setToY(cellView.getY()-8);
+		translate.setDelay(Duration.seconds(1.7));
 		translate.setDuration(Duration.seconds(0.5));
 		translate.setNode(marble);
 		translate.play();
@@ -424,9 +420,10 @@ public class BoardView {
 			translate.setDuration(Duration.seconds(0.1));
 			animation.getChildren().add(translate);
 		}
+		animation.setDelay(Duration.seconds(1.7));
 		animation.setNode(marble);
 		animation.play();
-		return animation.getTotalDuration().toSeconds();
+		return animation.getTotalDuration().toSeconds()+2;
 	}
 
 }

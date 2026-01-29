@@ -15,11 +15,13 @@ public class MarbleView extends ImageView implements EventTarget, Styleable {
 	Marble marble;
 	private DropShadow shadow;
 	int playerIndex;
+	CellView homeCell;
 
-	public MarbleView(Marble marble, int playerIndex) {
+	public MarbleView(Marble marble, int playerIndex, CellView homeCell) {
 		super(getMarble(marble.getColour()));
 		this.marble = marble;
 		this.playerIndex = playerIndex;
+		this.homeCell = homeCell;
 		this.shadow = new DropShadow();
 		shadow.setColor(Color.WHITE);
 		shadow.setRadius(5);
@@ -32,6 +34,10 @@ public class MarbleView extends ImageView implements EventTarget, Styleable {
 
 	public int getPlayerIndex() {
 		return playerIndex;
+	}
+	
+	public CellView getHomeCell(){
+		return homeCell;
 	}
 
 	private static Image getMarble(Colour colour) {

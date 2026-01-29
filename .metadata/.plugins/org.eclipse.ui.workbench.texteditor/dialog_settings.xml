@@ -2,18 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="extraTime" key="selection"/>
+		<item value="wait" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="wait"/>
+			<item value="system.out.println"/>
+			<item value="system.out.print"/>
+			<item value="marblesInHome"/>
+			<item value="sendMarbleToCell"/>
 			<item value="extraTime"/>
 			<item value="isRounOver"/>
 			<item value="discard"/>
-			<item value="firepit"/>
-			<item value="deck"/>
-			<item value="/"/>
 		</list>
 		<list key="replacehistory">
 		</list>

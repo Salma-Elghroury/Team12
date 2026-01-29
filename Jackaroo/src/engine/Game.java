@@ -99,7 +99,6 @@ public class Game implements GameManager {
 	}
 
 	public boolean canPlayTurn() {
-		System.out.println("Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 		return players.get(currentPlayerIndex).getHand().size() == (4 - turn);
 	}
 
@@ -108,7 +107,6 @@ public class Game implements GameManager {
 	}
 
 	public void endPlayerTurn() {
-		System.out.println("Current Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 		Card selected = players.get(currentPlayerIndex).getSelectedCard();
 		players.get(currentPlayerIndex).getHand().remove(selected);
 		firePit.add(selected);
@@ -131,8 +129,6 @@ public class Game implements GameManager {
 			}
 
 		}
-		
-		System.out.println("Next Player "+currentPlayerIndex+" hand "+ players.get(currentPlayerIndex).getHand().size());
 
 	}
 
@@ -149,6 +145,7 @@ public class Game implements GameManager {
 		for (Player player : players) {
 			if (player.getColour() == marble.getColour()) {
 				player.regainMarble(marble);
+				GameStage.sendMarbleHome(marble);
 				break;
 			}
 		}
@@ -180,7 +177,10 @@ public class Game implements GameManager {
 			}
 		}
 		
-		GameStage.discardCard(firePit.get(firePit.size()-1), colour, extraTime);
+		if (extraTime>0)
+			GameStage.discardCardDelayed(firePit.get(firePit.size()-1), colour);
+		else
+			GameStage.discardCard(firePit.get(firePit.size()-1), colour);
 		
 		extraTime = 0;
 		
@@ -205,8 +205,7 @@ public class Game implements GameManager {
 	}
 	
 	public boolean isRoundOver(){
-		System.out.println("Round check: "+ (turn==0));
-		return turn==0 || players.get(0).getHand().size()==4;
+		return turn==0;
 	}
 
 }
