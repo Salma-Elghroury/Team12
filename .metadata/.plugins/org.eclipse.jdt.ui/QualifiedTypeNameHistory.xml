@@ -9,4 +9,5 @@
 <fullyQualifiedTypeName name="stage.GameStage"/>
 <fullyQualifiedTypeName name="javafx.util.Duration"/>
 <fullyQualifiedTypeName name="javafx.animation.PauseTransition"/>
+<fullyQualifiedTypeName name="stage.CardView"/>
 </qualifiedTypeNameHistroy>

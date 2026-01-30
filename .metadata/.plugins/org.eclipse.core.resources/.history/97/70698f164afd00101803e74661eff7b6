@@ -2,7 +2,6 @@ package model.player;
 
 import java.util.ArrayList;
 
-import stage.CardView;
 import exception.GameException;
 import exception.InvalidCardException;
 import exception.InvalidMarbleException;
@@ -91,7 +90,6 @@ public class Player {
 	}
 
 	public void play() throws GameException {
-		
 		if (selectedCard == null)
 			throw new InvalidCardException("Must select a card to play.");
 

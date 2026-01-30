@@ -36,7 +36,7 @@ public class CardView extends ImageView implements EventTarget, Styleable {
 		this.setImage(new Image(getName(card), 120.2, 175.1, true, true));
 	}
 
-	public static String getName(Card card) {
+	public String getName(Card card) {
 		String name = "/cards/";
 		if (card instanceof Wild) {
 			if (card instanceof Burner)

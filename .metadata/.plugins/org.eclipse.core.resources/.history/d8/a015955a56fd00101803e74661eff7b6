@@ -91,6 +91,10 @@ public class Player {
 	}
 
 	public void play() throws GameException {
+		System.out.println("Hand: "+this.getHand().size());
+		for (int i=0; i<this.getHand().size(); i++){
+			System.out.println("Card "+i+": "+CardView.getName(this.getHand().get(i)));
+		}
 		
 		if (selectedCard == null)
 			throw new InvalidCardException("Must select a card to play.");

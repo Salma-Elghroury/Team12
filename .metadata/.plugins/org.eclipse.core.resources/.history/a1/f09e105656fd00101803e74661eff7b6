@@ -19,6 +19,10 @@ public class CPU extends Player {
 
 	@Override
 	public void play() throws GameException {
+		System.out.println("Hand: "+this.getHand().size());
+		for (int i=0; i<this.getHand().size(); i++){
+			System.out.println("Card "+i+": "+CardView.getName(this.getHand().get(i)));
+		}
 		// Retrieve a list of actionable marbles from the board manager.
 		ArrayList<Marble> actionableMarbles = boardManager
 				.getActionableMarbles();
