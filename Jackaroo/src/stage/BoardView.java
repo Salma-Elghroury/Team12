@@ -234,6 +234,7 @@ public class BoardView {
 	}
 
 	public void startRound(Game game, AnchorPane root) {
+		removeUnderFirepit(root);
 		emptyHands();
 		PauseTransition pause = new PauseTransition(Duration.seconds(2.6));
 		for (int i = 0; i < 4; i++)
@@ -320,6 +321,7 @@ public class BoardView {
 	}
 
 	public void translateCardToFirepit(CardView card, int playerIndex, AnchorPane root) {
+		CardView oldFirepit = firepit;
 		root.getChildren().remove(card);
 		root.getChildren().add(card);
 		TranslateTransition translate = new TranslateTransition();
@@ -333,10 +335,11 @@ public class BoardView {
 		animation.setNode(card);
 		animation.getChildren().addAll(translate, rotate);
 		animation.play();
-		firepit = card;
 		animation.setOnFinished(E ->{
-			flipCard(card);
+			root.getChildren().remove(oldFirepit);
 			root.getChildren().remove(card);
+			firepit = card;
+			flipCard(firepit);
 			root.getChildren().remove(firepit);
 			root.getChildren().add(firepit);
 			
@@ -424,6 +427,32 @@ public class BoardView {
 		animation.setNode(marble);
 		animation.play();
 		return animation.getTotalDuration().toSeconds()+2;
+	}
+
+	public void refillPool(Game game, AnchorPane root) {
+		removeUnderFirepit(root);
+		firepit.backCard();
+		TranslateTransition translate = new TranslateTransition();
+		translate.setDelay(Duration.seconds(0.1));
+		translate.setToX(deckXPosition-8);
+		translate.setToY(deckYPosition-8);
+		translate.setDuration(Duration.seconds(0.5));
+		translate.setNode(firepit);
+		translate.play();
+		translate.setOnFinished(E -> {
+			startRound(game, root);
+		});
+	}
+
+	private void removeUnderFirepit(AnchorPane root) {
+		if (hands.get(0).isEmpty())
+			return;
+		for (int i=0; i<4; i++){
+			for (int j=0; j<4; j++)
+				if(root.getChildren().contains(hands.get(i).get(j)) && hands.get(i).get(j)!=firepit){
+					root.getChildren().remove(hands.get(i).get(j));
+				}
+		}
 	}
 
 }

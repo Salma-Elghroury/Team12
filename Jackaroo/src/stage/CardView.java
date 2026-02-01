@@ -31,6 +31,10 @@ public class CardView extends ImageView implements EventTarget, Styleable {
 	public Card getCard() {
 		return card;
 	}
+	
+	public void backCard() {
+		this.setImage(backCard);
+	}
 
 	public void frontCard(Card card) {
 		this.setImage(new Image(getName(card), 120.2, 175.1, true, true));

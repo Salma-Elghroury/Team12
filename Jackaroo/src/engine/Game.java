@@ -75,7 +75,7 @@ public class Game implements GameManager {
 	
 	public void setExtraTime(double seconds){
 		this.extraTime=seconds;
-		GameStage.setTurnDuration(2+extraTime);
+		GameStage.addToTurnDuration(extraTime);
 	}
 
 	public void selectCard(Card card) throws InvalidCardException {
@@ -121,13 +121,9 @@ public class Game implements GameManager {
 			turn = 0;
 			for (Player p : players) {
 				if (Deck.getPoolSize() < 4) {
-					System.out.println("Firepit size before filtering: "+firePit.size()+"\nDeck size before filtering: "+Deck.getPoolSize());
-					System.out.println("Combined size before filtering: "+(Deck.getPoolSize()+firePit.size()));
-					if (firePit.contains(null)) System.out.println("Null detected in game class");
 					firePit.removeIf(card -> card == null);
-					System.out.println("Firepit size after filtering: "+firePit.size()+"\nDeck size after filtering: "+Deck.getPoolSize());
-					System.out.println("Combined size after filtering: "+(Deck.getPoolSize()+firePit.size()));
 					Deck.refillPool(firePit);
+					GameStage.refillPool();
 					firePit.clear();
 				}
 				ArrayList<Card> newHand = Deck.drawCards();

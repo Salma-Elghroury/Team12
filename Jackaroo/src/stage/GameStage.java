@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import model.Colour;
 import model.card.Card;
+import model.card.standard.Ace;
+import model.card.standard.King;
+import model.card.standard.Seven;
 import model.card.standard.Standard;
 import model.player.Marble;
 import engine.Game;
@@ -15,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -49,6 +53,7 @@ public class GameStage {
 	static double turnDuration;
 	private boolean isPlayerTurnActive = false;
     private boolean isProcessingTurn = false;
+    private static boolean refillPool = false;
 
 	public GameStage(String x) {
 		playerName = x;
@@ -132,6 +137,13 @@ public class GameStage {
 		startRound();
 
 		scene = new Scene(root, 1050, 950);
+		
+		scene.setOnKeyPressed(event -> {
+	        if (event.getCode() == javafx.scene.input.KeyCode.F) {
+	            handleFieldShortcut();
+	        }
+	    });
+	    root.setFocusTraversable(true);
 
 	}
 
@@ -155,11 +167,8 @@ public class GameStage {
 		return scene;
 	}
 	
-	public static void setTurnDuration(double duration){
-		if (duration>2)
-			turnDuration = duration;
-		else
-			turnDuration = 2;
+	public static void addToTurnDuration(double duration){
+		turnDuration += duration;
 	}
 
 	private Label createPlayerLabel(String name, Colour color) {
@@ -215,6 +224,54 @@ public class GameStage {
 		errorButton.setOnMouseClicked(E -> {
 			errorStage.close();
 		});
+	}
+	
+	private void handleFieldShortcut() {
+	    if (!isPlayerTurnActive || isProcessingTurn) {
+	        return;
+	    }
+	    if (game.getActivePlayerColour() != colorOrder.get(0)) {
+	        return;
+	    }
+	    
+	    isProcessingTurn = true;
+	    
+	    try {
+	        game.deselectAll();
+	        deselectChosen();
+	        
+	        // Find Ace or King in player's hand
+	        ArrayList<Card> hand = game.getPlayers().get(0).getHand();
+	        Card aceOrKingCard = null;
+	        
+	        for (Card card : hand) {
+	            if (card instanceof Ace || card instanceof King) { // Ace or King
+	                aceOrKingCard = card;
+	                break;
+	            }
+	        }
+	        
+	        if (aceOrKingCard == null) {
+	            throw new InvalidCardException("No Ace or King card available for fielding.");
+	        }
+	        
+	        // Select the card in the game engine
+	        game.selectCard(aceOrKingCard);
+	        
+	        // Find and select the corresponding CardView
+	        chosenCards.add(boardView.getCardView(game.getPlayers().get(0).getSelectedCard(), 0));
+	        game.playPlayerTurn();
+	        
+	        // Animate and end the turn
+	        animateAndEndTurn(0);
+	        
+	    } catch (GameException e) {
+	        displayError(e.getMessage());
+	        // Clean up on error
+	        game.deselectAll();
+	        deselectChosen();
+	        isProcessingTurn = false;
+	    }
 	}
 	
 	private void getChosen() {
@@ -291,11 +348,14 @@ public class GameStage {
 	                game.selectMarble(marbleView.getMarble());
 	            }
 	            
-	            // Play the turn in game engine
-	            game.playPlayerTurn();
-	            
-	            // Animate and end turn
-	            animateAndEndTurn(0);
+	            if (chosenCards.get(0).getCard() instanceof Seven && chosenMarbles.size() == 2) {
+	                // Show split distance input dialog
+	                showSplitDistanceDialog();
+	            } else {
+	                // Play the turn normally
+	                game.playPlayerTurn();
+	                animateAndEndTurn(0);
+	            }
 	            
 	        } catch (GameException e) {
 	            displayError(e.getMessage());
@@ -305,7 +365,77 @@ public class GameStage {
 	        }
 	    }
 	    
-	    private void handlePlayerDiscard() {
+	    private void showSplitDistanceDialog() {
+	        Stage dialog = new Stage();
+	        dialog.setTitle("Split Distance");
+	        dialog.setResizable(false);
+	        
+	        VBox dialogRoot = new VBox(10);
+	        dialogRoot.setAlignment(Pos.CENTER);
+	        dialogRoot.setPadding(new javafx.geometry.Insets(20));
+	        
+	        Label instruction = new Label("Enter split distance (1-6):");
+	        instruction.setFont(new Font("Times New Roman", 16));
+	        
+	        TextField splitInput = new TextField();
+	        splitInput.setPrefWidth(100);
+	        splitInput.setPromptText("1-6");
+	        
+	        HBox buttonBox = new HBox(10);
+	        buttonBox.setAlignment(Pos.CENTER);
+	        
+	        Button confirmButton = new Button("Confirm");
+	        Button cancelButton = new Button("Cancel");
+	        
+	        buttonBox.getChildren().addAll(confirmButton, cancelButton);
+	        dialogRoot.getChildren().addAll(instruction, splitInput, buttonBox);
+	        
+	        Scene dialogScene = new Scene(dialogRoot, 250, 150);
+	        dialog.setScene(dialogScene);
+	        
+	        // Confirm button action
+	        confirmButton.setOnAction(e -> {
+	            try {
+	                String input = splitInput.getText().trim();
+	                if (input.isEmpty()) {
+	                    displayError("Please enter a split distance");
+	                    return;
+	                }
+	                
+	                int splitDistance = Integer.parseInt(input);
+	                
+	                // Set the split distance in the game
+	                game.editSplitDistance(splitDistance);
+	                
+	                // Play the turn with the specified split distance
+	                game.playPlayerTurn();
+	                
+	                dialog.close();
+	                animateAndEndTurn(0);
+	                
+	            } catch (NumberFormatException ex) {
+	                displayError("Please enter a valid number");
+	            } catch (GameException ex) {
+	                displayError(ex.getMessage());
+	                game.deselectAll();
+	                deselectChosen();
+	                isProcessingTurn = false;
+	                dialog.close();
+	            }
+	        });
+	        
+	        // Cancel button action
+	        cancelButton.setOnAction(e -> {
+	            game.deselectAll();
+	            deselectChosen();
+	            isProcessingTurn = false;
+	            dialog.close();
+	        });
+	        
+	        dialog.show();
+	    }
+
+		private void handlePlayerDiscard() {
 	        try {
 	            game.discardCard(game.getActivePlayerColour());
 	            Card selected = game.getFirePit().get(game.getFirePit().size() - 1);
@@ -352,7 +482,7 @@ public class GameStage {
 	            game.endPlayerTurn();
 	            deselectChosen();
 	            isProcessingTurn = false;
-	            setTurnDuration(2);
+	            turnDuration = 2;
 	            updateStatus();
 	            
 	            // Move to next player
@@ -426,7 +556,7 @@ public class GameStage {
 	            pause.setOnFinished(E -> {
 	                game.endPlayerTurn();
 	                isProcessingTurn = false;
-	                setTurnDuration(2);
+	                turnDuration = 2;
 	                updateStatus();
 	                
 	                if (playerIndex < 3) {
@@ -470,10 +600,18 @@ public class GameStage {
 	        deselectChosen();
 	        
 	        // Start the round in the board view
-	        boardView.startRound(game, root);
+	        
+	        double duration = 3;
+	        if (refillPool){
+	        	boardView.refillPool(game, root);
+	        	duration+=0.5;
+	        	refillPool = false;
+	        }
+	        else
+	        	boardView.startRound(game, root);
 	        
 	        // Wait a bit for cards to be dealt, then start first turn
-	        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+	        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
 	        pause.setOnFinished(E -> {
 	            beginPlayerTurn();
 	        });
@@ -497,7 +635,7 @@ public class GameStage {
 		VBox root = new VBox(2);
 		root.setPrefSize(300, 300);
 		String winner = getPlayerName(colour);
-		Label label = new Label("Winner: " + winner);
+		Label label = new Label("Winner: " + winner+"\nColour: "+colour.toString());
 		label.setPrefSize(100, 75);
 		label.setWrapText(true);
 		Button button = new Button("Exit");
@@ -519,6 +657,10 @@ public class GameStage {
 				playerIndex = i;
 		}
 		return playerIndex;
+	}
+	
+	public static void refillPool(){
+		refillPool = true;
 	}
 	
 	public static void sendMarbleHome(Marble marble){
@@ -562,6 +704,61 @@ public class GameStage {
 			discardCard(card, colour);
 		});
 		pause.play();
+	}
+
+	public static void fellForATrap() {
+		Stage trapStage = new Stage();
+		trapStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+		trapStage.setResizable(false);
+		    
+		    VBox trapRoot = new VBox(10);
+		    trapRoot.setPrefSize(300, 150);
+		    trapRoot.setAlignment(Pos.CENTER);
+		    trapRoot.setStyle("-fx-background-color: rgba(231, 76, 60, 0.95); -fx-background-radius: 10; -fx-border-color: #c0392b; -fx-border-width: 3; -fx-border-radius: 10; -fx-padding: 20;");
+		    
+		    // Pulsating effect
+		    DropShadow glow = new DropShadow();
+		    glow.setColor(Color.RED);
+		    glow.setWidth(20);
+		    glow.setHeight(20);
+		    trapRoot.setEffect(glow);
+		    
+		    javafx.animation.Timeline pulse = new javafx.animation.Timeline(
+		        new javafx.animation.KeyFrame(Duration.ZERO, new javafx.animation.KeyValue(glow.radiusProperty(), 10)),
+		        new javafx.animation.KeyFrame(Duration.seconds(0.5), new javafx.animation.KeyValue(glow.radiusProperty(), 20)),
+		        new javafx.animation.KeyFrame(Duration.seconds(1), new javafx.animation.KeyValue(glow.radiusProperty(), 10))
+		    );
+		    pulse.setCycleCount(3);
+		    pulse.play();
+		    
+		    Label trapLabel = new Label("TRAP ACTIVATED!");
+		    trapLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;");
+		    
+		    Label detailLabel = new Label("Marble fell into a trap!");
+		    detailLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
+		    detailLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+		    
+		    trapRoot.getChildren().addAll(trapLabel, detailLabel);
+		    Scene trapScene = new Scene(trapRoot, 300, 150);
+		    trapScene.setFill(Color.TRANSPARENT);
+		    trapStage.setScene(trapScene);
+		    
+		    // Position near the center of main window
+		    trapStage.setX(root.getScene().getWindow().getX() + 375);
+		    trapStage.setY(root.getScene().getWindow().getY() + 400);
+		    
+		    trapStage.show();
+		    
+		    // Auto-close with fade out
+		    PauseTransition showTime = new PauseTransition(Duration.seconds(2));
+		    showTime.setOnFinished(E -> {
+		        javafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(Duration.seconds(0.5), trapRoot);
+		        fade.setFromValue(1.0);
+		        fade.setToValue(0.0);
+		        fade.setOnFinished(e -> trapStage.close());
+		        fade.play();
+		    });
+		    showTime.play();
 	}
 
 }
