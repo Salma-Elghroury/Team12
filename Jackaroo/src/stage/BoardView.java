@@ -1,20 +1,13 @@
 package stage;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
-import model.Colour;
 import model.card.Card;
 import model.player.Marble;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import engine.Game;
 import engine.board.Board;

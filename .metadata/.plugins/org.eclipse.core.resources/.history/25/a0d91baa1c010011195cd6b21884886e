@@ -1,0 +1,92 @@
+package stage;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+public class StartStage extends Application {
+	
+	private Image icon =  new Image ("/game/Jackaroo Icon.png");
+
+    public void start(Stage primaryStage) throws Exception {
+        showNameInput(primaryStage);
+    }
+    
+    private void showNameInput(Stage gameWindow) {
+        Stage nameWindow = new Stage();
+        nameWindow.setTitle("Jackaroo");
+        nameWindow.setResizable(false);
+        
+        VBox layout = new VBox(15);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(25));
+        
+     // background
+     	Image image = new Image("/game/Name.png");
+     	BackgroundImage bgIm = new BackgroundImage(image,
+     			BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+     			BackgroundPosition.CENTER, new BackgroundSize(937, 600, true,
+     					true, true, true));
+     	Background bg = new Background(bgIm);
+     	layout.setBackground(bg);
+        
+        Label prompt = new Label("Enter your name:");
+        prompt.setFont(new Font("Times New Roman", 25));
+        prompt.setTextFill(Color.WHITE);
+        
+        TextField nameInput = new TextField();
+        nameInput.setMaxWidth(200);
+        nameInput.setFont(new Font("Times New Roman", 20));
+        nameInput.setStyle("-fx-background-color: transparent; -fx-text-fill: black");
+        
+        Button start = new Button("Start Game");
+        start.setFont(new Font("Times New Roman", 20));
+        start.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-padding: 10px; -fx-background-radius: 20px;");
+        
+        layout.getChildren().addAll(prompt, nameInput, start);
+        
+        start.setOnAction(e -> {
+            String name = nameInput.getText().trim();
+            if (name.isEmpty()) {
+                prompt.setText("Enter your name (cannot be empty):");
+                nameInput.requestFocus();
+            } else {
+                nameWindow.close();
+                startGame(gameWindow, name);
+            }
+        });
+        
+		nameWindow.getIcons().add(icon);
+        
+        Scene scene = new Scene(layout, 937, 600);
+        nameWindow.setScene(scene);
+        nameWindow.show();
+    }
+    
+    private void startGame(Stage stage, String playerName) {
+        GameStage game = new GameStage(playerName);
+        stage.setScene(game.getScene());
+        stage.setResizable(false);
+        stage.setTitle("Jackaroo");
+        stage.getIcons().add(icon);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}

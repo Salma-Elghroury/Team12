@@ -14,7 +14,7 @@ public class CellView extends Circle {
 		super(8);
 		this.setTranslateX(x);
 		this.setTranslateY(y);
-		this.setFill(Paint.valueOf("f1d0a5"));
+		this.setFill(Paint.valueOf("D9996B"));
 		this.cell = cell;
 		this.x = x;
 		this.y = y;

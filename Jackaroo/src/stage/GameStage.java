@@ -7,12 +7,12 @@ import model.card.Card;
 import model.card.standard.Ace;
 import model.card.standard.King;
 import model.card.standard.Seven;
-import model.card.standard.Standard;
 import model.player.Marble;
 import engine.Game;
 import engine.board.Cell;
 import exception.GameException;
 import exception.InvalidCardException;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,7 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -33,7 +32,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class GameStage {
@@ -54,6 +56,7 @@ public class GameStage {
 	private boolean isPlayerTurnActive = false;
     private boolean isProcessingTurn = false;
     private static boolean refillPool = false;
+    private boolean gameOver = false;
 
 	public GameStage(String x) {
 		playerName = x;
@@ -121,8 +124,8 @@ public class GameStage {
 
 		// Buttons
 
-		play = makeButton("Play", "#c07d00", 66.3, 33.3, 155.3, 785.8);
-		discard = makeButton("Discard Card", "#850000", 109.6, 34.3, 133.6,
+		play = makeButton("Play", "#41942a", 66.3, 33.3, 155.3, 785.8);
+		discard = makeButton("Discard Card", "#9e031d", 109.6, 34.3, 133.6,
 				838.4);
 
 		// Status
@@ -138,8 +141,10 @@ public class GameStage {
 
 		scene = new Scene(root, 1050, 950);
 		
+		//Enabling keys
+		
 		scene.setOnKeyPressed(event -> {
-	        if (event.getCode() == javafx.scene.input.KeyCode.F) {
+	        if (event.getCode() == KeyCode.F) {
 	            handleFieldShortcut();
 	        }
 	    });
@@ -154,7 +159,7 @@ public class GameStage {
 		button.setTranslateX(x);
 		button.setTranslateY(y);
 		button.setPrefSize(width, height);
-		button.setFont(new Font("Times New Roman", 13));
+		button.setFont(new Font("Times New Roman", 15));
 		button.setStyle("-fx-background-color: "
 				+ color
 				+ "; -fx-text-fill: white; -fx-padding: 10px; -fx-background-radius: 20px;");
@@ -175,7 +180,7 @@ public class GameStage {
 		Label label = new Label(name);
 		label.setAlignment(Pos.CENTER);
 		label.setPrefSize(86.2, 35.2);
-		label.setFont(new Font("Times New Roman", 14));
+		label.setFont(new Font("Times New Roman", 17));
 		label.setStyle("-fx-padding: 5; -fx-background-color: " + toHex(color)
 				+ "; -fx-background-radius: 45;");
 		label.setTextFill(Color.WHITE);
@@ -190,10 +195,8 @@ public class GameStage {
 			return "#26bebe";
 		case GREEN:
 			return "#94c98a";
-		case YELLOW:
-			return "#e9da7a";
 		default:
-			return "";
+			return "#e9da7a";
 		}
 	}
 
@@ -208,22 +211,49 @@ public class GameStage {
 	}
 
 	private void displayError(String message) {
-		Stage errorStage = new Stage();
-		errorStage.setResizable(false);
-		VBox errorRoot = new VBox(2);
-		errorRoot.setPrefSize(100, 100);
-		Label errorLabel = new Label("Error: " + message);
-		errorLabel.setPrefSize(100, 75);
-		errorLabel.setWrapText(true);
-		Button errorButton = new Button("Exit");
-		errorButton.setPrefSize(50, 10);
-		errorRoot.getChildren().addAll(errorLabel, errorButton);
-		Scene errorScene = new Scene(errorRoot, 100, 100);
-		errorStage.setScene(errorScene);
-		errorStage.show();
-		errorButton.setOnMouseClicked(E -> {
-			errorStage.close();
-		});
+	    Stage errorStage = new Stage();
+	    errorStage.initStyle(StageStyle.TRANSPARENT);
+	    errorStage.setResizable(false);
+	    
+	    VBox errorRoot = new VBox(10);
+	    errorRoot.setPrefSize(350, 180);
+	    errorRoot.setAlignment(Pos.CENTER);
+	    errorRoot.setStyle("-fx-background-color: rgba(192, 57, 43, 0.95); -fx-background-radius: 10; -fx-border-color: #c0392b; -fx-border-width: 3; -fx-border-radius: 10; -fx-padding: 20;");
+	    
+	    Label errorIcon = new Label("✕");
+	    errorIcon.setStyle("-fx-text-fill: white; -fx-font-size: 30; -fx-font-weight: bold;");
+	    
+	    Label errorHeader = new Label("ERROR");
+	    errorHeader.setStyle("-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;");
+	    
+	    Label errorLabel = new Label(message);
+	    errorLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16; -fx-text-alignment: center;");
+	    errorLabel.setWrapText(true);
+	    errorLabel.setTextAlignment(TextAlignment.CENTER);
+	    errorLabel.setPrefWidth(350);
+	    errorLabel.setPrefHeight(180);
+	    
+	    Button closeButton = new Button("OK");
+	    closeButton.setPrefSize(80, 35);
+	    closeButton.setStyle("-fx-background-color: #D65854; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;");
+	    closeButton.setOnMouseEntered(e -> closeButton.setStyle("-fx-background-color: #E34440; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+	    closeButton.setOnMouseExited(e -> closeButton.setStyle("-fx-background-color: #D65854; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+	    
+	    errorRoot.getChildren().addAll(errorIcon, errorHeader, errorLabel, closeButton);
+	    Scene errorScene = new Scene(errorRoot, 350, 300);
+	    errorScene.setFill(Color.TRANSPARENT);
+	    errorStage.setScene(errorScene);
+	    
+	    if (root.getScene() != null && root.getScene().getWindow() != null) {
+	        errorStage.setX(root.getScene().getWindow().getX() + 350);
+	        errorStage.setY(root.getScene().getWindow().getY() + 385);
+	    }
+	    
+	    errorStage.show();
+	    
+	    closeButton.setOnMouseClicked(E -> {
+	        errorStage.close();
+	    });
 	}
 	
 	private void handleFieldShortcut() {
@@ -255,19 +285,14 @@ public class GameStage {
 	            throw new InvalidCardException("No Ace or King card available for fielding.");
 	        }
 	        
-	        // Select the card in the game engine
 	        game.selectCard(aceOrKingCard);
-	        
-	        // Find and select the corresponding CardView
 	        chosenCards.add(boardView.getCardView(game.getPlayers().get(0).getSelectedCard(), 0));
 	        game.playPlayerTurn();
 	        
-	        // Animate and end the turn
 	        animateAndEndTurn(0);
 	        
 	    } catch (GameException e) {
 	        displayError(e.getMessage());
-	        // Clean up on error
 	        game.deselectAll();
 	        deselectChosen();
 	        isProcessingTurn = false;
@@ -293,361 +318,343 @@ public class GameStage {
 	private void beginPlayerTurn() {
 
 		if (isProcessingTurn) {
-	            return; // Don't start a new turn while processing
-	        }
-	        
-	        // Reset flags
-	        isPlayerTurnActive = true;
-	        
-	        // Clear previous selections
-	        deselectChosen();
-	        game.deselectAll();
-	        
-	        if (!game.canPlayTurn()) {
-	            // Skip this player's turn
-	            skipPlayerTurn();
 	            return;
 	        }
-	        
-	        // Enable UI
-	        boardView.turnOn();
-	        play.setMouseTransparent(false);
-	        play.setDisable(false);
-	        play.setEffect(shadow);
-	        discard.setMouseTransparent(false);
-	        discard.setEffect(shadow);
-	        discard.setDisable(false);
-	        
-	        // Set up button handlers
-	        play.setOnMouseClicked(E -> {
-	            if (isProcessingTurn) return;
-	            isProcessingTurn = true;
-	            handlePlayerPlay();
-	        });
-	        
-	        discard.setOnMouseClicked(E -> {
-	            if (isProcessingTurn) return;
-	            isProcessingTurn = true;
-	            handlePlayerDiscard();
-	        });
-	    }
-	    
-	    private void handlePlayerPlay() {
-	        getChosen();
-	        try {
-	            if (chosenCards.isEmpty()) {
-	                throw new InvalidCardException("Must select a card to play.");
-	            }
-	            if (chosenCards.size() > 1) {
-	                throw new InvalidCardException("Cannot choose more than one card.");
-	            }
-	            
-	            // Make selections in game engine
-	            game.selectCard(chosenCards.get(0).getCard());
-	            for (MarbleView marbleView : chosenMarbles) {
-	                game.selectMarble(marbleView.getMarble());
-	            }
-	            
-	            if (chosenCards.get(0).getCard() instanceof Seven && chosenMarbles.size() == 2) {
-	                // Show split distance input dialog
-	                showSplitDistanceDialog();
-	            } else {
-	                // Play the turn normally
-	                game.playPlayerTurn();
-	                animateAndEndTurn(0);
-	            }
-	            
-	        } catch (GameException e) {
-	            displayError(e.getMessage());
-	            game.deselectAll();
-	            deselectChosen();
-	            isProcessingTurn = false; // Reset flag to allow retry
-	        }
-	    }
-	    
-	    private void showSplitDistanceDialog() {
-	        Stage dialog = new Stage();
-	        dialog.setTitle("Split Distance");
-	        dialog.setResizable(false);
-	        
-	        VBox dialogRoot = new VBox(10);
-	        dialogRoot.setAlignment(Pos.CENTER);
-	        dialogRoot.setPadding(new javafx.geometry.Insets(20));
-	        
-	        Label instruction = new Label("Enter split distance (1-6):");
-	        instruction.setFont(new Font("Times New Roman", 16));
-	        
-	        TextField splitInput = new TextField();
-	        splitInput.setPrefWidth(100);
-	        splitInput.setPromptText("1-6");
-	        
-	        HBox buttonBox = new HBox(10);
-	        buttonBox.setAlignment(Pos.CENTER);
-	        
-	        Button confirmButton = new Button("Confirm");
-	        Button cancelButton = new Button("Cancel");
-	        
-	        buttonBox.getChildren().addAll(confirmButton, cancelButton);
-	        dialogRoot.getChildren().addAll(instruction, splitInput, buttonBox);
-	        
-	        Scene dialogScene = new Scene(dialogRoot, 250, 150);
-	        dialog.setScene(dialogScene);
-	        
-	        // Confirm button action
-	        confirmButton.setOnAction(e -> {
-	            try {
-	                String input = splitInput.getText().trim();
-	                if (input.isEmpty()) {
-	                    displayError("Please enter a split distance");
-	                    return;
-	                }
-	                
-	                int splitDistance = Integer.parseInt(input);
-	                
-	                // Set the split distance in the game
-	                game.editSplitDistance(splitDistance);
-	                
-	                // Play the turn with the specified split distance
-	                game.playPlayerTurn();
-	                
-	                dialog.close();
-	                animateAndEndTurn(0);
-	                
-	            } catch (NumberFormatException ex) {
-	                displayError("Please enter a valid number");
-	            } catch (GameException ex) {
-	                displayError(ex.getMessage());
-	                game.deselectAll();
-	                deselectChosen();
-	                isProcessingTurn = false;
-	                dialog.close();
-	            }
-	        });
-	        
-	        // Cancel button action
-	        cancelButton.setOnAction(e -> {
-	            game.deselectAll();
-	            deselectChosen();
-	            isProcessingTurn = false;
-	            dialog.close();
-	        });
-	        
-	        dialog.show();
-	    }
+		
+		if (gameOver) return;
+		
+	    isPlayerTurnActive = true;
+        deselectChosen();
+        game.deselectAll();
+        
+        if (!game.canPlayTurn()) {
+            skipPlayerTurn();
+            return;
+        }
+        
+        // Enable UI
+        boardView.turnOn();
+        play.setMouseTransparent(false);
+        play.setDisable(false);
+        play.setEffect(shadow);
+        discard.setMouseTransparent(false);
+        discard.setEffect(shadow);
+        discard.setDisable(false);
+        
+        // Set up button handlers
+        play.setOnMouseClicked(E -> {
+            if (isProcessingTurn) return;
+            isProcessingTurn = true;
+            handlePlayerPlay();
+        });
+        
+        discard.setOnMouseClicked(E -> {
+            if (isProcessingTurn) return;
+            isProcessingTurn = true;
+            handlePlayerDiscard();
+        });
+        
+	}
+	
+	private void handlePlayerPlay() {
+        getChosen();
+        try {
+            if (chosenCards.isEmpty()) {
+                throw new InvalidCardException("Must select a card to play.");
+            }
+            if (chosenCards.size() > 1) {
+                throw new InvalidCardException("Cannot choose more than one card.");
+            }
+            
+            game.selectCard(chosenCards.get(0).getCard());
+            for (MarbleView marbleView : chosenMarbles) {
+                game.selectMarble(marbleView.getMarble());
+            }
+            
+            if (chosenCards.get(0).getCard() instanceof Seven && chosenMarbles.size() == 2) {
+                // Show split distance input dialog
+                showSplitDistanceDialog();
+            } else {
+                // Play the turn normally
+                game.playPlayerTurn();
+                animateAndEndTurn(0);
+            }
+            
+        } catch (GameException e) {
+            displayError(e.getMessage());
+            game.deselectAll();
+            deselectChosen();
+            isProcessingTurn = false;
+        }
+    }
+    
+    private void showSplitDistanceDialog() {
+        Stage dialog = new Stage();
+        dialog.setTitle("Split Distance");
+        dialog.setResizable(false);
+        dialog.initStyle(StageStyle.TRANSPARENT);
+        
+        VBox dialogRoot = new VBox(10);
+        dialogRoot.setAlignment(Pos.CENTER);
+        dialogRoot.setStyle("-fx-background-color: rgba(173, 216, 230, 0.95); -fx-background-radius: 10; -fx-border-color: #87CEEB; -fx-border-width: 3; -fx-border-radius: 10; -fx-padding: 20;");
+        
+        Label headerLabel = new Label("SPLIT DISTANCE");
+        headerLabel.setFont(new Font("Times New Roman", 20));
+        headerLabel.setStyle("-fx-text-fill: #2c3e50; -fx-font-weight: bold;");
+        
+        Label instruction = new Label("Enter split distance (1-6):");
+        instruction.setStyle("-fx-text-fill: #34495e;");
+        instruction.setFont(new Font("Times New Roman", 16));
+        
+        TextField splitInput = new TextField();
+        splitInput.setPrefWidth(100);
+        splitInput.setPrefHeight(35);
+        splitInput.setFont(new Font("Times New Roman", 16));
+        splitInput.setStyle("-fx-text-fill: #2c3e50; -fx-background-color: rgba(255, 255, 255, 0.8); -fx-background-radius: 5; -fx-border-color: #3498db; -fx-border-radius: 5;");
+        splitInput.setAlignment(Pos.CENTER);
+        splitInput.setPromptText("1-6");
+        
+        HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
+        
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setPrefSize(80, 35);
+        confirmButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;");
+        confirmButton.setOnMouseEntered(e -> confirmButton.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+        confirmButton.setOnMouseExited(e -> confirmButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+        
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setPrefSize(80, 35);
+        cancelButton.setStyle("-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;");
+        cancelButton.setOnMouseEntered(e -> cancelButton.setStyle("-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+        cancelButton.setOnMouseExited(e -> cancelButton.setStyle("-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5;"));
+        
+        buttonBox.getChildren().addAll(confirmButton, cancelButton);
+        dialogRoot.getChildren().addAll(headerLabel, instruction, splitInput, buttonBox);
+        
+        Scene dialogScene = new Scene(dialogRoot, 300, 200);
+        dialogScene.setFill(Color.TRANSPARENT);
+        dialog.setScene(dialogScene);
+        
+        // Confirm button action
+        confirmButton.setOnAction(e -> {
+            try {
+                String input = splitInput.getText().trim();
+                if (input.isEmpty()) {
+                    displayError("Please enter a split distance");
+                    return;
+                }
+                
+                int splitDistance = Integer.parseInt(input);
+                
+                // Set the split distance in the game
+                game.editSplitDistance(splitDistance);
+                game.playPlayerTurn();
+                
+                dialog.close();
+                animateAndEndTurn(0);
+                
+            } catch (NumberFormatException ex) {
+                displayError("Please enter a valid number");
+            } catch (GameException ex) {
+                displayError(ex.getMessage());
+                game.deselectAll();
+                deselectChosen();
+                isProcessingTurn = false;
+                dialog.close();
+            }
+        });
+        
+        // Cancel button action
+        cancelButton.setOnAction(e -> {
+            game.deselectAll();
+            deselectChosen();
+            isProcessingTurn = false;
+            dialog.close();
+        });
+        
+        dialog.show();
+    }
 
-		private void handlePlayerDiscard() {
-	        try {
-	            game.discardCard(game.getActivePlayerColour());
-	            Card selected = game.getFirePit().get(game.getFirePit().size() - 1);
-	            
-	            // Find the card view that was discarded
-	            for (CardView cardView : boardView.getHands().get(0)) {
-	                if (cardView.getCard() == selected) {
-	                    chosenCards.add(cardView);
-	                    break;
-	                }
-	            }
-	            
-	            // Animate and end turn
-	            animateAndEndTurn(0);
-	            
-	        } catch (GameException e) {
-	            displayError(e.getMessage());
-	            game.deselectAll();
-	            deselectChosen();
-	            isProcessingTurn = false; // Reset flag to allow retry
-	        }
-	    }
-	    
-	    private void animateAndEndTurn(int playerIndex) {
-	        // Disable UI during animation
-	        play.setMouseTransparent(true);
-	        play.setDisable(true);
-	        play.setEffect(null);
-	        discard.setMouseTransparent(true);
-	        discard.setEffect(null);
-	        discard.setDisable(true);
-	        boardView.turnOff();
-	        
-	        // Animate card to firepit
-	        if (!chosenCards.isEmpty()) {
-	            CardView card = chosenCards.get(0);
-	            boardView.translateCardToFirepit(card, playerIndex, root);
-	        }
-	        
-	        // Wait for animation, then update game state
-	        PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
-	        pause.setOnFinished(E -> {
-	            // IMPORTANT: End turn in game engine AFTER animation
-	            game.endPlayerTurn();
-	            deselectChosen();
-	            isProcessingTurn = false;
-	            turnDuration = 2;
-	            updateStatus();
-	            
-	            // Move to next player
-	            if (playerIndex == 0) {
-	                // Human player just finished, go to CPU 1
-	                startCPUTurn(1);
-	            } else if (playerIndex < 3) {
-	                // Current CPU finished, go to next CPU
-	                startCPUTurn(playerIndex + 1);
-	            } else {
-	                // All CPUs finished, check if round is over
-	                checkAndStartNewRoundOrPlayerTurn();
-	            }
-	        });
-	        pause.play();
-	    }
-	    
-	    private void skipPlayerTurn() {
-	        if (isProcessingTurn) return;
-	        isProcessingTurn = true;
-	        
-	        // Just end the turn in game engine
-	        game.endPlayerTurn();
-	        isProcessingTurn = false;
-	        updateStatus();
-	        
-	        // Move to next player
-	        startCPUTurn(1);
-	    }
-	    
-	    private void startCPUTurn(int playerIndex) {
-	        
-	        if (isProcessingTurn) {
-	            // Wait a bit and try again
-	            PauseTransition wait = new PauseTransition(Duration.seconds(0.5));
-	            wait.setOnFinished(E -> startCPUTurn(playerIndex));
-	            wait.play();
-	            return;
-	        }
-	        
-	        isProcessingTurn = true;
-	        
-	        if (!game.canPlayTurn()) {
-	            game.endPlayerTurn();
-	            updateStatus();
-	            isProcessingTurn = false;
-	            
-	            if (playerIndex < 3) {
-	                startCPUTurn(playerIndex + 1);
-	            } else {
-	                checkAndStartNewRoundOrPlayerTurn();
-	            }
-	            return;
-	        }
-	        
-	        try {
-	            // CPU plays its turn
-	            game.playPlayerTurn();
-	            
-	            // Get the card that was played
-	            Card card = game.getPlayers().get(playerIndex).getSelectedCard();
-	            CardView cardView = boardView.getCardView(card, playerIndex);
-	            
-	            if (cardView != null) {
-	                // Animate the card movement
-	                boardView.translateCardToFirepit(cardView, playerIndex, root);
-	            }
-	            
-	            // Wait for animation, then end turn
-	            PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
-	            pause.setOnFinished(E -> {
-	                game.endPlayerTurn();
-	                isProcessingTurn = false;
-	                turnDuration = 2;
-	                updateStatus();
-	                
-	                if (playerIndex < 3) {
-	                    startCPUTurn(playerIndex + 1);
-	                } else {
-	                    checkAndStartNewRoundOrPlayerTurn();
-	                }
-	            });
-	            pause.play();
-	            
-	        } catch (GameException e) {
-	        	displayError(e.getMessage());
-	            game.endPlayerTurn();
-	            isProcessingTurn = false;
-	            updateStatus();
-	            if (playerIndex < 3) {
-	                startCPUTurn(playerIndex + 1);
-	            } else {
-	                checkAndStartNewRoundOrPlayerTurn();
-	            }
-	        }
-	    }
-	    
-	    private void checkAndStartNewRoundOrPlayerTurn() {
-	        
-	        // Check if all players have no cards left
-	        boolean roundOver = game.isRoundOver();
-	        
-	        if (roundOver) {
-	            startRound();
-	        } else {
-	            beginPlayerTurn();
-	        }
-	    }
-	    
-	    private void startRound() {
-	        
-	        // Clear any existing state
-	        isProcessingTurn = false;
-	        isPlayerTurnActive = false;
-	        deselectChosen();
-	        
-	        // Start the round in the board view
-	        
-	        double duration = 3;
-	        if (refillPool){
-	        	boardView.refillPool(game, root);
-	        	duration+=0.5;
-	        	refillPool = false;
-	        }
-	        else
-	        	boardView.startRound(game, root);
-	        
-	        // Wait a bit for cards to be dealt, then start first turn
-	        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
-	        pause.setOnFinished(E -> {
-	            beginPlayerTurn();
-	        });
-	        pause.play();
-	    }
+	private void handlePlayerDiscard() {
+        try {
+            game.discardCard(game.getActivePlayerColour());
+            Card selected = game.getFirePit().get(game.getFirePit().size() - 1);
+            
+            for (CardView cardView : boardView.getHands().get(0)) {
+                if (cardView.getCard() == selected) {
+                    chosenCards.add(cardView);
+                    break;
+                }
+            }
+            
+            animateAndEndTurn(0);
+            
+        } catch (GameException e) {
+            displayError(e.getMessage());
+            game.deselectAll();
+            deselectChosen();
+            isProcessingTurn = false;
+        }
+    }
+    
+    private void animateAndEndTurn(int playerIndex) {
+        // Disable UI during animation
+        play.setMouseTransparent(true);
+        play.setDisable(true);
+        play.setEffect(null);
+        discard.setMouseTransparent(true);
+        discard.setEffect(null);
+        discard.setDisable(true);
+        boardView.turnOff();
+
+        if (!chosenCards.isEmpty()) {
+            CardView card = chosenCards.get(0);
+            boardView.translateCardToFirepit(card, playerIndex, root);
+        }
+        
+        PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
+        pause.setOnFinished(E -> {
+            game.endPlayerTurn();
+            deselectChosen();
+            isProcessingTurn = false;
+            turnDuration = 2;
+            updateStatus();
+            
+            // Move to next player
+            if (playerIndex == 0) {
+                startCPUTurn(1);
+            } else if (playerIndex < 3) {
+                startCPUTurn(playerIndex + 1);
+            } else {
+                checkAndStartNewRoundOrPlayerTurn();
+            }
+        });
+        pause.play();
+    }
+    
+    private void skipPlayerTurn() {
+        if (isProcessingTurn) return;
+        isProcessingTurn = true;
+        game.endPlayerTurn();
+        isProcessingTurn = false;
+        updateStatus();
+        startCPUTurn(1);
+    }
+    
+    private void startCPUTurn(int playerIndex) {
+    	
+    	if (gameOver) return;
+        
+        if (isProcessingTurn) {
+            // Wait a bit and try again
+            PauseTransition wait = new PauseTransition(Duration.seconds(0.5));
+            wait.setOnFinished(E -> startCPUTurn(playerIndex));
+            wait.play();
+            return;
+        }
+        
+        isProcessingTurn = true;
+        
+        if (!game.canPlayTurn()) {
+            game.endPlayerTurn();
+            updateStatus();
+            isProcessingTurn = false;
+            
+            if (playerIndex < 3) {
+                startCPUTurn(playerIndex + 1);
+            } else {
+                checkAndStartNewRoundOrPlayerTurn();
+            }
+            return;
+        }
+        
+        try {
+            game.playPlayerTurn();
+            
+            Card card = game.getPlayers().get(playerIndex).getSelectedCard();
+            CardView cardView = boardView.getCardView(card, playerIndex);
+            
+            if (cardView != null) {
+                boardView.translateCardToFirepit(cardView, playerIndex, root);
+            }
+            
+            PauseTransition pause = new PauseTransition(Duration.seconds(turnDuration));
+            pause.setOnFinished(E -> {
+                game.endPlayerTurn();
+                isProcessingTurn = false;
+                turnDuration = 2;
+                updateStatus();
+                
+                if (playerIndex < 3) {
+                    startCPUTurn(playerIndex + 1);
+                } else {
+                    checkAndStartNewRoundOrPlayerTurn();
+                }
+            });
+            pause.play();
+            
+        } catch (GameException e) {
+        	displayError(e.getMessage());
+            game.endPlayerTurn();
+            isProcessingTurn = false;
+            updateStatus();
+            if (playerIndex < 3) {
+                startCPUTurn(playerIndex + 1);
+            } else {
+                checkAndStartNewRoundOrPlayerTurn();
+            }
+        }
+    }
+    
+    private void checkAndStartNewRoundOrPlayerTurn() {
+        
+        boolean roundOver = game.isRoundOver();
+        
+        if (roundOver) {
+            startRound();
+        } else {
+            beginPlayerTurn();
+        }
+    }
+    
+    private void startRound() {
+        
+        isProcessingTurn = false;
+        isPlayerTurnActive = false;
+        deselectChosen();
+        
+        double duration = 3;
+        if (refillPool){
+        	boardView.refillPool(game, root);
+        	duration+=0.5;
+        	refillPool = false;
+        }
+        else
+        	boardView.startRound(game, root);
+        
+        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
+        pause.setOnFinished(E -> {
+            beginPlayerTurn();
+        });
+        pause.play();
+    }
 	
 	private void updateStatus() {
 		
-		if (game.checkWin()!=null){
+		if (game.checkWin()!=null && !gameOver){
 			displayWin(game.checkWin());
 			return;
 		}
+		if (gameOver) return;
 		status.setText("Playing: "
 				+ getPlayerName(game.getActivePlayerColour()) + "\nNext: "
 				+ getPlayerName(game.getNextPlayerColour()));
 	}
 	
 	private void displayWin(Colour colour) {
-		Stage stage = new Stage();
-		stage.setResizable(false);
-		VBox root = new VBox(2);
-		root.setPrefSize(300, 300);
-		String winner = getPlayerName(colour);
-		Label label = new Label("Winner: " + winner+"\nColour: "+colour.toString());
-		label.setPrefSize(100, 75);
-		label.setWrapText(true);
-		Button button = new Button("Exit");
-		button.setPrefSize(50, 10);
-		root.getChildren().addAll(label, button);
-		Scene scene = new Scene(root, 100, 100);
-		stage.setScene(scene);
-		stage.show();
-		button.setOnMouseClicked(E -> {
-			stage.close();
-		});
-		
+		gameOver = true;
+		WinStage win = new WinStage(playerName, colour, colorOrder.indexOf(colour));
 	}
 
 	private static int getPlayerIndex(Marble marble){
@@ -708,57 +715,41 @@ public class GameStage {
 
 	public static void fellForATrap() {
 		Stage trapStage = new Stage();
-		trapStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+		trapStage.initStyle(StageStyle.TRANSPARENT);
 		trapStage.setResizable(false);
-		    
-		    VBox trapRoot = new VBox(10);
-		    trapRoot.setPrefSize(300, 150);
-		    trapRoot.setAlignment(Pos.CENTER);
-		    trapRoot.setStyle("-fx-background-color: rgba(231, 76, 60, 0.95); -fx-background-radius: 10; -fx-border-color: #c0392b; -fx-border-width: 3; -fx-border-radius: 10; -fx-padding: 20;");
-		    
-		    // Pulsating effect
-		    DropShadow glow = new DropShadow();
-		    glow.setColor(Color.RED);
-		    glow.setWidth(20);
-		    glow.setHeight(20);
-		    trapRoot.setEffect(glow);
-		    
-		    javafx.animation.Timeline pulse = new javafx.animation.Timeline(
-		        new javafx.animation.KeyFrame(Duration.ZERO, new javafx.animation.KeyValue(glow.radiusProperty(), 10)),
-		        new javafx.animation.KeyFrame(Duration.seconds(0.5), new javafx.animation.KeyValue(glow.radiusProperty(), 20)),
-		        new javafx.animation.KeyFrame(Duration.seconds(1), new javafx.animation.KeyValue(glow.radiusProperty(), 10))
-		    );
-		    pulse.setCycleCount(3);
-		    pulse.play();
-		    
-		    Label trapLabel = new Label("TRAP ACTIVATED!");
-		    trapLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;");
-		    
-		    Label detailLabel = new Label("Marble fell into a trap!");
-		    detailLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
-		    detailLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-		    
-		    trapRoot.getChildren().addAll(trapLabel, detailLabel);
-		    Scene trapScene = new Scene(trapRoot, 300, 150);
-		    trapScene.setFill(Color.TRANSPARENT);
-		    trapStage.setScene(trapScene);
-		    
-		    // Position near the center of main window
-		    trapStage.setX(root.getScene().getWindow().getX() + 375);
-		    trapStage.setY(root.getScene().getWindow().getY() + 400);
-		    
-		    trapStage.show();
-		    
-		    // Auto-close with fade out
-		    PauseTransition showTime = new PauseTransition(Duration.seconds(2));
-		    showTime.setOnFinished(E -> {
-		        javafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(Duration.seconds(0.5), trapRoot);
-		        fade.setFromValue(1.0);
-		        fade.setToValue(0.0);
-		        fade.setOnFinished(e -> trapStage.close());
-		        fade.play();
-		    });
-		    showTime.play();
+		
+		VBox trapRoot = new VBox(10);
+	    trapRoot.setPrefSize(300, 150);
+	    trapRoot.setAlignment(Pos.CENTER);
+	    trapRoot.setStyle("-fx-background-color: rgba(231, 76, 60, 0.95); -fx-background-radius: 10; -fx-border-color: #c0392b; -fx-border-width: 3; -fx-border-radius: 10; -fx-padding: 20;");
+	    
+	    Label trapLabel = new Label("TRAP ACTIVATED!");
+	    trapLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;");
+	    
+	    Label detailLabel = new Label("Marble fell into a trap!");
+	    detailLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
+	    detailLabel.setTextAlignment(TextAlignment.CENTER);
+	    
+	    trapRoot.getChildren().addAll(trapLabel, detailLabel);
+	    Scene trapScene = new Scene(trapRoot, 300, 150);
+	    trapScene.setFill(Color.TRANSPARENT);
+	    trapStage.setScene(trapScene);
+	    
+	    trapStage.setX(root.getScene().getWindow().getX() + 375);
+	    trapStage.setY(root.getScene().getWindow().getY() + 400);
+	    
+	    trapStage.show();
+	    
+	    // Auto-close with fade out
+	    PauseTransition showTime = new PauseTransition(Duration.seconds(1.7));
+	    showTime.setOnFinished(E -> {
+	        FadeTransition fade = new FadeTransition(Duration.seconds(0.5), trapRoot);
+	        fade.setFromValue(1.0);
+	        fade.setToValue(0.0);
+	        fade.setOnFinished(e -> trapStage.close());
+	        fade.play();
+	    });
+	    showTime.play();
 	}
 
 }
