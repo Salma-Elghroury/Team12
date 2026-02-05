@@ -14,18 +14,20 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StartStage extends Application {
 	
+	private static Stage stage;
 	private Image icon =  new Image ("/game/Jackaroo Icon.png");
 
     public void start(Stage primaryStage) throws Exception {
-        showNameInput(primaryStage);
+    	showNameInput(primaryStage);
     }
-    
-    private void showNameInput(Stage gameWindow) {
+
+	private void showNameInput(Stage gameWindow) {
         Stage nameWindow = new Stage();
         nameWindow.setTitle("Jackaroo");
         nameWindow.setResizable(false);
@@ -45,14 +47,16 @@ public class StartStage extends Application {
         
         Label prompt = new Label("Enter your name:");
         prompt.setFont(new Font("Times New Roman", 25));
-        prompt.setStyle("-fx-color: #000000;");
+        prompt.setTextFill(Color.WHITE);
         
         TextField nameInput = new TextField();
         nameInput.setMaxWidth(200);
         nameInput.setFont(new Font("Times New Roman", 20));
-        nameInput.setStyle("-fx-background-color: transparent;");
+        nameInput.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
         
         Button start = new Button("Start Game");
+        start.setFont(new Font("Times New Roman", 20));
+        start.setStyle("-fx-background-color: #C21E56; -fx-text-fill: white; -fx-padding: 10px; -fx-background-radius: 20px;");
         
         layout.getChildren().addAll(prompt, nameInput, start);
         
@@ -60,7 +64,6 @@ public class StartStage extends Application {
             String name = nameInput.getText().trim();
             if (name.isEmpty()) {
                 prompt.setText("Enter your name (cannot be empty):");
-                prompt.setStyle("-fx-text-fill: red;");
                 nameInput.requestFocus();
             } else {
                 nameWindow.close();
@@ -75,7 +78,8 @@ public class StartStage extends Application {
         nameWindow.show();
     }
     
-    private void startGame(Stage stage, String playerName) {
+    private void startGame(Stage givenStage, String playerName) {
+    	this.stage = givenStage;
         GameStage game = new GameStage(playerName);
         stage.setScene(game.getScene());
         stage.setResizable(false);
@@ -87,4 +91,8 @@ public class StartStage extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+	public static void close() {
+		stage.close();
+	}
 }

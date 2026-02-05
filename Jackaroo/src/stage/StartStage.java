@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 public class StartStage extends Application {
 	
+	private static Stage stage;
 	private Image icon =  new Image ("/game/Jackaroo Icon.png");
 
     public void start(Stage primaryStage) throws Exception {
@@ -77,7 +78,8 @@ public class StartStage extends Application {
         nameWindow.show();
     }
     
-    private void startGame(Stage stage, String playerName) {
+    private void startGame(Stage givenStage, String playerName) {
+    	stage = givenStage;
         GameStage game = new GameStage(playerName);
         stage.setScene(game.getScene());
         stage.setResizable(false);
@@ -89,4 +91,8 @@ public class StartStage extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+	public static void close() {
+		stage.close();
+	}
 }

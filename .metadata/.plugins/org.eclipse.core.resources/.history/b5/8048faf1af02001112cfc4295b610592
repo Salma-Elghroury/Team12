@@ -54,7 +54,6 @@ public class WinStage{
 		stage.show();
 		button.setOnMouseClicked(E -> {
 			stage.close();
-			StartStage.close();
 		});
 	}
 	
